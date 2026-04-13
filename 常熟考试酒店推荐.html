@@ -4,6 +4,46 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>常熟市事业单位考试 · 酒店推荐</title>
+  <script>
+    // 打开高德APP并自动返回
+    function openAmap(name, lat, lng) {
+      var startTime = Date.now();
+      var hasReturned = false;
+      
+      window.location.href = 'amapuri://route/plan/?sid=&did=&dlat=' + lat + '&dlon=' + lng + '&dname=' + encodeURIComponent(name) + '&dev=0&t=0';
+      
+      setTimeout(function() {
+        window.location.href = 'iosamap://path?sourceApplication=web&dlat=' + lat + '&dlon=' + lng + '&dname=' + encodeURIComponent(name) + '&dev=0&t=0';
+      }, 100);
+      
+      setTimeout(function() {
+        if (!hasReturned) {
+          hasReturned = true;
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          showReturnToast();
+        }
+      }, 3000);
+      
+      document.addEventListener('visibilitychange', function() {
+        if (document.visibilityState === 'visible' && !hasReturned) {
+          hasReturned = true;
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      });
+    }
+    
+    function showReturnToast() {
+      var toast = document.createElement('div');
+      toast.innerHTML = '✅ 已打开高德地图，3秒后自动返回';
+      toast.style.cssText = 'position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#059669;color:#fff;padding:12px 20px;border-radius:8px;z-index:9999;font-size:14px;box-shadow:0 4px 12px rgba(0,0,0,0.15);';
+      document.body.appendChild(toast);
+      setTimeout(function() {
+        toast.style.opacity = '0';
+        toast.style.transition = 'opacity 0.5s';
+        setTimeout(function() { toast.remove(); }, 500);
+      }, 2000);
+    }
+  </script>
   <style>
     :root {
       --primary: #2563eb;
@@ -261,7 +301,7 @@
         <h3>常熟市实验中学（崇文校区）</h3>
         <div class="addr">📍 常熟市勤丰路100号（南门入）</div>
         <div class="bus">🚌 崇文站：2路、7路、8路<br>锦湖花园站：2路、106路</div>
-        <a class="map-btn" href="https://uri.amap.com/search?keyword=常熟市实验中学崇文校区&city=常熟&callnative=1" target="_blank">📍 高德导航</a>
+        <a class="map-btn" href="javascript:void(0);" onclick="openAmap('常熟市实验中学崇文校区', 31.635, 120.755)">📍 高德导航</a>
       </div>
 
       <div class="exam-card">
