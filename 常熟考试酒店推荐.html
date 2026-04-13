@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>常熟市事业单位考试 · 酒店推荐</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-light: #eff6ff;
+      --secondary: #059669;
+      --secondary-light: #ecfdf5;
+      --warn: #d97706;
+      --warn-light: #fffbeb;
+      --danger: #dc2626;
+      --gray: #6b7280;
+      --gray-light: #f3f4f6;
+      --border: #e5e7eb;
+      --shadow: 0 4px 20px rgba(0,0,0,.08);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; background: #f8fafc; color: #1f2937; }
+
+    /* ===== Header ===== */
+    header {
+      background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 60%, #3b82f6 100%);
+      color: #fff;
+      padding: 36px 24px 28px;
+      text-align: center;
+    }
+    header h1 { font-size: 1.8rem; font-weight: 700; margin-bottom: 6px; }
+    header p { opacity: .85; font-size: .95rem; }
+    .badge {
+      display: inline-block;
+      background: rgba(255,255,255,.2);
+      border-radius: 20px;
+      padding: 4px 14px;
+      font-size: .8rem;
+      margin-top: 12px;
+    }
+
+    /* ===== Layout ===== */
+    .container { max-width: 900px; margin: 0 auto; padding: 28px 16px 60px; }
+    section { margin-bottom: 32px; }
+    .section-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      padding-left: 12px;
+      border-left: 4px solid var(--primary);
+      color: #111827;
+    }
+
+    /* ===== 考点卡片 ===== */
+    .exam-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    @media (max-width: 600px) { .exam-grid { grid-template-columns: 1fr; } }
+    .exam-card {
+      background: #fff;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 18px;
+      box-shadow: var(--shadow);
+      transition: transform .2s;
+    }
+    .exam-card:hover { transform: translateY(-2px); }
+    .exam-card .num {
+      width: 28px; height: 28px;
+      background: var(--primary);
+      color: #fff;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .85rem; font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .exam-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 6px; }
+    .exam-card .addr { color: var(--gray); font-size: .875rem; display: flex; align-items: flex-start; gap: 4px; margin-bottom: 8px; }
+    .exam-card .bus { font-size: .8rem; background: var(--primary-light); color: var(--primary); border-radius: 6px; padding: 4px 8px; line-height: 1.6; }
+    .map-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      margin-top: 10px;
+      padding: 7px 14px;
+      border-radius: 8px;
+      background: var(--primary);
+      color: #fff;
+      font-size: .82rem;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background .2s;
+    }
+    .map-btn:hover { background: #1d4ed8; }
+
+    /* ===== 地理分析 ===== */
+    .analysis-card {
+      background: var(--warn-light);
+      border: 1px solid #fcd34d;
+      border-radius: 14px;
+      padding: 18px 20px;
+    }
+    .analysis-card p { font-size: .93rem; line-height: 1.8; color: #1f2937; }
+    .analysis-card .highlight { font-weight: 600; color: var(--warn); }
+    .zone-visual {
+      margin: 16px 0;
+      background: #fff;
+      border-radius: 10px;
+      padding: 14px;
+      border: 1px solid #fde68a;
+    }
+    .zone-row { display: flex; align-items: center; gap: 10px; margin: 8px 0; font-size: .88rem; }
+    .dot {
+      width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0;
+    }
+    .dot-blue { background: #2563eb; }
+    .dot-green { background: #059669; }
+    .dot-orange { background: #d97706; }
+    .dot-red { background: #dc2626; }
+
+    /* ===== 酒店推荐 ===== */
+    .hotel-card {
+      background: #fff;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+    .hotel-header {
+      padding: 16px 20px 12px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .hotel-left h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; }
+    .hotel-left .hotel-addr { color: var(--gray); font-size: .875rem; margin-bottom: 8px; }
+    .hotel-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+    .tag {
+      font-size: .78rem;
+      border-radius: 6px;
+      padding: 3px 9px;
+      font-weight: 500;
+    }
+    .tag-best { background: #fef3c7; color: #92400e; }
+    .tag-price { background: var(--secondary-light); color: #065f46; }
+    .tag-traffic { background: var(--primary-light); color: #1e40af; }
+    .hotel-right {
+      text-align: right;
+      flex-shrink: 0;
+    }
+    .price-label { font-size: .78rem; color: var(--gray); }
+    .price-val { font-size: 1.4rem; font-weight: 700; color: var(--danger); }
+    .price-unit { font-size: .8rem; color: var(--gray); }
+    .hotel-divider { height: 1px; background: var(--border); margin: 0 20px; }
+    .hotel-body { padding: 14px 20px 16px; }
+    .distance-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin: 10px 0; }
+    @media (max-width: 500px) { .distance-grid { grid-template-columns: 1fr; } }
+    .dist-item {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--gray-light);
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-size: .85rem;
+    }
+    .dist-item .icon { font-size: 1rem; }
+    .dist-item .dist-name { flex: 1; color: #374151; }
+    .dist-item .dist-val { color: var(--primary); font-weight: 600; font-size: .82rem; }
+    .hotel-tip {
+      background: var(--secondary-light);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: .85rem;
+      color: #065f46;
+      margin-top: 10px;
+      line-height: 1.6;
+    }
+    .hotel-actions { display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
+    .btn-map {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 9px 18px;
+      border-radius: 9px;
+      background: var(--primary);
+      color: #fff;
+      font-size: .875rem;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background .2s;
+    }
+    .btn-map:hover { background: #1d4ed8; }
+    .btn-book {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 9px 18px;
+      border-radius: 9px;
+      background: #fff;
+      color: var(--primary);
+      border: 1.5px solid var(--primary);
+      font-size: .875rem;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background .2s;
+    }
+    .btn-book:hover { background: var(--primary-light); }
+
+    /* recommend label */
+    .recommend-1 .hotel-header { border-top: 3px solid #f59e0b; }
+    .recommend-2 .hotel-header { border-top: 3px solid #2563eb; }
+    .rec-badge {
+      display: inline-block;
+      font-size: .75rem;
+      font-weight: 700;
+      border-radius: 6px;
+      padding: 3px 9px;
+      margin-bottom: 8px;
+    }
+    .rec-badge-gold { background: #fef3c7; color: #92400e; }
+    .rec-badge-blue { background: var(--primary-light); color: #1e40af; }
+
+    /* ===== Tips ===== */
+    .tips-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .tips-list li {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: .9rem;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .tips-list li .tip-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+
+    /* ===== Map embed placeholder ===== */
+    .map-placeholder {
+      background: linear-gradient(135deg, #dbeafe, #eff6ff);
+      border-radius: 14px;
+      border: 2px dashed #93c5fd;
+      padding: 24px;
+      text-align: center;
+      color: #2563eb;
+    }
+    .map-placeholder p { font-size: .9rem; margin-top: 6px; color: var(--gray); }
+
+    footer { text-align: center; color: var(--gray); font-size: .82rem; padding: 20px 0 10px; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🏫 常熟市事业单位考试 · 住宿推荐</h1>
+  <p>2026年4月18日（周六）笔试 · 考点分析 · 最优住宿方案</p>
+  <span class="badge">📍 基于历年考点地理分布生成</span>
+</header>
+
+<div class="container">
+
+  <!-- ===== 考点总览 ===== -->
+  <section>
+    <div class="section-title">📌 2025年笔试考点（2026年考点大概率沿用）</div>
+    <div class="exam-grid">
+
+      <div class="exam-card">
+        <div class="num">1</div>
+        <h3>常熟市实验中学（崇文校区）</h3>
+        <div class="addr">📍 常熟市勤丰路100号（南门入）</div>
+        <div class="bus">🚌 崇文站：2路、7路、8路<br>锦湖花园站：2路、106路</div>
+        <a class="map-btn" href="https://uri.amap.com/search?keyword=常熟市实验中学崇文校区&city=常熟&callnative=1" target="_blank">📍 高德导航</a>
+      </div>
+
+      <div class="exam-card">
+        <div class="num">2</div>
+        <h3>常熟市外国语初级中学</h3>
+        <div class="addr">📍 常熟市虞山北路195号</div>
+        <div class="bus">🚌 9路、7路、8路、102路、120路、125路、216路</div>
+        <a class="map-btn" href="https://uri.amap.com/search?keyword=常熟市外国语初级中学&city=常熟&callnative=1" target="_blank">📍 高德导航</a>
+      </div>
+
+      <div class="exam-card">
+        <div class="num">3</div>
+        <h3>常熟市第一中学</h3>
+        <div class="addr">📍 常熟市虞山街道西门大街185号</div>
+        <div class="bus">🚌 10路、108路、游10路、128路</div>
+        <a class="map-btn" href="https://uri.amap.com/search?keyword=常熟市第一中学&city=常熟&callnative=1" target="_blank">📍 高德导航</a>
+      </div>
+
+      <div class="exam-card">
+        <div class="num">4</div>
+        <h3>常熟市孝友中学</h3>
+        <div class="addr">📍 常熟市琴湖路111号（虞山镇）</div>
+        <div class="bus">🚌 12路、11路、102路、4路、K7路</div>
+        <a class="map-btn" href="https://uri.amap.com/search?keyword=常熟市孝友中学&city=常熟&callnative=1" target="_blank">📍 高德导航</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== 地理分析 ===== -->
+  <section>
+    <div class="section-title">🗺️ 考点地理分布分析</div>
+    <div class="analysis-card">
+      <p>常熟市历年事业单位考试考点<span class="highlight">高度集中在虞山镇城区核心区域</span>，以<strong>方塔街步行街 / 海虞南路</strong>为中心，各考点距离均在 <span class="highlight">1～3 公里</span>以内，非常适合选择一个中心点住宿。</p>
+      <div class="zone-visual">
+        <div class="zone-row"><span class="dot dot-red"></span>实验中学崇文校区（勤丰路）→ 城区偏北</div>
+        <div class="zone-row"><span class="dot dot-orange"></span>外国语初中（虞山北路）→ 城区偏北，靠近虞山公园</div>
+        <div class="zone-row"><span class="dot dot-blue"></span>第一中学（西门大街）→ 城区偏西，近尚湖</div>
+        <div class="zone-row"><span class="dot dot-green"></span>孝友中学（琴湖路）→ 城区中南部，近方塔街</div>
+        <div style="margin-top:12px; padding-top:10px; border-top:1px dashed #fde68a; font-size:.88rem; color:#92400e;">
+          ⭐ <strong>最优住宿区域：海虞南路 / 方塔步行街 / 新颜路一带（城区中心）</strong><br>
+          从该区域出发：乘任意公交线路均可覆盖全部 4 个考点，步行或打车 5～15 分钟即达。
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 酒店推荐一 ===== -->
+  <section>
+    <div class="section-title">🏨 推荐酒店</div>
+
+    <!-- 推荐1 -->
+    <div class="hotel-card recommend-1">
+      <div class="hotel-header">
+        <div class="hotel-left">
+          <div class="rec-badge rec-badge-gold">🥇 首选推荐 · 综合最优</div>
+          <h3>汉庭酒店（常熟步行街店）</h3>
+          <div class="hotel-addr">📍 常熟市海虞南路40号（近方塔东街步行街）</div>
+          <div class="hotel-tags">
+            <span class="tag tag-best">🌟 口碑连锁</span>
+            <span class="tag tag-price">💰 性价比高</span>
+            <span class="tag tag-traffic">🚌 公交直达全考点</span>
+          </div>
+        </div>
+        <div class="hotel-right">
+          <div class="price-label">参考价</div>
+          <div class="price-val">¥150</div>
+          <div class="price-unit">元/晚起</div>
+        </div>
+      </div>
+      <div class="hotel-divider"></div>
+      <div class="hotel-body">
+        <div class="distance-grid">
+          <div class="dist-item">
+            <span class="icon">🏫</span>
+            <span class="dist-name">孝友中学（琴湖路）</span>
+            <span class="dist-val">约1.5km·打车5分钟</span>
+          </div>
+          <div class="dist-item">
+            <span class="icon">🏫</span>
+            <span class="dist-name">实验中学（勤丰路）</span>
+            <span class="dist-val">约2km·公交2路</span>
+          </div>
+          <div class="dist-item">
+            <span class="icon">🏫</span>
+            <span class="dist-name">外国语初中（虞山北路）</span>
+            <span class="dist-val">约2.5km·公交9路</span>
+          </div>
+          <div class="dist-item">
+            <span class="icon">🏫</span>
+            <span class="dist-name">第一中学（西门大街）</span>
+            <span class="dist-val">约2.5km·公交10路</span>
+          </div>
+        </div>
+        <div class="hotel-tip">
+          ✅ 理由：位于常熟城区正中心方塔步行街旁，门口有 1、5、118 路公交，可覆盖全部 4 个考点方向；周边餐饮丰富，考前晚饭/早饭方便；汉庭连锁品质稳定，实际价格约 ¥150～200/晚，性价比突出。<br>
+          📞 联系电话：0512-52720222
+        </div>
+        <div class="hotel-actions">
+          <a class="btn-map" href="https://uri.amap.com/search?keyword=汉庭酒店常熟步行街&city=常熟&callnative=1" target="_blank">📍 高德地图导航</a>
+          <a class="btn-book" href="https://hotels.ctrip.com/hotels/1535472.html" target="_blank">🛏 携程预订</a>
+          <a class="btn-book" href="https://m.huazhu.com/hotel/detail/2155002" target="_blank">🏨 华住直订</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 推荐2 -->
+    <div class="hotel-card recommend-2">
+      <div class="hotel-header">
+        <div class="hotel-left">
+          <div class="rec-badge rec-badge-blue">🥈 备选推荐 · 超高性价比</div>
+          <h3>格林豪泰（常熟海虞南路店）</h3>
+          <div class="hotel-addr">📍 常熟市海虞南路54号（方塔东街交叉口）</div>
+          <div class="hotel-tags">
+            <span class="tag tag-price">💰 价格更低</span>
+            <span class="tag tag-traffic">🚌 紧邻方塔步行街</span>
+          </div>
+        </div>
+        <div class="hotel-right">
+          <div class="price-label">参考价</div>
+          <div class="price-val">¥100</div>
+          <div class="price-unit">元/晚起</div>
+        </div>
+      </div>
+      <div class="hotel-divider"></div>
+      <div class="hotel-body">
+        <div class="distance-grid">
+          <div class="dist-item">
+            <span class="icon">🏫</span>
+            <span class="dist-name">孝友中学（琴湖路）</span>
+            <span class="dist-val">约1.5km·公交11路</span>
+          </div>
+          <div class="dist-item">
+            <span class="icon">🏫</span>
+            <span class="dist-name">实验中学（勤丰路）</span>
+            <span class="dist-val">约1.8km·公交2路</span>
+          </div>
+          <div class="dist-item">
+            <span class="icon">🏫</span>
+            <span class="dist-name">外国语初中（虞山北路）</span>
+            <span class="dist-val">约2.5km·公交9路</span>
+          </div>
+          <div class="dist-item">
+            <span class="icon">🏫</span>
+            <span class="dist-name">第一中学（西门大街）</span>
+            <span class="dist-val">约2.5km·公交10路</span>
+          </div>
+        </div>
+        <div class="hotel-tip">
+          ✅ 理由：与汉庭步行街店相距仅 14 米（同一路段），地理位置完全一致，但价格更低（约 ¥100～150/晚），适合预算有限的考生。位于市中心商业核心区，方塔步行街美食云集，早餐方便；紧靠各路公交，无论哪个考点都能轻松到达。<br>
+          📞 联系电话：可通过携程/美团查询
+        </div>
+        <div class="hotel-actions">
+          <a class="btn-map" href="https://uri.amap.com/search?keyword=格林豪泰酒店常熟海虞南路店&city=常熟&callnative=1" target="_blank">📍 高德地图导航</a>
+          <a class="btn-book" href="https://hotels.ctrip.com/hotels/4727435.html" target="_blank">🛏 携程预订</a>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ===== 整体地图区域 ===== -->
+  <section>
+    <div class="section-title">🗺️ 一键查看 · 高德地图区域总览</div>
+    <div class="map-placeholder">
+      <div style="font-size:2rem;">🗺️</div>
+      <strong style="font-size:1rem;">点击下方链接，在高德地图查看考点 + 酒店全貌</strong>
+      <p>建议在手机上打开，可直接导航</p>
+      <div style="display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:16px;">
+        <a class="btn-map" href="https://ditu.amap.com/search?query=酒店&city=常熟&zoom=14&center=120.7527,31.6561" target="_blank">🔍 搜索常熟城区酒店</a>
+        <a class="btn-map" style="background:#059669;" href="https://ditu.amap.com/search?query=事业单位考点&city=常熟&zoom=13" target="_blank">🏫 查看考点区域</a>
+        <a class="btn-map" style="background:#7c3aed;" href="https://ditu.amap.com/dir?to%5B0%5D=lnglat%3A120.7527%2C31.6561%3Bname%3A%E6%B5%B7%E8%99%9E%E5%8D%97%E8%B7%AF%E6%96%B9%E5%A1%94%E6%AD%A5%E8%A1%8C%E8%A1%97%E5%8C%BA&type=0" target="_blank">🚌 查看公交路线</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 考前提示 ===== -->
+  <section>
+    <div class="section-title">📋 考前注意事项</div>
+    <ul class="tips-list">
+      <li><span class="tip-icon">📄</span>具体考点以<strong>本人准考证为准</strong>，2026年准考证打印时间约为 <strong>4月16日10:00起</strong>（登录常熟市职业能力鉴定和考试中心网）。打印后第一时间确认考点地址。</li>
+      <li><span class="tip-icon">🛏</span>建议<strong>周五晚入住</strong>（4月17日），确保周六考试当天状态良好，避免赶早车。酒店可提前电话确认能否早入住。</li>
+      <li><span class="tip-icon">🚌</span>考试当天建议<strong>7:30前出发</strong>，提前到场熟悉考场，避免迟到（开考后30分钟不得入场）。</li>
+      <li><span class="tip-icon">🍳</span>海虞南路 / 方塔街一带早餐店云集，推荐7:00前用餐，为考试保持良好状态。</li>
+      <li><span class="tip-icon">🚗</span>若自驾，注意考场<strong>周边禁止停车/封路</strong>，建议停在酒店后步行乘公交或打车。</li>
+      <li><span class="tip-icon">⚡</span>准考证、身份证、2B铅笔、签字笔等考试物品务必提前准备好，放入透明袋。</li>
+    </ul>
+  </section>
+
+</div>
+
+<footer>
+  <p>本报告基于公开信息整理，考点以官方准考证为准 · 祝考试顺利 🎉</p>
+</footer>
+
+</body>
+</html>

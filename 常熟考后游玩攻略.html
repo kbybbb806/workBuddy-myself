@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>常熟考后游玩攻略 · 摄影师专版</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-light: #eff6ff;
+      --green: #059669;
+      --green-light: #ecfdf5;
+      --orange: #d97706;
+      --orange-light: #fffbeb;
+      --red: #dc2626;
+      --purple: #7c3aed;
+      --purple-light: #f5f3ff;
+      --gray: #6b7280;
+      --gray-light: #f3f4f6;
+      --border: #e5e7eb;
+      --shadow: 0 4px 20px rgba(0,0,0,.08);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; background: #f8fafc; color: #1f2937; }
+
+    header {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      color: #fff;
+      padding: 36px 24px 28px;
+      text-align: center;
+    }
+    header h1 { font-size: 1.8rem; font-weight: 700; margin-bottom: 6px; }
+    header p { opacity: .8; font-size: .93rem; margin-top: 4px; }
+    .header-tags { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 14px; }
+    .header-tag {
+      background: rgba(255,255,255,.15);
+      border-radius: 20px;
+      padding: 4px 14px;
+      font-size: .8rem;
+    }
+
+    .container { max-width: 900px; margin: 0 auto; padding: 28px 16px 60px; }
+    section { margin-bottom: 36px; }
+    .section-title {
+      font-size: 1.15rem; font-weight: 700;
+      margin-bottom: 16px;
+      padding-left: 12px;
+      border-left: 4px solid var(--primary);
+      color: #111827;
+    }
+
+    /* === 推荐决策卡 === */
+    .decision-card {
+      background: linear-gradient(135deg, #0f3460, #1a1a2e);
+      color: #fff;
+      border-radius: 18px;
+      padding: 24px 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    .decision-card::after {
+      content: '📸';
+      position: absolute;
+      right: 24px; top: 50%;
+      transform: translateY(-50%);
+      font-size: 4rem;
+      opacity: .15;
+    }
+    .decision-card .verdict { font-size: 1.3rem; font-weight: 700; margin-bottom: 8px; }
+    .decision-card .reason { font-size: .9rem; opacity: .85; line-height: 1.7; }
+    .decision-card .reasons { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 8px; }
+    .reason-tag {
+      background: rgba(255,255,255,.18);
+      border-radius: 8px;
+      padding: 5px 12px;
+      font-size: .82rem;
+    }
+
+    /* === 时间轴 === */
+    .timeline { position: relative; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 22px;
+      top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--primary), var(--green));
+    }
+    .tl-item {
+      display: flex;
+      gap: 18px;
+      margin-bottom: 22px;
+      position: relative;
+    }
+    .tl-dot {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      z-index: 1;
+    }
+    .dot-blue { background: var(--primary); color: #fff; }
+    .dot-green { background: var(--green); color: #fff; }
+    .dot-orange { background: var(--orange); color: #fff; }
+    .dot-purple { background: var(--purple); color: #fff; }
+    .dot-gray { background: var(--gray); color: #fff; }
+    .tl-content {
+      background: #fff;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 16px 18px;
+      flex: 1;
+      box-shadow: var(--shadow);
+    }
+    .tl-time { font-size: .8rem; color: var(--gray); font-weight: 600; letter-spacing: .03em; margin-bottom: 4px; }
+    .tl-title { font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+    .tl-desc { font-size: .875rem; color: #374151; line-height: 1.7; }
+    .tl-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+    .tag { font-size: .78rem; border-radius: 6px; padding: 3px 9px; font-weight: 500; }
+    .tag-green { background: var(--green-light); color: #065f46; }
+    .tag-blue { background: var(--primary-light); color: #1e40af; }
+    .tag-orange { background: var(--orange-light); color: #92400e; }
+    .tag-purple { background: var(--purple-light); color: #5b21b6; }
+    .tl-price { margin-top: 8px; font-size: .85rem; color: var(--red); font-weight: 600; }
+    .photo-tips {
+      background: #fef9c3;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: .83rem;
+      color: #92400e;
+      margin-top: 8px;
+      line-height: 1.6;
+    }
+
+    /* === 景点卡片 === */
+    .spot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    @media (max-width: 600px) { .spot-grid { grid-template-columns: 1fr; } }
+    .spot-card {
+      background: #fff;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 16px;
+      box-shadow: var(--shadow);
+    }
+    .spot-card h3 { font-size: .98rem; font-weight: 700; margin-bottom: 6px; }
+    .spot-info { font-size: .82rem; color: var(--gray); line-height: 1.7; }
+    .spot-photo { font-size: .82rem; margin-top: 8px; color: #7c3aed; background: #f5f3ff; border-radius: 6px; padding: 6px 10px; line-height: 1.6; }
+
+    /* === 费用表 === */
+    .cost-table { width: 100%; border-collapse: collapse; font-size: .88rem; }
+    .cost-table th { background: var(--primary); color: #fff; padding: 10px 14px; text-align: left; }
+    .cost-table td { padding: 9px 14px; border-bottom: 1px solid var(--border); }
+    .cost-table tr:last-child td { border-bottom: none; }
+    .cost-table tr:nth-child(even) td { background: var(--gray-light); }
+    .cost-total td { font-weight: 700; background: #fef3c7 !important; color: #92400e; }
+    .table-wrap { background: #fff; border-radius: 14px; overflow: hidden; border: 1px solid var(--border); box-shadow: var(--shadow); }
+
+    /* === 高铁票 === */
+    .train-card {
+      background: #fff;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 18px 20px;
+      box-shadow: var(--shadow);
+      margin-bottom: 14px;
+    }
+    .train-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+    .train-num { font-size: 1.1rem; font-weight: 700; color: var(--primary); }
+    .train-rec { font-size: .8rem; background: #fef3c7; color: #92400e; border-radius: 6px; padding: 3px 10px; font-weight: 600; }
+    .train-route { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+    .train-city { text-align: center; }
+    .train-city .city-name { font-size: .88rem; color: var(--gray); }
+    .train-city .city-time { font-size: 1.4rem; font-weight: 700; }
+    .train-arrow { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+    .train-arrow .arrow-line { width: 100%; height: 1px; background: var(--border); }
+    .train-arrow .arrow-text { font-size: .78rem; color: var(--gray); }
+    .train-price { display: flex; gap: 12px; flex-wrap: wrap; }
+    .price-badge {
+      font-size: .82rem;
+      border-radius: 8px;
+      padding: 4px 12px;
+      background: var(--primary-light);
+      color: var(--primary);
+    }
+    .train-tip { font-size: .83rem; color: var(--gray); margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--border); }
+
+    /* === 注意事项 === */
+    .tips-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .tips-list li {
+      background: #fff; border: 1px solid var(--border);
+      border-radius: 10px; padding: 12px 16px;
+      font-size: .88rem; display: flex; gap: 10px; align-items: flex-start;
+    }
+    .tip-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+
+    .map-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      margin-top: 10px; padding: 7px 14px;
+      border-radius: 8px; background: var(--primary);
+      color: #fff; font-size: .82rem;
+      text-decoration: none; font-weight: 500;
+    }
+    .day-label {
+      display: inline-block;
+      background: var(--primary);
+      color: #fff;
+      font-size: .8rem;
+      font-weight: 700;
+      border-radius: 8px;
+      padding: 3px 10px;
+      margin-bottom: 14px;
+    }
+    .compare-table { width: 100%; border-collapse: collapse; font-size: .88rem; }
+    .compare-table th { background: #1f2937; color: #fff; padding: 10px 14px; text-align: center; }
+    .compare-table td { padding: 9px 14px; border-bottom: 1px solid var(--border); text-align: center; }
+    .compare-table tr:nth-child(even) td { background: var(--gray-light); }
+    .compare-table .winner { color: var(--green); font-weight: 700; }
+
+    /* === 景点描述框 === */
+    .spot-desc-box {
+      background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-top: 12px;
+      border-left: 4px solid var(--primary);
+    }
+    .spot-desc-box h4 {
+      font-size: .9rem;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+    .spot-desc-box p {
+      font-size: .85rem;
+      color: #374151;
+      line-height: 1.7;
+    }
+
+    footer { text-align: center; color: var(--gray); font-size: .82rem; padding: 20px 0 10px; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>📸 考后常熟游玩攻略 · 摄影师专版</h1>
+  <p>4月18日（周六）下午 — 4月19日（周日）中午 · 返长沙高铁指引</p>
+  <div class="header-tags">
+    <span class="header-tag">🏨 凯隆国际酒店（方塔街）</span>
+    <span class="header-tag">🏞 适合摄影出片</span>
+    <span class="header-tag">🧑‍🤝‍🧑 不太拥挤</span>
+    <span class="header-tag">💰 性价比优先</span>
+    <span class="header-tag">🚆 常熟站出发返长沙</span>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- ===== 住宿信息 ===== -->
+  <section>
+    <div class="section-title">🏨 住宿信息 · 凯隆国际酒店</div>
+    <div class="train-card" style="border:2px solid #7c3aed; background:linear-gradient(135deg, #f5f3ff, #fff);">
+      <div class="train-header">
+        <div class="train-num" style="color:#7c3aed;">🏨 凯隆国际酒店（方塔街店）</div>
+        <span class="train-rec" style="background:#7c3aed; color:#fff;">已预订 · 周五至周日</span>
+      </div>
+      <div style="font-size:.9rem; color:#374151; line-height:1.8; margin:10px 0;">
+        📍 <strong>地址：</strong>常熟市方塔街106号（市中心核心位置）<br>
+        📞 <strong>电话：</strong>0512-52989999<br>
+        🚇 <strong>距离常熟站：</strong>约8.9公里，打车约20分钟
+      </div>
+      <div style="background:#ede9fe; border-radius:8px; padding:10px 12px; font-size:.85rem; color:#5b21b6; line-height:1.7;">
+        ✅ <strong>位置优势：</strong>酒店就在方塔园旁边（步行3分钟），周边餐饮、购物、景点极其便利。方塔步行街、石梅广场、常熟博物馆都在步行范围内。考完试直接步行回酒店放包，然后开始游玩！
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 城市选择 ===== -->
+  <section>
+    <div class="section-title">🏙️ 去哪儿玩？常熟 vs 苏州</div>
+    <div class="decision-card">
+      <div class="verdict">✅ 推荐：留在常熟游玩</div>
+      <div class="reason">
+        考试结束后无需长途转移，常熟本身就是一座被低估的宝藏摄影城市。虞山森林、尚湖水域、千年兴福寺、宋代方塔……既有山水大景，也有市井小景，四月草木葱茏、樱花余韵，光线层次极佳。常熟游客密度远低于苏州，对喜欢寻找"空镜"的摄影师极为友好。您住的凯隆酒店就在方塔园旁边，考完直接步行回酒店放包即可出发！
+      </div>
+      <div class="reasons">
+        <span class="reason-tag">📍 考完步行3分钟回酒店</span>
+        <span class="reason-tag">🏨 酒店就在方塔园旁</span>
+        <span class="reason-tag">🌲 4月山林绿意正浓</span>
+        <span class="reason-tag">👥 游客密度远低于苏州</span>
+        <span class="reason-tag">🚆 常熟站直达长沙</span>
+        <span class="reason-tag">💸 总费用比苏州节省约30%</span>
+      </div>
+    </div>
+
+    <div style="margin-top:16px; background:#fff; border-radius:14px; border:1px solid var(--border); overflow:hidden; box-shadow:var(--shadow);">
+      <table class="compare-table">
+        <thead>
+          <tr><th>对比项</th><th>常熟</th><th>苏州</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>转移距离</td><td class="winner">考点直达 0km</td><td>需乘车约60km</td></tr>
+          <tr><td>酒店位置</td><td class="winner">凯隆酒店就在方塔园旁</td><td>需重新找酒店</td></tr>
+          <tr><td>摄影题材</td><td class="winner">山水+寺庙+古塔+市井</td><td>园林+水巷+古城</td></tr>
+          <tr><td>人群密度（周末）</td><td class="winner">较少，拍摄空间宽裕</td><td>较多，拼人品</td></tr>
+          <tr><td>4月景色</td><td class="winner">虞山绿意+尚湖荷叶初生</td><td>园林春花</td></tr>
+          <tr><td>门票总费用</td><td class="winner">约 ¥90～120</td><td>约 ¥150～250</td></tr>
+          <tr><td>周日返程</td><td class="winner">常熟站直达长沙（G1782）</td><td>需回常熟站乘车</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="margin-top:12px; background:#fef3c7; border-radius:10px; padding:12px 16px; font-size:.88rem; color:#92400e;">
+      ⚠️ <strong>特别说明：</strong>苏州对摄影爱好者更有吸引力的是小众园林（艺圃¥10、耦园¥25）+ 平江路，但周日人特别多，且周日下午需赶高铁，时间比较紧张。如确实想去苏州，详见文末"苏州备选方案"。
+    </div>
+  </section>
+
+  <!-- ===== 周六下午行程 ===== -->
+  <section>
+    <div class="section-title">📅 行程安排</div>
+
+    <div class="day-label">周六（4月18日）下午</div>
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-dot dot-blue">✅</div>
+        <div class="tl-content">
+          <div class="tl-time">11:30 — 考试结束</div>
+          <div class="tl-title">回凯隆酒店放包、简单午饭</div>
+          <div class="tl-desc">考场结束后回<strong>凯隆国际酒店（方塔街106号）</strong>，放下考试物品，就近用午餐。酒店就在方塔园旁边（步行3分钟），方塔步行街一带有大量本地餐厅，推荐叫花鸡、常熟蒸菜、叫化子鸡锅贴。</div>
+          <div class="tl-tags">
+            <span class="tag tag-blue">📍 凯隆酒店：方塔街106号</span>
+            <span class="tag tag-green">🚶 酒店→方塔园：步行3分钟</span>
+          </div>
+          <div class="tl-price">🍜 午饭约 ¥25～45 / 人</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot dot-orange">🗼</div>
+        <div class="tl-content">
+          <div class="tl-time">13:00 — 14:30（约1.5小时）</div>
+          <div class="tl-title">📍 方塔园 · 崇教兴福寺塔（酒店步行3分钟）</div>
+          <div class="spot-desc-box">
+            <h4>🎯 景点特色</h4>
+            <p>宋代方塔与仿古江南园林的组合，是常熟必拍地标。国家4A级景区，从酒店步行5分钟即达。园内月季园4月盛开，古塔与花卉同框是绝佳构图。傍晚光线前可在此热身。</p>
+          </div>
+          <div class="tl-desc">宋代方塔与仿古江南园林的组合，是常熟必拍地标。国家4A级景区，从酒店步行5分钟即达。园内月季园4月盛开，古塔与花卉同框是绝佳构图。傍晚光线前可在此热身。</div>
+          <div class="tl-tags">
+            <span class="tag tag-blue">📍 方塔东街北80米</span>
+            <span class="tag tag-green">🎫 门票约¥20～30</span>
+            <span class="tag tag-orange">⏰ 建议13:00-14:30</span>
+          </div>
+          <div class="photo-tips">
+            📸 <strong>拍摄Tips：</strong>宋代方塔从南角仰拍，前景用月季园；园内回廊弯道可拍中式透视感；古井旁光影层次丰富，适合人文小品。
+          </div>
+          <div class="tl-price">💰 门票 约¥20～30</div>
+          <a class="map-btn" href="https://uri.amap.com/search?keyword=常熟方塔园&city=常熟&callnative=1" target="_blank">📍 高德导航</a>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot dot-green">🍜</div>
+        <div class="tl-content">
+          <div class="tl-time">14:30 — 15:30（约1小时）</div>
+          <div class="tl-title">📍 塔弄 · 小吃街烟火气（酒店步行5分钟）</div>
+          <div class="spot-desc-box">
+            <h4>🎯 景点特色</h4>
+            <p>塔弄是常熟最有烟火气的小吃街，就在方塔园旁边。充满市井气息的街巷，有梅花糕、萝卜丝饼、馄饨等本地小吃，是拍摄人文街景的好地方。</p>
+          </div>
+          <div class="tl-desc">塔弄是常熟最有烟火气的小吃街，就在方塔园旁边。充满市井气息的街巷，有梅花糕、萝卜丝饼、馄饨等本地小吃，是拍摄人文街景的好地方。</div>
+          <div class="tl-tags">
+            <span class="tag tag-blue">📍 方塔园旁塔弄街</span>
+            <span class="tag tag-green">🎫 免费</span>
+            <span class="tag tag-orange">🍜 小吃¥5-15/份</span>
+          </div>
+          <div class="photo-tips">
+            📸 <strong>拍摄Tips：</strong>小巷深处的老店铺、热气腾腾的小吃摊、斑驳的墙面与晾晒的衣物，都是绝佳的人文素材。
+          </div>
+          <div class="tl-price">💰 小吃约 ¥15-30</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot dot-purple">📚</div>
+        <div class="tl-content">
+          <div class="tl-time">15:30 — 16:30（约1小时）</div>
+          <div class="tl-title">📍 有书空间 · 网红书店打卡</div>
+          <div class="spot-desc-box">
+            <h4>🎯 景点特色</h4>
+            <p>常熟网红书店，可阅读、喝咖啡、逛文创，非常适合拍照。店内设计现代简约，有镜面反射效果，用广角低角度拍摄能拍出独特的光影大片。</p>
+          </div>
+          <div class="tl-desc">常熟网红书店，可阅读、喝咖啡、逛文创，非常适合拍照。店内设计现代简约，有镜面反射效果，是文艺青年必打卡地。</div>
+          <div class="tl-tags">
+            <span class="tag tag-blue">📍 方塔街附近</span>
+            <span class="tag tag-green">🎫 免费</span>
+            <span class="tag tag-orange">☕ 咖啡¥20-35</span>
+          </div>
+          <div class="photo-tips">
+            📸 <strong>拍摄Tips：</strong>用广角低角度拍摄镜面光影；书架之间的纵深感；咖啡杯与书本的静物组合。
+          </div>
+          <div class="tl-price">☕ 咖啡约 ¥20-35</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot dot-green">🌲</div>
+        <div class="tl-content">
+          <div class="tl-time">16:30 — 18:00（约1.5小时）</div>
+          <div class="tl-title">📍 兴福寺 + 虞山北麓山林</div>
+          <div class="spot-desc-box">
+            <h4>🎯 景点特色</h4>
+            <p>江南四大名刹之一，唐诗"清晨入古寺，初日照高林"就是此处。寺庙依山而建，古木参天，破龙涧流水潺潺，光影极佳。4月绿意正浓，是年内光线最好的季节之一。</p>
+          </div>
+          <div class="tl-desc">江南四大名刹之一，唐诗"清晨入古寺，初日照高林"就是此处。寺庙依山而建，古木参天，破龙涧流水潺潺，光影极佳。4月绿意正浓，是年内光线最好的季节之一。进寺后可沿虞山小径上山，鸟瞰常熟城区全景。</div>
+          <div class="tl-tags">
+            <span class="tag tag-blue">📍 虞山北路25号</span>
+            <span class="tag tag-green">🎫 免费参观（寺庙不收门票）</span>
+            <span class="tag tag-orange">🚌 公交9路/110路</span>
+          </div>
+          <div class="photo-tips">
+            📸 <strong>拍摄Tips：</strong>① 破龙涧溪流+古木=森林系大片；② 大殿飞檐在下午斜光下层次感极强；③ 走过山门长廊，寺院深处鲜有游客，适合拍冷清空镜；④ 沿山道向上30分钟可到城墙遗址，俯瞰城景。
+          </div>
+          <div class="tl-price">💰 免费（带相机进寺随喜即可）</div>
+          <a class="map-btn" href="https://uri.amap.com/search?keyword=常熟兴福禅寺&city=常熟&callnative=1" target="_blank">📍 高德导航</a>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot dot-purple">🌅</div>
+        <div class="tl-content">
+          <div class="tl-time">18:00 — 19:30（黄金时段）</div>
+          <div class="tl-title">📍 尚湖风景区 · 黄昏拍摄</div>
+          <div class="spot-desc-box">
+            <h4>🎯 景点特色</h4>
+            <p>尚湖是4A级湖泊湿地景区，水面宽阔，西望虞山，夕阳倒影是绝对的"出片利器"。推荐景点：拂水山庄、水上森林、牡丹园（4月正值牡丹花会，持续至5月5日）。</p>
+          </div>
+          <div class="tl-desc">尚湖是4A级湖泊湿地景区，水面宽阔，西望虞山，夕阳倒影是绝对的"出片利器"。下午4点后光线渐暖，到日落时分（18:30～19:00）是一天中摄影的黄金时段。4月正值牡丹花会，可泛舟游水杉林、漫步中式庭院。</div>
+          <div class="tl-tags">
+            <span class="tag tag-blue">📍 常熟市区西部</span>
+            <span class="tag tag-green">🎫 门票约¥50（湿地公园区域）</span>
+            <span class="tag tag-orange">⏰ 最佳光线18:00-19:00</span>
+          </div>
+          <div class="photo-tips">
+            📸 <strong>拍摄Tips：</strong>① 北岸观景台拍虞山+尚湖倒影，绝对壁纸级别；② 水上森林木栈道，林影与水面结合，极简风格；③ 湖心亭在日落后5分钟内"黄金光"最美，建议提前到位等待。
+          </div>
+          <div class="tl-price">💰 门票约 ¥50</div>
+          <a class="map-btn" href="https://uri.amap.com/search?keyword=常熟尚湖风景区&city=常熟&callnative=1" target="_blank">📍 高德导航</a>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot dot-gray">🍽</div>
+        <div class="tl-content">
+          <div class="tl-time">19:30 — 21:00</div>
+          <div class="tl-title">晚饭 · 方塔步行街夜食（步行回酒店）</div>
+          <div class="tl-desc">回到<strong>方塔步行街</strong>（酒店就在旁边），常熟本地特色：叫花鸡（必吃，¥50～80一只）、蒸菜、常熟羊肉、虞山豆腐干。步行街夜晚灯光下也适合再拍几张人文街景，烟火气十足。吃完步行回凯隆酒店休息。</div>
+          <div class="tl-tags">
+            <span class="tag tag-blue">📍 方塔街106号凯隆酒店</span>
+            <span class="tag tag-green">🚶 步行街→酒店：步行2分钟</span>
+          </div>
+          <div class="tl-price">🍜 晚饭约 ¥50～80 / 人</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 周日 -->
+    <div class="day-label" style="margin-top:28px; background:var(--green);">周日（4月19日）上午</div>
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-dot dot-orange">🌄</div>
+        <div class="tl-content">
+          <div class="tl-time">07:00 — 09:00（早晨黄金光）</div>
+          <div class="tl-title">📍 燕园 · 晨间园林（步行10分钟）</div>
+          <div class="spot-desc-box">
+            <h4>🎯 景点特色</h4>
+            <p>江南古典园林，4月正值桃花和牡丹盛花期。燕园小巧精致，黄石假山是戈裕良作品，极具特色。周日上午人极少，可以独享整个园林慢慢拍摄。</p>
+          </div>
+          <div class="tl-desc">江南古典园林，4月正值桃花和牡丹盛花期。燕园小巧精致，黄石假山是戈裕良作品，极具特色。周日上午人极少，可以独享整个园林慢慢拍摄。</div>
+          <div class="tl-tags">
+            <span class="tag tag-blue">📍 辛峰巷111号</span>
+            <span class="tag tag-green">🎫 约¥10</span>
+            <span class="tag tag-orange">⏰ 7:00-9:00 晨光最佳</span>
+          </div>
+          <div class="photo-tips">
+            📸 <strong>拍摄Tips：</strong>① 燕园荷花池前景+白墙黑瓦，经典江南帧；② 黄石假山的层次与光影；③ 4月牡丹盛开，花与园林结合绝美。
+          </div>
+          <div class="tl-price">💰 约¥10</div>
+          <a class="map-btn" href="https://uri.amap.com/search?keyword=常熟燕园&city=常熟&callnative=1" target="_blank">📍 高德导航</a>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot dot-green">🏛</div>
+        <div class="tl-content">
+          <div class="tl-time">09:00 — 10:30（约1.5小时）</div>
+          <div class="tl-title">📍 翁同龢纪念馆 · 庭院深深</div>
+          <div class="spot-desc-box">
+            <h4>🎯 景点特色</h4>
+            <p>两朝帝师翁同龢的故居，庭院深深，有桂花树、凌霄花、玉兰等。建筑古朴典雅，是拍摄中式庭院和建筑细节的好地方。</p>
+          </div>
+          <div class="tl-desc">两朝帝师翁同龢的故居，庭院深深，有桂花树、凌霄花、玉兰等。建筑古朴典雅，是拍摄中式庭院和建筑细节的好地方。</div>
+          <div class="tl-tags">
+            <span class="tag tag-blue">📍 翁府前7号</span>
+            <span class="tag tag-green">🎫 约¥20</span>
+            <span class="tag tag-orange">👥 游客极少</span>
+          </div>
+          <div class="photo-tips">
+            📸 <strong>拍摄Tips：</strong>庭院深深的长廊、天井光影、雕花门窗都是绝佳的构图元素。
+          </div>
+          <div class="tl-price">💰 约¥20</div>
+          <a class="map-btn" href="https://uri.amap.com/search?keyword=翁同龢纪念馆&city=常熟&callnative=1" target="_blank">📍 高德导航</a>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot dot-blue">🥟</div>
+        <div class="tl-content">
+          <div class="tl-time">10:30 — 11:00</div>
+          <div class="tl-title">早餐 · 东门大街附近</div>
+          <div class="tl-desc">常熟早点推荐：小笼包+豆浆、蟹黄汤包、常熟特色面条。东门大街附近有老字号早餐店，约¥15～25解决。</div>
+          <div class="tl-price">🍜 早餐约 ¥15～25 / 人</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot dot-purple">🌸</div>
+        <div class="tl-content">
+          <div class="tl-time">11:00 — 12:30</div>
+          <div class="tl-title">📍 东门大街 · "常熟武康路"街拍</div>
+          <div class="spot-desc-box">
+            <h4>🎯 景点特色</h4>
+            <p>被称为"常熟的武康路"，有网红花墙、时尚店铺、梧桐树，文艺气息浓。适合街拍和人像摄影，是年轻人喜欢的打卡地。</p>
+          </div>
+          <div class="tl-desc">被称为"常熟的武康路"，有网红花墙、时尚店铺、梧桐树，文艺气息浓。适合街拍和人像摄影，是年轻人喜欢的打卡地。</div>
+          <div class="tl-tags">
+            <span class="tag tag-blue">📍 东门大街</span>
+            <span class="tag tag-green">🎫 免费</span>
+            <span class="tag tag-orange">📸 街拍圣地</span>
+          </div>
+          <div class="photo-tips">
+            📸 <strong>拍摄Tips：</strong>网红花墙做背景、梧桐树下的街道纵深感、时尚店铺橱窗。傍晚灯光亮起后更有氛围感。
+          </div>
+          <div class="tl-price">💰 免费</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot dot-green">🍜</div>
+        <div class="tl-content">
+          <div class="tl-time">12:30 — 13:30</div>
+          <div class="tl-title">午饭（方塔步行街）</div>
+          <div class="tl-desc">在<strong>方塔步行街</strong>（酒店楼下就是）解决午饭，推荐叫花鸡、常熟蒸菜。吃完可以回酒店休息一会儿。</div>
+          <div class="tl-price">🍜 午饭约 ¥30～50</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot dot-blue">☕</div>
+        <div class="tl-content">
+          <div class="tl-time">13:30 — 15:30</div>
+          <div class="tl-title">下午休闲时光 · 方塔街附近</div>
+          <div class="tl-desc">退房后行李寄存在酒店，可以在方塔街附近逛逛：拍些街景人文、找家咖啡馆休息、或者去常熟博物馆（免费，步行5分钟）。这段时间比较自由，可以根据心情安排。</div>
+          <div class="tl-tags">
+            <span class="tag tag-blue">📍 常熟博物馆：步行5分钟</span>
+            <span class="tag tag-green">☕ 方塔街咖啡馆</span>
+            <span class="tag tag-orange">📸 街拍人文</span>
+          </div>
+          <div class="tl-price">☕ 咖啡约 ¥20～35</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot dot-gray">🚆</div>
+        <div class="tl-content">
+          <div class="tl-time">15:30 — 16:00</div>
+          <div class="tl-title">前往常熟站</div>
+          <div class="tl-desc">从<strong>凯隆酒店</strong>打车前往<strong>常熟站</strong>（约8.9公里，20-25分钟）。G1782 17:31从常熟站发车，您16:00就能到车站，有1.5小时候车时间，刚刚好！</div>
+          <div class="tl-tags">
+            <span class="tag tag-blue">📍 凯隆酒店→常熟站：约8.9公里</span>
+            <span class="tag tag-green">🚕 打车约¥25-30</span>
+            <span class="tag tag-orange">⏰ 建议15:30出发</span>
+          </div>
+          <div class="tl-price">🚕 打车到常熟站约 ¥25-30</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot dot-blue">✅</div>
+        <div class="tl-content">
+          <div class="tl-time">17:31 — 23:26</div>
+          <div class="tl-title">G1782 常熟站 → 长沙南站</div>
+          <div class="tl-desc"><strong>常熟站 17:31 发车 → 长沙南站 23:26 到达</strong>。二等座约¥496，历时约5小时55分。23:40前到家完全没问题！</div>
+          <div class="tl-tags">
+            <span class="tag tag-green">🎫 已预订 G1782</span>
+            <span class="tag tag-blue">📍 常熟站出发</span>
+            <span class="tag tag-purple">⏰ 23:26到长沙南</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== 景点汇总 ===== -->
+  <section>
+    <div class="section-title">📍 常熟核心摄影景点一览</div>
+    <div class="spot-grid">
+      <div class="spot-card">
+        <h3>🗼 方塔园</h3>
+        <div class="spot-info">
+          📍 方塔东街北80米<br>
+          🎫 约¥20～30<br>
+          ⏰ 7:00-17:00
+        </div>
+        <div class="spot-photo">📸 宋代方塔+月季园，标志性构图。酒店步行3分钟即达</div>
+      </div>
+      <div class="spot-card">
+        <h3>🍜 塔弄小吃街</h3>
+        <div class="spot-info">
+          📍 方塔园旁<br>
+          🎫 免费<br>
+          ⏰ 全天
+        </div>
+        <div class="spot-photo">📸 烟火气人文街拍，梅花糕、萝卜丝饼等本地小吃</div>
+      </div>
+      <div class="spot-card">
+        <h3>📚 有书空间</h3>
+        <div class="spot-info">
+          📍 方塔街附近<br>
+          🎫 免费<br>
+          ⏰ 10:00-21:00
+        </div>
+        <div class="spot-photo">📸 网红书店，镜面光影效果，文艺打卡必去</div>
+      </div>
+      <div class="spot-card">
+        <h3>🏯 兴福禅寺（破山寺）</h3>
+        <div class="spot-info">
+          📍 虞山北路25号（虞山北麓）<br>
+          🎫 免费<br>
+          ⏰ 5:30-17:00
+        </div>
+        <div class="spot-photo">📸 古木+破涧溪流，唐诗意境，极少人</div>
+      </div>
+      <div class="spot-card">
+        <h3>🌊 尚湖风景区</h3>
+        <div class="spot-info">
+          📍 常熟市区西部<br>
+          🎫 约¥50（湿地核心区）<br>
+          ⏰ 7:30-17:30
+        </div>
+        <div class="spot-photo">📸 黄昏倒影+水上森林+牡丹园（4月花会）</div>
+      </div>
+      <div class="spot-card">
+        <h3>🏡 燕园</h3>
+        <div class="spot-info">
+          📍 辛峰巷111号<br>
+          🎫 约¥10<br>
+          ⏰ 8:00-17:00
+        </div>
+        <div class="spot-photo">📸 小巧精致私家园林，4月桃花牡丹盛开</div>
+      </div>
+      <div class="spot-card">
+        <h3>🏛 翁同龢纪念馆</h3>
+        <div class="spot-info">
+          📍 翁府前7号<br>
+          🎫 约¥20<br>
+          ⏰ 8:00-17:00
+        </div>
+        <div class="spot-photo">📸 庭院深深，中式建筑细节，人极少</div>
+      </div>
+      <div class="spot-card">
+        <h3>🌸 东门大街</h3>
+        <div class="spot-info">
+          📍 东门大街<br>
+          🎫 免费<br>
+          ⏰ 全天
+        </div>
+        <div class="spot-photo">📸 "常熟武康路"，网红花墙、梧桐街拍</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 费用汇总 ===== -->
+  <section>
+    <div class="section-title">💰 两天费用预估（不含住宿）</div>
+    <div class="table-wrap">
+      <table class="cost-table">
+        <thead>
+          <tr><th>项目</th><th>详情</th><th>费用</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>🎫 方塔园</td><td>周六下午</td><td>¥20～30</td></tr>
+          <tr><td>🎫 燕园</td><td>周日上午</td><td>¥10</td></tr>
+          <tr><td>🎫 翁同龢纪念馆</td><td>周日上午</td><td>¥20</td></tr>
+          <tr><td>🎫 兴福禅寺</td><td>周六下午</td><td>免费</td></tr>
+          <tr><td>🎫 尚湖风景区</td><td>周六黄昏</td><td>¥50</td></tr>
+          <tr><td>🍜 饮食（3餐+零食咖啡）</td><td>两天合计</td><td>¥150～220</td></tr>
+          <tr><td>🚕 打车/公交</td><td>景点间+到火车站</td><td>¥60～80</td></tr>
+          <tr><td>🚕 凯隆酒店→常熟站（打车）</td><td>周日约¥25-30</td><td>¥25-30</td></tr>
+          <tr class="cost-total"><td colspan="2"><strong>合计（不含住宿和返长沙高铁）</strong></td><td><strong>约 ¥325～430</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== 返程高铁 ===== -->
+  <section>
+    <div class="section-title">🚆 周日返长沙高铁（常熟站 → 长沙南）</div>
+
+    <div style="background:#ecfdf5; border-radius:10px; padding:12px 16px; font-size:.87rem; color:#065f46; margin-bottom:16px;">
+      ✅ <strong>关键节点提示：</strong>您已预订<strong>G1782（17:31从常熟站发车）</strong>，无需去苏州北！从凯隆酒店打车到常熟站约20-25分钟，建议15:30前到达车站即可，时间非常充裕！
+    </div>
+
+    <!-- 用户已订班次 -->
+    <div class="train-card" style="border:2px solid #059669; background:linear-gradient(135deg, #ecfdf5, #fff);">
+      <div class="train-header">
+        <div class="train-num" style="color:#059669;">G1782/G1783</div>
+        <span class="train-rec" style="background:#059669; color:#fff;">✅ 您已预订 · 常熟站出发</span>
+      </div>
+      <div class="train-route">
+        <div class="train-city">
+          <div class="city-name">常熟站</div>
+          <div class="city-time" style="color:#059669;">17:31</div>
+        </div>
+        <div class="train-arrow">
+          <div class="arrow-text">约5小时55分 →</div>
+          <div class="arrow-line"></div>
+        </div>
+        <div class="train-city">
+          <div class="city-name">长沙南站</div>
+          <div class="city-time" style="color:#059669;">23:26</div>
+        </div>
+      </div>
+      <div class="train-price">
+        <span class="price-badge" style="background:#ecfdf5; color:#065f46;">二等座约 ¥496</span>
+        <span class="price-badge" style="background:#ecfdf5; color:#065f46;">一等座约 ¥794</span>
+      </div>
+      <div class="train-tip">
+        🎉 完美！G1782直接从<strong>常熟站</strong>发车，无需去苏州北换乘！<br>
+        📍 凯隆酒店→常熟站：约8.9公里，打车20-25分钟<br>
+        ⏰ 建议15:30从酒店出发，16:00到达常熟站，候车1.5小时非常宽裕！
+      </div>
+    </div>
+
+    <div style="background:var(--primary-light); border-radius:10px; padding:14px 16px; font-size:.87rem; color:#1e40af; line-height:1.8;">
+      <strong>📌 行程节点（周日）：</strong><br>
+      07:00 燕园拍晨景 → 09:00 翁同龢纪念馆 → 10:30 早餐 → 11:00 东门大街街拍 → 12:30 午饭（方塔街）→ 13:30-15:30 下午休闲（街拍/咖啡/博物馆）→ 15:30 凯隆酒店取行李 → 15:30-16:00 打车到常熟站 → 17:31 <strong style="color:#059669;">G1782常熟站发车</strong> → <strong style="color:#059669;">23:26 到长沙南</strong> ✅
+    </div>
+
+    <div style="margin-top:12px; background:#fff; border-radius:10px; padding:12px 16px; border:1px solid var(--border); font-size:.85rem; color:var(--gray);">
+      💡 <strong>购票提醒：</strong>您已预订G1782（常熟站17:31发车），无需换乘！请在12306 App确认车票信息，建议提前1-2小时到达常熟站候车。
+    </div>
+  </section>
+
+  <!-- ===== 餐食推荐 ===== -->
+  <section>
+    <div class="section-title">🍜 常熟特色餐食推荐</div>
+    <div class="table-wrap">
+      <table class="cost-table">
+        <thead>
+          <tr><th>必吃</th><th>推荐理由</th><th>人均</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>🐔 叫花鸡</td><td>常熟最知名美食，一整只黄泥包裹焖制，方塔街有老字号</td><td>¥50～80/只（可两人分)</td></tr>
+          <tr><td>🧇 梅花糕</td><td>塔弄特色小吃，外酥里嫩，甜而不腻</td><td>¥5～10</td></tr>
+          <tr><td>🥟 萝卜丝饼</td><td>塔弄街头小吃，香脆可口</td><td>¥5～8</td></tr>
+          <tr><td>🥟 蟹黄小笼包</td><td>苏式汤包，早餐必选，汤汁丰腴</td><td>¥15～25</td></tr>
+          <tr><td>🍖 常熟蒸菜</td><td>本地家常菜，价格实惠，量大味美</td><td>¥30～50（两菜一汤）</td></tr>
+          <tr><td>🐑 常熟羊肉</td><td>本地特色，寒气还未散，周六晚正好暖身</td><td>¥40～60</td></tr>
+          <tr><td>🫙 虞山豆腐干</td><td>常熟特产，方塔街有现货，可带回家</td><td>¥15～30/包</td></tr>
+          <tr><td>☕ 方塔街奶茶/咖啡</td><td>街边文艺小店，拍摄间歇休息，出片道具</td><td>¥18～28</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== 注意事项 ===== -->
+  <section>
+    <div class="section-title">📋 摄影师专属注意事项</div>
+    <ul class="tips-list">
+      <li><span class="tip-icon">🎒</span>考试结束后尽快回酒店换上舒适鞋子，虞山山路石阶较多，穿考试正装上山会比较累。</li>
+      <li><span class="tip-icon">🔋</span>4月常熟气候宜人（15-22°C），户外拍摄时间长，建议带充电宝，相机电池多备一块。</li>
+      <li><span class="tip-icon">📷</span>兴福寺内拍摄注意：大雄宝殿内不可拍摄佛像商用，禅堂和后院相对宽松，进寺前确认规定。</li>
+      <li><span class="tip-icon">🌅</span>尚湖黄昏拍摄要提前入园，17:30景区停止售票（具体以现场为准），建议16:30前入园。</li>
+      <li><span class="tip-icon">🚕</span>常熟城区不大，景点间距离适中，打滴滴方便，但部分山区景点（兴福寺）附近道路窄，请提前确认司机能否进入。</li>
+      <li><span class="tip-icon">🚆</span>返程高铁G1782从<strong>常熟站</strong>发车（不是常熟汽车南站），务必确认车站位置。建议15:30前到达车站，有1.5小时候车时间。</li>
+    </ul>
+  </section>
+
+  <!-- ===== 苏州备选方案 ===== -->
+  <section>
+    <div class="section-title" style="border-color:#7c3aed;">🗺️ 苏州备选方案（若坚持去苏州）</div>
+    <div style="background:var(--purple-light); border-radius:14px; padding:18px 20px; font-size:.9rem; line-height:1.8; border:1px solid #ddd6fe;">
+      <strong>路线：</strong>凯隆酒店→常熟站→苏州站（高铁约40分钟）→ <strong>艺圃</strong>（文衙弄5号，¥10，人少，明代园林，强烈推荐）→ 步行5分钟 → <strong>环秀山庄</strong>（¥15，湖石假山一绝）→ 午饭吃苏式面（¥20）→ 下午 <strong>耦园</strong>（仓街小新桥巷，¥25，三面临水，平江路旁）→ <strong>平江路</strong>步行自拍（免费，但人多，建议傍晚17:00后光线好且人少）→ 返回苏州站→常熟站→长沙。<br><br>
+      <strong>⚠️ 注意：</strong>苏州周日较拥挤，平江路周末傍晚人流量仍大。若去苏州，需要从常熟站往返，整体通勤时间比留在常熟多约3小时。且返程需从苏州返回常熟站再乘G1782，时间会非常紧张，<strong>强烈建议留在常熟游玩</strong>。
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <p>以上时间仅为参考，实际以景区公告为准 · 祝考试顺利、拍出好片！🎉📸</p>
+</footer>
+
+</body>
+</html>
