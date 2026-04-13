@@ -4,6 +4,54 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>常熟考后游玩攻略 · 摄影师专版</title>
+  <script>
+    // 打开高德APP并自动返回
+    function openAmap(name, lat, lng) {
+      // 记录当前时间
+      var startTime = Date.now();
+      var hasReturned = false;
+      
+      // 尝试打开高德APP (Android)
+      window.location.href = 'amapuri://route/plan/?sid=&did=&dlat=' + lat + '&dlon=' + lng + '&dname=' + encodeURIComponent(name) + '&dev=0&t=0';
+      
+      // 尝试打开高德APP (iOS)
+      setTimeout(function() {
+        window.location.href = 'iosamap://path?sourceApplication=web&dlat=' + lat + '&dlon=' + lng + '&dname=' + encodeURIComponent(name) + '&dev=0&t=0';
+      }, 100);
+      
+      // 3秒后自动返回页面顶部（模拟返回攻略页面）
+      setTimeout(function() {
+        if (!hasReturned) {
+          hasReturned = true;
+          // 平滑滚动到页面顶部
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          // 显示提示
+          showReturnToast();
+        }
+      }, 3000);
+      
+      // 监听页面可见性变化（用户从APP返回浏览器）
+      document.addEventListener('visibilitychange', function() {
+        if (document.visibilityState === 'visible' && !hasReturned) {
+          hasReturned = true;
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      });
+    }
+    
+    // 显示返回提示
+    function showReturnToast() {
+      var toast = document.createElement('div');
+      toast.innerHTML = '✅ 已打开高德地图，3秒后自动返回攻略';
+      toast.style.cssText = 'position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#059669;color:#fff;padding:12px 20px;border-radius:8px;z-index:9999;font-size:14px;box-shadow:0 4px 12px rgba(0,0,0,0.15);';
+      document.body.appendChild(toast);
+      setTimeout(function() {
+        toast.style.opacity = '0';
+        toast.style.transition = 'opacity 0.5s';
+        setTimeout(function() { toast.remove(); }, 500);
+      }, 2000);
+    }
+  </script>
   <style>
     :root {
       --primary: #2563eb;
@@ -486,7 +534,7 @@
             📸 <strong>拍摄Tips：</strong>① 燕园荷花池前景+白墙黑瓦，经典江南帧；② 黄石假山的层次与光影；③ 4月牡丹盛开，花与园林结合绝美。
           </div>
           <div class="tl-price">💰 约¥10</div>
-          <a class="map-btn" href="amapuri://route/plan/?sid=&did=&dlat=31.650&dlon=120.745&dname=常熟燕园&dev=0&t=0" onclick="window.location.href='iosamap://path?sourceApplication=web&dlat=31.650&dlon=120.745&dname=常熟燕园&dev=0&t=0';return true;">📍 高德导航</a>
+          <a class="map-btn" href="javascript:void(0);" onclick="openAmap('常熟燕园', 31.650, 120.745)">📍 高德导航</a>
         </div>
       </div>
 
@@ -509,7 +557,7 @@
             📸 <strong>拍摄Tips：</strong>庭院深深的长廊、天井光影、雕花门窗都是绝佳的构图元素。
           </div>
           <div class="tl-price">💰 约¥20</div>
-          <a class="map-btn" href="https://uri.amap.com/search?keyword=翁同龢纪念馆&city=常熟&callnative=1" target="_blank">📍 高德导航</a>
+          <a class="map-btn" href="javascript:void(0);" onclick="openAmap('翁同龢纪念馆', 31.651, 120.746)">📍 高德导航</a>
         </div>
       </div>
 
