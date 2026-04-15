@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026「星铁LAND」上海出行攻略</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .header .subtitle {
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        h2 {
+            color: #667eea;
+            font-size: 1.5em;
+            margin: 30px 0 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        h2:first-child {
+            margin-top: 0;
+        }
+
+        h3 {
+            color: #764ba2;
+            font-size: 1.2em;
+            margin: 20px 0 10px;
+        }
+
+        p {
+            margin: 10px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 0.95em;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8f9fc;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover {
+            background-color: #f0f2ff;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+
+        .timeline {
+            background: #f8f9fc;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: "SF Mono", "Consolas", monospace;
+            font-size: 0.9em;
+            white-space: pre-wrap;
+            overflow-x: auto;
+            border-left: 4px solid #667eea;
+        }
+
+        .tip {
+            background: #fff8e6;
+            border-left: 4px solid #ffa500;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .tip::before {
+            content: "💡 ";
+        }
+
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .warning::before {
+            content: "⚠️ ";
+        }
+
+        .route-summary {
+            background: #f0f2ff;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: "SF Mono", "Consolas", monospace;
+            font-size: 0.9em;
+            white-space: pre-wrap;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #999;
+            font-size: 0.9em;
+            border-top: 1px solid #eee;
+        }
+
+        /* 高德导航按钮样式 */
+        .nav-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #12C2E9 0%, #C471ED 50%, #F64F59 100%);
+            color: white !important;
+            padding: 6px 14px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.85em;
+            font-weight: 500;
+            margin-left: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(196, 113, 237, 0.3);
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(196, 113, 237, 0.5);
+            color: white !important;
+        }
+
+        .location-block {
+            background: #f8f9fc;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 4px solid #C471ED;
+        }
+
+        .location-block .location-name {
+            font-weight: bold;
+            font-size: 1.1em;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .location-block .location-addr {
+            color: #666;
+            font-size: 0.95em;
+            margin-bottom: 8px;
+        }
+
+        .section-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fc;
+            border-radius: 10px;
+        }
+
+        .section-nav .nav-item {
+            background: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #333;
+            font-size: 0.9em;
+            border: 1px solid #e0e0e0;
+            transition: all 0.2s;
+        }
+
+        .section-nav .nav-item:hover {
+            border-color: #C471ED;
+            color: #C471ED;
+        }
+
+        /* 待办清单样式 */
+        .todo-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .todo-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            margin: 8px 0;
+            background: #f8f9fc;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .todo-item:hover {
+            background: #f0f2ff;
+            transform: translateX(5px);
+        }
+
+        .todo-item.completed {
+            background: #e8f5e9;
+            text-decoration: line-through;
+            color: #999;
+        }
+
+        .todo-item.completed:hover {
+            background: #c8e6c9;
+        }
+
+        .todo-checkbox {
+            width: 22px;
+            height: 22px;
+            border: 2px solid #667eea;
+            border-radius: 50%;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .todo-item.completed .todo-checkbox {
+            background: #52c41a;
+            border-color: #52c41a;
+        }
+
+        .todo-checkbox::after {
+            content: '';
+            display: none;
+        }
+
+        .todo-item.completed .todo-checkbox::after {
+            display: block;
+            content: '✓';
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .todo-text {
+            flex: 1;
+        }
+
+        .todo-save-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #52c41a;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 0.9em;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(82, 196, 26, 0.3);
+        }
+
+        .todo-save-indicator.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .todo-stats {
+            margin-top: 15px;
+            padding: 10px 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 8px;
+            display: inline-block;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 600px) {
+            .header {
+                padding: 30px 20px;
+            }
+            .header h1 {
+                font-size: 1.5em;
+            }
+            .content {
+                padding: 20px;
+            }
+            table {
+                font-size: 0.85em;
+            }
+            th, td {
+                padding: 8px 10px;
+            }
+            .nav-btn {
+                display: block;
+                margin: 8px 0 0 0;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚄 2026「星铁LAND」上海出行攻略</h1>
+            <div class="subtitle">五一假期 · 长沙 → 上海</div>
+        </div>
+
+        <div class="content">
+            <h2>📋 已确认信息</h2>
+            <table>
+                <tr>
+                    <th>项目</th>
+                    <th>详情</th>
+                </tr>
+                <tr>
+                    <td>星铁LAND门票</td>
+                    <td>✅ 已抢到 5月1日 单日票（188元）</td>
+                </tr>
+                <tr>
+                    <td>去程车次</td>
+                    <td>D79 4月30日 20:00 发车 → 5月1日 06:08 到达上海南站</td>
+                </tr>
+                <tr>
+                    <td>回程车次</td>
+                    <td>D81 5月2日 <strong>20:44</strong> 上海南站发车 → 5月3日 06:52 到达长沙站</td>
+                </tr>
+                <tr>
+                    <td>回程票价</td>
+                    <td>硬卧637元 / 软卧782元</td>
+                </tr>
+                <tr>
+                    <td>住宿</td>
+                    <td>✅ 如家派柏·云酒店（新天地陆家浜路地铁站店），1晚（5.1晚）</td>
+                </tr>
+                <tr>
+                    <td>行程</td>
+                    <td>5.1 全天星铁LAND + 5月2日 全天拍照游览 + 5月2日晚D81回长沙</td>
+                </tr>
+            </table>
+
+            <h2>🗺️ 快速导航</h2>
+            <div class="section-nav">
+                <a href="https://uri.amap.com/navigation?to=121.4315,31.1525,name=上海南站,mode=car" target="_blank" class="nav-item">🚄 上海南站</a>
+                <a href="https://uri.amap.com/navigation?to=121.4815,31.2165,name=如家派柏云酒店陆家浜路店,mode=car" target="_blank" class="nav-item">🏨 酒店</a>
+                <a href="https://uri.amap.com/navigation?to=121.5092,31.1865,name=世博展览馆,mode=car" target="_blank" class="nav-item">🎮 星铁LAND</a>
+                <a href="https://uri.amap.com/navigation?to=121.4552,31.2438,name=M50创意园,mode=car" target="_blank" class="nav-item">🎨 M50</a>
+                <a href="https://uri.amap.com/navigation?to=121.4730,31.1910,name=徐汇滨江,mode=car" target="_blank" class="nav-item">🌅 徐汇滨江</a>
+                <a href="https://uri.amap.com/navigation?to=121.4880,31.2375,name=圆明园路,mode=car" target="_blank" class="nav-item">📸 圆明园路</a>
+            </div>
+
+            <h2>🏨 住宿信息</h2>
+            <div class="location-block">
+                <div class="location-name">
+                    如家派柏·云酒店（新天地陆家浜路地铁站店）
+                    <a href="https://uri.amap.com/navigation?to=121.4815,31.2165,name=如家派柏云酒店陆家浜路店,mode=car" target="_blank" class="nav-btn">🧭 导航</a>
+                </div>
+                <div class="location-addr">📍 上海市黄浦区陆家浜路（近8号线/9号线陆家浜路站）</div>
+                <ul>
+                    <li>靠近 <span class="highlight">8号线/9号线陆家浜路站</span>，交通非常方便</li>
+                    <li>去世博展览馆：8号线陆家浜路站 → 中华艺术宫站，约15分钟</li>
+                    <li>去M50/苏州河：8号线 → 人民广场换1号线，约30分钟</li>
+                    <li>去徐汇滨江：8号线/9号线到陆家浜路换11号线或打车，约25分钟</li>
+                    <li>附近就是老西门商圈，餐饮选择丰富</li>
+                </ul>
+            </div>
+
+            <h2>🚇 5月1日：星铁LAND + 交通路线</h2>
+            
+            <div class="location-block">
+                <div class="location-name">
+                    🚄 上海南站
+                    <a href="https://uri.amap.com/navigation?to=121.4315,31.1525,name=上海南站,mode=car" target="_blank" class="nav-btn">🧭 导航</a>
+                </div>
+                <div class="location-addr">📍 上海市徐汇区沪闵路9001号</div>
+            </div>
+
+            <h3>上海南站 → 酒店 → 世博展览馆</h3>
+            <div class="timeline">06:08  D79抵达上海南站
+06:30  出站吃早餐（推荐：阿文夜市豆浆油条，西藏南路251号，
+       离老西门近，四大金刚一站式体验，人均10-15元）
+07:30  地铁前往酒店放行李
+       └─ 上海南站 → 地铁1号线 → 人民广场站
+       └─ 换乘8号线 → 陆家浜路站（约35分钟）
+08:00  酒店放行李，稍作整理
+08:30  前往世博展览馆
+       └─ 陆家浜路站 → 8号线 → 中华艺术宫站（3号口出）
+       └─ 步行5分钟 → 世博展览馆（国展路1099号）
+       └─ 全程约15分钟
+09:00-18:00  ⭐ 星铁LAND 全天游玩！
+18:00  展馆出来，回酒店附近吃晚饭
+       └─ 推荐晚餐见下方
+20:00  回酒店休息，整理照片，准备第二天行程</div>
+
+            <div class="location-block">
+                <div class="location-name">
+                    🎮 世博展览馆（星铁LAND）
+                    <a href="https://uri.amap.com/navigation?to=121.5092,31.1865,name=世博展览馆,mode=car" target="_blank" class="nav-btn">🧭 导航</a>
+                </div>
+                <div class="location-addr">📍 上海市浦东新区国展路1099号</div>
+            </div>
+
+            <h3>5.1晚餐推荐（酒店/老西门附近）</h3>
+            <table>
+                <tr>
+                    <th>餐厅</th>
+                    <th>地址</th>
+                    <th>推荐菜品</th>
+                    <th>人均</th>
+                    <th>推荐理由</th>
+                </tr>
+                <tr>
+                    <td><strong>海金滋</strong></td>
+                    <td>进贤路240号</td>
+                    <td>红烧肉、酱鸭、草头圈子、响油鳝丝</td>
+                    <td>60-80元</td>
+                    <td>上海本地人认证的本帮菜小馆，浓油赤酱，味道正宗</td>
+                </tr>
+                <tr>
+                    <td><strong>永兴餐厅</strong></td>
+                    <td>复兴中路626弄1号</td>
+                    <td>红烧肉、鸭肉蛋黄卷、椒盐排条</td>
+                    <td>50-70元</td>
+                    <td>弄堂里的老牌本帮菜，只做午晚餐，人少味好</td>
+                </tr>
+                <tr>
+                    <td><strong>阿娘面馆</strong></td>
+                    <td>思南路36号</td>
+                    <td>黄鱼面、大肠面、辣肉面</td>
+                    <td>25-35元</td>
+                    <td>面食首选，老上海味道</td>
+                </tr>
+                <tr>
+                    <td><strong>大壶春</strong></td>
+                    <td>四川中路136号</td>
+                    <td>生煎（甜口）、咖喱牛肉汤</td>
+                    <td>20-25元</td>
+                    <td>老上海生煎代表，离老西门也不远</td>
+                </tr>
+            </table>
+            <div class="tip">5.1晚上从展馆回老西门方向吃，建议选<strong>海金滋</strong>或<strong>永兴餐厅</strong>，人均不高，味道靠谱。</div>
+
+            <h2>📸🍜 5月2日：拍照 + 美食 全天行程</h2>
+            
+            <h3>早餐（8:00-8:40）</h3>
+            <p>在酒店附近吃，推荐：</p>
+            <table>
+                <tr>
+                    <th>餐厅</th>
+                    <th>地址</th>
+                    <th>推荐菜品</th>
+                    <th>人均</th>
+                    <th>特色</th>
+                </tr>
+                <tr>
+                    <td><strong>逸桂禾</strong></td>
+                    <td>吉安路290号</td>
+                    <td>阳春面（细面+高汤+猪油+葱花）、各类浇头</td>
+                    <td>15-25元</td>
+                    <td>老西门核心区域，最正宗老上海阳春面，门口还有生面零售</td>
+                </tr>
+                <tr>
+                    <td><strong>盛兴百年老店</strong></td>
+                    <td>顺昌路528号</td>
+                    <td>全家福（菜肉大馄饨+芝麻汤圆+鲜肉汤圆）</td>
+                    <td>20-30元</td>
+                    <td>百年老字号，现包现煮，分量实在</td>
+                </tr>
+                <tr>
+                    <td><strong>大肠面</strong></td>
+                    <td>复兴中路59号</td>
+                    <td>大肠面</td>
+                    <td>20-30元</td>
+                    <td>味道极好，店面小常爆满，重口味首选</td>
+                </tr>
+            </table>
+            <div class="tip">⭐ 推荐选<strong>逸桂禾</strong>，就在老西门旁边，吃碗热汤面出发，暖胃舒服。</div>
+
+            <h3>上午（9:00-12:00）：M50创意园（工业涂鸦风）</h3>
+            <div class="location-block">
+                <div class="location-name">
+                    🎨 M50创意园
+                    <a href="https://uri.amap.com/navigation?to=121.4552,31.2438,name=M50创意园,mode=car" target="_blank" class="nav-btn">🧭 导航</a>
+                </div>
+                <div class="location-addr">📍 上海市普陀区莫干山路50号</div>
+            </div>
+            <div class="timeline">8:40  酒店出发
+      └─ 陆家浜路站 → 8号线 → 人民广场换1号线 → 上海火车站
+      └─ 出站步行约10分钟 → 莫干山路50号
+      └─ 全程约40分钟
+
+9:30  到达M50创意园
+      └─ 免费进入
+      └─ 工业厂房+涂鸦墙+画廊，随便出片
+      └─ 重点拍：园区涂鸦墙、铁楼梯、厂房转角
+      └─ ⚠️ 部分画廊禁止拍照，看标识
+      └─ 园区内有咖啡馆和餐厅
+      └─ 建议时长：2小时</div>
+
+            <p><strong>M50冷门加分点：</strong></p>
+            <ul>
+                <li>园区入口有家威士忌牛排餐厅，超有欧洲街头感觉</li>
+                <li>半度雨棚（M50园区11号楼1楼）— 音乐+轻食咖啡馆</li>
+                <li>传说某咖啡店是《何以笙箫默》取景地，可以找找看</li>
+            </ul>
+
+            <h3>🍜 午餐（11:40-12:40）：苏州河/圆明园路附近</h3>
+            <p>从M50沿苏州河步行时解决午餐：</p>
+            <table>
+                <tr>
+                    <th>餐厅</th>
+                    <th>地址</th>
+                    <th>推荐菜品</th>
+                    <th>人均</th>
+                    <th>推荐理由</th>
+                </tr>
+                <tr>
+                    <td><strong>漫生快活·花园餐厅</strong></td>
+                    <td>M50园区内</td>
+                    <td>配餐制日料，需提前预约</td>
+                    <td>80-120元</td>
+                    <td>日本归国夫妇开的，隐于M50的花园餐厅，环境一流（需提前预约+订金500）</td>
+                </tr>
+                <tr>
+                    <td><strong>舒蔡记生煎菜饭</strong></td>
+                    <td>浙江中路120号</td>
+                    <td>生煎+菜饭+牛肉汤</td>
+                    <td>20-30元</td>
+                    <td>混水派生煎40年老店，快餐式解决</td>
+                </tr>
+                <tr>
+                    <td><strong>三林塘馄饨店</strong></td>
+                    <td>江西中路416号</td>
+                    <td>大馄饨、肉露浓汤</td>
+                    <td>20-30元</td>
+                    <td>靠近外滩方向，大馄饨扎实复古</td>
+                </tr>
+                <tr>
+                    <td><strong>鲜得来排骨年糕</strong></td>
+                    <td>云南南路36号</td>
+                    <td>排骨年糕</td>
+                    <td>25-35元</td>
+                    <td>上海老字号，体验地道小吃</td>
+                </tr>
+            </table>
+            <div class="tip">如果想吃得快继续拍照，选<strong>舒蔡记</strong>或路边小店解决；如果想休息一下，选<strong>漫生快活</strong>（要提前预约）或找苏州河边的咖啡馆。</div>
+
+            <h3>下午（13:00-15:30）：苏州河畔 + 圆明园路（都市河景风）</h3>
+            <div class="location-block">
+                <div class="location-name">
+                    📸 乍浦路桥（苏州河经典机位）
+                    <a href="https://uri.amap.com/navigation?to=121.4880,31.2375,name=乍浦路桥,mode=car" target="_blank" class="nav-btn">🧭 导航</a>
+                </div>
+                <div class="location-addr">📍 上海市虹口区/黄浦区交界（苏州河汇入黄浦江处）</div>
+            </div>
+            <div class="timeline">12:40  沿苏州河步行出发
+13:00  上海邮政博物馆（外观拍照，经典红砖建筑）
+13:20  乍浦路桥
+      └─ ⭐ 苏州河+陆家嘴天际线同框的经典机位！
+      └─ 正午光线硬但地标清晰，先踩点拍几张
+
+13:50  圆明园路
+      └─ 紧邻外滩却非常安静，462米短街
+      └─ 两侧清水红砖老洋房（新天安堂、真光大楼、兰心大楼等）
+      └─ 拍照风格：民国风、英伦风、复古故事感
+      └─ 门票：免费 | 建议时长：1小时</div>
+
+            <div class="location-block">
+                <div class="location-name">
+                    📸 圆明园路
+                    <a href="https://uri.amap.com/navigation?to=121.4880,31.2375,name=圆明园路,mode=car" target="_blank" class="nav-btn">🧭 导航</a>
+                </div>
+                <div class="location-addr">📍 上海市黄浦区（外滩源，东至圆明园路、西至中山东一路）</div>
+            </div>
+
+            <p><strong>圆明园路冷门加分点：</strong></p>
+            <ul>
+                <li>% Arabica 咖啡（圆明园路169号协进大楼1楼）— 颜值高，人均47元</li>
+                <li>这条街游客极少，随便一栋红砖洋房当背景就出片</li>
+            </ul>
+
+            <h3>下午晚些（15:30-16:30）：愚园路漫步（法式风情街拍）</h3>
+            <div class="location-block">
+                <div class="location-name">
+                    📸 愚园路
+                    <a href="https://uri.amap.com/navigation?to=121.4270,31.2220,name=愚园路,mode=car" target="_blank" class="nav-btn">🧭 导航</a>
+                </div>
+                <div class="location-addr">📍 上海市长宁区（江苏路至定西路，全长2.78km）</div>
+            </div>
+            <div class="timeline">15:30  从圆明园路出发
+      └─ 地铁2号线南京东路站 → 江苏路站（约15分钟）
+      └─ 或打车约15分钟，约20元
+
+15:50  愚园路（精华段：江苏路到定西路，全长2.78km）
+      └─ 比武康路安静太多！商业气息淡，老洋房+现代设计
+      └─ 沿路高颜值咖啡馆、设计师小店
+      └─ 拍照风格：法式复古、老上海风情、人文街拍
+      └─ 门票：免费 | 建议时长：1小时</div>
+            <div class="tip">愚园路是马蜂窝/小红书上公认的<strong>比武康路更值得去</strong>的小众替代路线，五一人少，边走边拍最舒服。</div>
+
+            <h3>傍晚（16:30-18:30）：徐汇滨江（日落江景）</h3>
+            <div class="location-block">
+                <div class="location-name">
+                    🌅 徐汇滨江
+                    <a href="https://uri.amap.com/navigation?to=121.4730,31.1910,name=徐汇滨江,mode=car" target="_blank" class="nav-btn">🧭 导航</a>
+                </div>
+                <div class="location-addr">📍 上海市徐汇区龙腾大道（黄浦江西岸）</div>
+            </div>
+            <div class="timeline">16:00  前往徐汇滨江
+      └─ 从愚园路：2号线→中山公园换11号线→云锦路站
+      └─ 或打车约20-25分钟
+
+16:30  徐汇滨江（龙腾大道）
+      └─ 开阔江景+龙美术馆+卢浦大桥
+      └─ 龙美术馆外景（煤料斗卸载桥，混凝土建筑美学）
+      └─ 门票：免费（馆外区域）
+      └─ ⭐⭐⭐ 日落时分（约18:00-18:30）在亲水平台拍卢浦大桥最美！
+
+17:30  沿滨江散步
+      └─ Manner Coffee（三层白色极简建筑，每层有露台俯瞰江景）
+      └─ 美式复古KFC（海事广场旁，270度玻璃房）
+      └─ 7-11运动主题概念店（滑板公园旁，赛博朋克风，晚上会发光）</div>
+
+            <h3>🍽️ 晚餐（18:30-19:30）：徐汇滨江附近</h3>
+            <table>
+                <tr>
+                    <th>餐厅</th>
+                    <th>地址/位置</th>
+                    <th>推荐菜品</th>
+                    <th>人均</th>
+                    <th>推荐理由</th>
+                </tr>
+                <tr>
+                    <td><strong>乔咖啡（西岸店）</strong></td>
+                    <td>徐汇滨江西岸</td>
+                    <td>青团、蟹壳黄、春卷、馄饨 + 咖啡</td>
+                    <td>30-50元</td>
+                    <td>乔家栅旗下，中式点心+咖啡，金属立方体建筑+超大江景露台</td>
+                </tr>
+                <tr>
+                    <td><strong>Le Petit Jardin 小小花园</strong></td>
+                    <td>靠近油罐艺术中心</td>
+                    <td>巧克力熔岩蛋糕、热狗</td>
+                    <td>60-80元</td>
+                    <td>法式田园风网红餐厅，水晶吊灯+古董家具，拍照绝了</td>
+                </tr>
+                <tr>
+                    <td><strong>麦当劳总部旗舰</strong></td>
+                    <td>巨无霸魔方MCHQ大楼</td>
+                    <td>汉堡+薯条+麦咖啡</td>
+                    <td>30-50元</td>
+                    <td>全上海最大麦当劳，8层江景大楼，二楼有露台餐位，性价比最高</td>
+                </tr>
+            </table>
+            <div class="tip">⭐ 推荐<strong>乔咖啡</strong>，既能吃到上海老字号点心，又能坐江景露台，性价比高，氛围好。</div>
+
+            <h3>返程（19:30-20:44）：前往上海南站</h3>
+            <div class="location-block">
+                <div class="location-name">
+                    🚄 上海南站（返程）
+                    <a href="https://uri.amap.com/navigation?to=121.4315,31.1525,name=上海南站,mode=car" target="_blank" class="nav-btn">🧭 导航</a>
+                </div>
+            </div>
+            <div class="timeline">19:30  从徐汇滨江出发
+      └─ 方案A（地铁）：
+         11号线 → 徐家汇换1号线 → 上海南站（约30分钟）
+      └─ 方案B（打车）：
+         徐汇滨江 → 上海南站，约12公里，打车约35-45元，约25分钟
+      └─ 五一晚上建议预留充足时间，至少提前30分钟到站
+
+20:10  到达上海南站
+20:44  D81发车 🚂
+       └─ 经停：上海松江→嘉兴→杭州南→金华→株洲
+       └─ 次日06:52到达长沙站</div>
+
+            <h2>🗺️ 5月2日路线总结</h2>
+            <div class="route-summary">酒店(老西门) →(8号线)→ M50创意园
+  →(步行)→ 苏州河畔/乍浦路桥 → 圆明园路
+  →(地铁/打车)→ 愚园路
+  →(地铁/打车)→ 徐汇滨江(日落)
+  →(地铁/打车)→ 上海南站(D81 20:44)</div>
+
+            <h3>拍照风格一览</h3>
+            <table>
+                <tr>
+                    <th>时间段</th>
+                    <th>地点</th>
+                    <th>风格</th>
+                    <th>五一人流</th>
+                </tr>
+                <tr>
+                    <td>上午</td>
+                    <td>M50创意园</td>
+                    <td>工业涂鸦/文艺</td>
+                    <td>🟢 较少</td>
+                </tr>
+                <tr>
+                    <td>中午</td>
+                    <td>苏州河/乍浦路桥</td>
+                    <td>都市河景/天际线</td>
+                    <td>🟡 中等</td>
+                </tr>
+                <tr>
+                    <td>下午</td>
+                    <td>圆明园路</td>
+                    <td>民国/英伦/红砖</td>
+                    <td>🟢 较少</td>
+                </tr>
+                <tr>
+                    <td>下午</td>
+                    <td>愚园路</td>
+                    <td>法式复古/街拍</td>
+                    <td>🟢 较少</td>
+                </tr>
+                <tr>
+                    <td>傍晚</td>
+                    <td>徐汇滨江</td>
+                    <td>大气江景/日落</td>
+                    <td>🟡 中等</td>
+                </tr>
+            </table>
+
+            <h2>🔍 额外冷门景点推荐（如果时间充裕）</h2>
+            <p>以下景点来自马蜂窝/小红书深度攻略，都非热门旅游目的地：</p>
+            <table>
+                <tr>
+                    <th>景点</th>
+                    <th>地址</th>
+                    <th>特色</th>
+                    <th>拍照风格</th>
+                    <th>五一人流</th>
+                </tr>
+                <tr>
+                    <td><strong>民生码头八万吨筒仓</strong></td>
+                    <td>浦东民生路3号</td>
+                    <td>亚洲最大粮仓改造，30个大筒壮观</td>
+                    <td>工业风/复古/时尚大片</td>
+                    <td>🟢 极少</td>
+                </tr>
+                <tr>
+                    <td><strong>艺仓美术馆</strong></td>
+                    <td>浦东滨江大道4777号</td>
+                    <td>极简工业风混凝土建筑</td>
+                    <td>INS风/极简</td>
+                    <td>🟢 较少</td>
+                </tr>
+                <tr>
+                    <td><strong>米域有光</strong></td>
+                    <td>黄浦区制造局路833弄</td>
+                    <td>破旧铆钉厂改造，四层挑空中庭+天梯</td>
+                    <td>光影艺术/建筑几何</td>
+                    <td>🟢 极少</td>
+                </tr>
+                <tr>
+                    <td><strong>隆昌公寓</strong></td>
+                    <td>隆昌路362号</td>
+                    <td>像功夫里包租婆的地盘，古罗马斗兽场式</td>
+                    <td>市井烟火/电影感</td>
+                    <td>🟢 极少</td>
+                </tr>
+                <tr>
+                    <td><strong>歇浦路渡口</strong></td>
+                    <td>浦东歇浦路近滨江</td>
+                    <td>黄浦江+陆家嘴倒影，工业+都市融合</td>
+                    <td>黄昏江景</td>
+                    <td>🟢 极少</td>
+                </tr>
+                <tr>
+                    <td><strong>广富林文化遗址</strong></td>
+                    <td>松江区广富林路3260弄</td>
+                    <td>水下博物馆，古建筑倒映水中</td>
+                    <td>氛围感/古风</td>
+                    <td>🟡 中等</td>
+                </tr>
+            </table>
+            <div class="warning">米域有光是办公空间，保持安静不要打扰办公人员；隆昌公寓是真实居民区，切勿拍摄私人窗户内部。</div>
+
+            <h2>💰 预算估算（更新版）</h2>
+            <table>
+                <tr>
+                    <th>项目</th>
+                    <th>费用</th>
+                </tr>
+                <tr>
+                    <td>星铁LAND门票</td>
+                    <td>188元（已付）</td>
+                </tr>
+                <tr>
+                    <td>去程D79卧铺</td>
+                    <td>~300-400元</td>
+                </tr>
+                <tr>
+                    <td>回程D81硬卧</td>
+                    <td>637元</td>
+                </tr>
+                <tr>
+                    <td>住宿1晚</td>
+                    <td>酒店已订</td>
+                </tr>
+                <tr>
+                    <td>地铁公交（2天）</td>
+                    <td>~20-30元</td>
+                </tr>
+                <tr>
+                    <td>餐饮（1.1晚餐 + 2日三餐）</td>
+                    <td>~150-250元</td>
+                </tr>
+                <tr>
+                    <td>景点门票</td>
+                    <td>全部免费！</td>
+                </tr>
+                <tr>
+                    <td><strong>合计</strong></td>
+                    <td><strong>约1,300-1,500元</strong>（不含住宿）</td>
+                </tr>
+            </table>
+
+            <h2>✅ 待办清单</h2>
+            <p>👆 点击项目即可切换完成状态，数据自动保存到本地</p>
+            <ul class="todo-list" id="todoList">
+                <li class="todo-item" data-todo-id="0">
+                    <span class="todo-checkbox"></span>
+                    <span class="todo-text">抢到星铁LAND门票</span>
+                </li>
+                <li class="todo-item" data-todo-id="1">
+                    <span class="todo-checkbox"></span>
+                    <span class="todo-text">预订酒店（如家派柏·云酒店）</span>
+                </li>
+                <li class="todo-item" data-todo-id="2">
+                    <span class="todo-checkbox"></span>
+                    <span class="todo-text">购买D81回程车票（12306）</span>
+                </li>
+                <li class="todo-item" data-todo-id="3">
+                    <span class="todo-checkbox"></span>
+                    <span class="todo-text">提前规划展馆内想逛的区域/想买的周边</span>
+                </li>
+                <li class="todo-item" data-todo-id="4">
+                    <span class="todo-checkbox"></span>
+                    <span class="todo-text">下载Metro大都会APP（上海地铁扫码乘车）</span>
+                </li>
+                <li class="todo-item" data-todo-id="5">
+                    <span class="todo-checkbox"></span>
+                    <span class="todo-text">携带身份证（星铁LAND实名制 + 酒店入住 + 高铁）</span>
+                </li>
+                <li class="todo-item" data-todo-id="6">
+                    <span class="todo-checkbox"></span>
+                    <span class="todo-text">5.1早上到了上海先吃早餐再出发去展馆</span>
+                </li>
+                <li class="todo-item" data-todo-id="7">
+                    <span class="todo-checkbox"></span>
+                    <span class="todo-text">M50部分画廊禁止拍照，注意看标识</span>
+                </li>
+            </ul>
+            <div class="todo-stats" id="todoStats">已完成: 2/8</div>
+
+            <div class="todo-save-indicator" id="saveIndicator">✅ 已保存</div>
+        </div>
+
+        <div class="footer">
+            <p>攻略生成于 2026年4月 · 祝你玩得开心！🎮</p>
+        </div>
+    </div>
+
+    <script>
+        // 待办清单数据存储键名
+        const STORAGE_KEY = 'xingtieLand_todos';
+
+        // 从本地存储加载已保存的状态
+        function loadTodos() {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (saved) {
+                try {
+                    return JSON.parse(saved);
+                } catch (e) {
+                    console.error('加载待办失败:', e);
+                }
+            }
+            // 默认：前两项已完成
+            return [true, true, false, false, false, false, false, false];
+        }
+
+        // 保存待办状态到本地存储
+        function saveTodos(todos) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
+            showSaveIndicator();
+        }
+
+        // 显示保存成功提示
+        function showSaveIndicator() {
+            const indicator = document.getElementById('saveIndicator');
+            indicator.classList.add('show');
+            setTimeout(() => {
+                indicator.classList.remove('show');
+            }, 1500);
+        }
+
+        // 更新统计信息
+        function updateStats(todos) {
+            const completed = todos.filter(t => t).length;
+            document.getElementById('todoStats').textContent = `已完成: ${completed}/${todos.length}`;
+        }
+
+        // 初始化待办清单
+        function initTodos() {
+            const todos = loadTodos();
+            const todoItems = document.querySelectorAll('.todo-item');
+            
+            todoItems.forEach((item, index) => {
+                if (todos[index]) {
+                    item.classList.add('completed');
+                }
+                
+                // 点击切换状态
+                item.addEventListener('click', function() {
+                    const id = parseInt(this.dataset.todoId);
+                    todos[id] = !todos[id];
+                    
+                    if (todos[id]) {
+                        this.classList.add('completed');
+                    } else {
+                        this.classList.remove('completed');
+                    }
+                    
+                    updateStats(todos);
+                    saveTodos(todos);
+                });
+            });
+            
+            updateStats(todos);
+        }
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', initTodos);
+    </script>
+</body>
+</html>
