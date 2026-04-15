@@ -9,13 +9,17 @@
         function openAmap(name, lat, lng) {
             var hasReturned = false;
             
-            // 尝试打开高德APP (Android) - amapuri
-            window.location.href = 'amapuri://route/plan/?sid=&did=&dlat=' + lat + '&dlon=' + lng + '&dname=' + encodeURIComponent(name) + '&dev=0&t=0';
+            // 根据设备类型选择对应的URL scheme
+            var userAgent = navigator.userAgent || '';
+            var isIOS = /iPhone|iPad|iPod/i.test(userAgent);
             
-            // 尝试打开高德APP (iOS) - iosamap
-            setTimeout(function() {
+            if (isIOS) {
+                // iOS 使用 iosamap
                 window.location.href = 'iosamap://path?sourceApplication=web&dlat=' + lat + '&dlon=' + lng + '&dname=' + encodeURIComponent(name) + '&dev=0&t=0';
-            }, 100);
+            } else {
+                // Android 使用 amapuri
+                window.location.href = 'amapuri://route/plan/?sid=&did=&dlat=' + lat + '&dlon=' + lng + '&dname=' + encodeURIComponent(name) + '&dev=0&t=0';
+            }
             
             // 3秒后自动返回页面顶部（模拟返回攻略页面）
             setTimeout(function() {
