@@ -4,6 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2026「星铁LAND」上海出行攻略</title>
+    <script>
+        // 打开高德APP并自动返回
+        function openAmap(name, lat, lng) {
+            var hasReturned = false;
+            
+            // 尝试打开高德APP (Android) - amapuri
+            window.location.href = 'amapuri://route/plan/?sid=&did=&dlat=' + lat + '&dlon=' + lng + '&dname=' + encodeURIComponent(name) + '&dev=0&t=0';
+            
+            // 尝试打开高德APP (iOS) - iosamap
+            setTimeout(function() {
+                window.location.href = 'iosamap://path?sourceApplication=web&dlat=' + lat + '&dlon=' + lng + '&dname=' + encodeURIComponent(name) + '&dev=0&t=0';
+            }, 100);
+            
+            // 3秒后自动返回页面顶部（模拟返回攻略页面）
+            setTimeout(function() {
+                if (!hasReturned) {
+                    hasReturned = true;
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    showReturnToast();
+                }
+            }, 3000);
+            
+            // 监听页面可见性变化（用户从APP返回浏览器）
+            document.addEventListener('visibilitychange', function() {
+                if (document.visibilityState === 'visible' && !hasReturned) {
+                    hasReturned = true;
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            });
+        }
+        
+        // 显示返回提示
+        function showReturnToast() {
+            var toast = document.createElement('div');
+            toast.innerHTML = '✅ 已打开高德地图，3秒后自动返回攻略';
+            toast.style.cssText = 'position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#059669;color:#fff;padding:12px 20px;border-radius:8px;z-index:9999;font-size:14px;box-shadow:0 4px 12px rgba(0,0,0,0.15);';
+            document.body.appendChild(toast);
+            setTimeout(function() {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.5s';
+                setTimeout(function() { toast.remove(); }, 500);
+            }, 2000);
+        }
+    </script>
     <style>
         * {
             margin: 0;
@@ -166,24 +210,27 @@
         }
 
         /* 高德导航按钮样式 */
-        .nav-btn {
-            display: inline-block;
+        .map-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 10px;
+            padding: 7px 14px;
+            border-radius: 8px;
             background: linear-gradient(135deg, #12C2E9 0%, #C471ED 50%, #F64F59 100%);
-            color: white !important;
-            padding: 6px 14px;
-            border-radius: 20px;
-            text-decoration: none;
+            color: #fff;
             font-size: 0.85em;
+            text-decoration: none;
             font-weight: 500;
-            margin-left: 8px;
-            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
             box-shadow: 0 2px 8px rgba(196, 113, 237, 0.3);
+            transition: all 0.3s ease;
         }
 
-        .nav-btn:hover {
+        .map-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 15px rgba(196, 113, 237, 0.5);
-            color: white !important;
         }
 
         .location-block {
@@ -226,6 +273,7 @@
             font-size: 0.9em;
             border: 1px solid #e0e0e0;
             transition: all 0.2s;
+            cursor: pointer;
         }
 
         .section-nav .nav-item:hover {
@@ -346,9 +394,13 @@
             th, td {
                 padding: 8px 10px;
             }
-            .nav-btn {
+            .map-btn {
                 display: block;
-                margin: 8px 0 0 0;
+                margin: 10px 0 0 0;
+                text-align: center;
+            }
+            .section-nav .nav-item {
+                flex: 1 1 45%;
                 text-align: center;
             }
         }
@@ -396,19 +448,19 @@
 
             <h2>🗺️ 快速导航</h2>
             <div class="section-nav">
-                <a href="https://uri.amap.com/navigation?to=121.4315,31.1525,name=上海南站,mode=car" target="_blank" class="nav-item">🚄 上海南站</a>
-                <a href="https://uri.amap.com/navigation?to=121.4815,31.2165,name=如家派柏云酒店陆家浜路店,mode=car" target="_blank" class="nav-item">🏨 酒店</a>
-                <a href="https://uri.amap.com/navigation?to=121.5092,31.1865,name=世博展览馆,mode=car" target="_blank" class="nav-item">🎮 星铁LAND</a>
-                <a href="https://uri.amap.com/navigation?to=121.4552,31.2438,name=M50创意园,mode=car" target="_blank" class="nav-item">🎨 M50</a>
-                <a href="https://uri.amap.com/navigation?to=121.4730,31.1910,name=徐汇滨江,mode=car" target="_blank" class="nav-item">🌅 徐汇滨江</a>
-                <a href="https://uri.amap.com/navigation?to=121.4880,31.2375,name=圆明园路,mode=car" target="_blank" class="nav-item">📸 圆明园路</a>
+                <span class="nav-item" onclick="openAmap('上海南站', 31.1525, 121.4315)">🚄 上海南站</span>
+                <span class="nav-item" onclick="openAmap('如家派柏云酒店陆家浜路店', 31.2165, 121.4815)">🏨 酒店</span>
+                <span class="nav-item" onclick="openAmap('世博展览馆', 31.1865, 121.5092)">🎮 星铁LAND</span>
+                <span class="nav-item" onclick="openAmap('M50创意园', 31.2438, 121.4552)">🎨 M50</span>
+                <span class="nav-item" onclick="openAmap('徐汇滨江', 31.1910, 121.4730)">🌅 徐汇滨江</span>
+                <span class="nav-item" onclick="openAmap('圆明园路', 31.2375, 121.4880)">📸 圆明园路</span>
             </div>
 
             <h2>🏨 住宿信息</h2>
             <div class="location-block">
                 <div class="location-name">
                     如家派柏·云酒店（新天地陆家浜路地铁站店）
-                    <a href="https://uri.amap.com/navigation?to=121.4815,31.2165,name=如家派柏云酒店陆家浜路店,mode=car" target="_blank" class="nav-btn">🧭 导航</a>
+                    <a class="map-btn" href="javascript:void(0);" onclick="openAmap('如家派柏云酒店陆家浜路店', 31.2165, 121.4815)">📍 导航</a>
                 </div>
                 <div class="location-addr">📍 上海市黄浦区陆家浜路（近8号线/9号线陆家浜路站）</div>
                 <ul>
@@ -425,7 +477,7 @@
             <div class="location-block">
                 <div class="location-name">
                     🚄 上海南站
-                    <a href="https://uri.amap.com/navigation?to=121.4315,31.1525,name=上海南站,mode=car" target="_blank" class="nav-btn">🧭 导航</a>
+                    <a class="map-btn" href="javascript:void(0);" onclick="openAmap('上海南站', 31.1525, 121.4315)">📍 导航</a>
                 </div>
                 <div class="location-addr">📍 上海市徐汇区沪闵路9001号</div>
             </div>
@@ -450,7 +502,7 @@
             <div class="location-block">
                 <div class="location-name">
                     🎮 世博展览馆（星铁LAND）
-                    <a href="https://uri.amap.com/navigation?to=121.5092,31.1865,name=世博展览馆,mode=car" target="_blank" class="nav-btn">🧭 导航</a>
+                    <a class="map-btn" href="javascript:void(0);" onclick="openAmap('世博展览馆', 31.1865, 121.5092)">📍 导航</a>
                 </div>
                 <div class="location-addr">📍 上海市浦东新区国展路1099号</div>
             </div>
@@ -535,7 +587,7 @@
             <div class="location-block">
                 <div class="location-name">
                     🎨 M50创意园
-                    <a href="https://uri.amap.com/navigation?to=121.4552,31.2438,name=M50创意园,mode=car" target="_blank" class="nav-btn">🧭 导航</a>
+                    <a class="map-btn" href="javascript:void(0);" onclick="openAmap('M50创意园', 31.2438, 121.4552)">📍 导航</a>
                 </div>
                 <div class="location-addr">📍 上海市普陀区莫干山路50号</div>
             </div>
@@ -604,7 +656,7 @@
             <div class="location-block">
                 <div class="location-name">
                     📸 乍浦路桥（苏州河经典机位）
-                    <a href="https://uri.amap.com/navigation?to=121.4880,31.2375,name=乍浦路桥,mode=car" target="_blank" class="nav-btn">🧭 导航</a>
+                    <a class="map-btn" href="javascript:void(0);" onclick="openAmap('乍浦路桥', 31.2375, 121.4880)">📍 导航</a>
                 </div>
                 <div class="location-addr">📍 上海市虹口区/黄浦区交界（苏州河汇入黄浦江处）</div>
             </div>
@@ -623,7 +675,7 @@
             <div class="location-block">
                 <div class="location-name">
                     📸 圆明园路
-                    <a href="https://uri.amap.com/navigation?to=121.4880,31.2375,name=圆明园路,mode=car" target="_blank" class="nav-btn">🧭 导航</a>
+                    <a class="map-btn" href="javascript:void(0);" onclick="openAmap('圆明园路', 31.2375, 121.4880)">📍 导航</a>
                 </div>
                 <div class="location-addr">📍 上海市黄浦区（外滩源，东至圆明园路、西至中山东一路）</div>
             </div>
@@ -638,7 +690,7 @@
             <div class="location-block">
                 <div class="location-name">
                     📸 愚园路
-                    <a href="https://uri.amap.com/navigation?to=121.4270,31.2220,name=愚园路,mode=car" target="_blank" class="nav-btn">🧭 导航</a>
+                    <a class="map-btn" href="javascript:void(0);" onclick="openAmap('愚园路', 31.2220, 121.4270)">📍 导航</a>
                 </div>
                 <div class="location-addr">📍 上海市长宁区（江苏路至定西路，全长2.78km）</div>
             </div>
@@ -657,7 +709,7 @@
             <div class="location-block">
                 <div class="location-name">
                     🌅 徐汇滨江
-                    <a href="https://uri.amap.com/navigation?to=121.4730,31.1910,name=徐汇滨江,mode=car" target="_blank" class="nav-btn">🧭 导航</a>
+                    <a class="map-btn" href="javascript:void(0);" onclick="openAmap('徐汇滨江', 31.1910, 121.4730)">📍 导航</a>
                 </div>
                 <div class="location-addr">📍 上海市徐汇区龙腾大道（黄浦江西岸）</div>
             </div>
@@ -713,7 +765,7 @@
             <div class="location-block">
                 <div class="location-name">
                     🚄 上海南站（返程）
-                    <a href="https://uri.amap.com/navigation?to=121.4315,31.1525,name=上海南站,mode=car" target="_blank" class="nav-btn">🧭 导航</a>
+                    <a class="map-btn" href="javascript:void(0);" onclick="openAmap('上海南站', 31.1525, 121.4315)">📍 导航</a>
                 </div>
             </div>
             <div class="timeline">19:30  从徐汇滨江出发
