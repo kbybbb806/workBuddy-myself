@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🧳 潮汕五一休闲游攻略 · 魏先生专属</title>
+<style>
+  :root {
+    --primary: #D4380D;
+    --primary-light: #FF7A45;
+    --accent: #FA8C16;
+    --bg: #FFF9F5;
+    --card-bg: #FFFFFF;
+    --text: #2D2D2D;
+    --text-light: #666;
+    --border: #F0E0D6;
+    --success: #52C41A;
+    --info: #1890FF;
+    --shadow: 0 2px 12px rgba(212,56,13,0.08);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+  }
+  .container { max-width: 900px; margin: 0 auto; padding: 20px 16px; }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(135deg, #D4380D 0%, #FF7A45 50%, #FAAD14 100%);
+    border-radius: 20px;
+    padding: 40px 32px;
+    color: #fff;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -50%; right: -30%; width: 300px; height: 300px;
+    background: rgba(255,255,255,0.1); border-radius: 50%;
+  }
+  .hero h1 { font-size: 2em; margin-bottom: 8px; position: relative; text-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+  .hero .subtitle { font-size: 1.1em; opacity: 0.95; position: relative; }
+  .hero-tags {
+    display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;
+    margin-top: 20px; position: relative;
+  }
+  .hero-tag {
+    background: rgba(255,255,255,0.2); backdrop-filter: blur(4px);
+    padding: 6px 16px; border-radius: 20px; font-size: 0.9em;
+    border: 1px solid rgba(255,255,255,0.3);
+  }
+
+  /* Quick Info */
+  .quick-info {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px; margin-bottom: 24px;
+  }
+  .qi-card {
+    background: var(--card-bg); border-radius: 14px; padding: 16px;
+    box-shadow: var(--shadow); text-align: center; border: 1px solid var(--border);
+  }
+  .qi-card .icon { font-size: 1.8em; margin-bottom: 4px; }
+  .qi-card .label { font-size: 0.8em; color: var(--text-light); }
+  .qi-card .value { font-size: 1.05em; font-weight: 600; color: var(--primary); }
+
+  /* Section */
+  .section {
+    background: var(--card-bg); border-radius: 16px; padding: 24px;
+    box-shadow: var(--shadow); margin-bottom: 20px; border: 1px solid var(--border);
+  }
+  .section-title {
+    font-size: 1.35em; font-weight: 700; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 10px;
+    padding-bottom: 12px; border-bottom: 2px solid var(--border);
+  }
+  .section-title .emoji { font-size: 1.3em; }
+
+  /* Day Card */
+  .day-card {
+    background: linear-gradient(135deg, #FFF7F0 0%, #FFF 100%);
+    border-radius: 14px; padding: 20px; margin-bottom: 16px;
+    border-left: 4px solid var(--primary);
+    border: 1px solid var(--border); border-left: 4px solid var(--primary);
+  }
+  .day-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 14px; flex-wrap: wrap; gap: 8px;
+  }
+  .day-badge {
+    background: var(--primary); color: #fff; padding: 4px 14px;
+    border-radius: 20px; font-weight: 600; font-size: 0.95em;
+  }
+  .day-location { color: var(--text-light); font-size: 0.9em; }
+  .day-location .dot { color: var(--primary); }
+
+  /* Timeline */
+  .timeline { position: relative; padding-left: 24px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 8px; top: 0; bottom: 0;
+    width: 2px; background: linear-gradient(to bottom, var(--primary-light), var(--accent));
+  }
+  .tl-item { position: relative; margin-bottom: 18px; }
+  .tl-item:last-child { margin-bottom: 0; }
+  .tl-item::before {
+    content: ''; position: absolute; left: -20px; top: 6px;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--primary); border: 2px solid #fff;
+    box-shadow: 0 0 0 2px var(--primary-light);
+  }
+  .tl-time { font-size: 0.82em; color: var(--primary); font-weight: 600; }
+  .tl-title { font-weight: 600; font-size: 1.02em; margin: 2px 0; }
+  .tl-desc { font-size: 0.88em; color: var(--text-light); }
+  .tl-tag {
+    display: inline-block; font-size: 0.75em; padding: 2px 8px;
+    border-radius: 10px; margin-right: 4px; margin-top: 4px;
+  }
+  .tag-scenic { background: #E6F7FF; color: #096DD9; }
+  .tag-food { background: #FFF7E6; color: #D46B08; }
+  .tag-stay { background: #F6FFED; color: #389E0D; }
+  .tag-transport { background: #F9F0FF; color: #722ED1; }
+  .tag-free { background: #F0F5FF; color: #2F54EB; }
+  .tag-activity { background: #FFF1F0; color: #CF1322; }
+
+  /* Transport Card */
+  .transport-table { width: 100%; border-collapse: collapse; font-size: 0.9em; }
+  .transport-table th {
+    background: var(--primary); color: #fff; padding: 10px 12px;
+    text-align: left; font-weight: 600;
+  }
+  .transport-table th:first-child { border-radius: 8px 0 0 0; }
+  .transport-table th:last-child { border-radius: 0 8px 0 0; }
+  .transport-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); }
+  .transport-table tr:hover { background: #FFF7F0; }
+  .price-tag { color: var(--primary); font-weight: 600; }
+  .rec-badge { background: var(--success); color: #fff; padding: 1px 8px; border-radius: 8px; font-size: 0.8em; }
+
+  /* Hotel Card */
+  .hotel-grid { display: grid; gap: 14px; }
+  .hotel-card {
+    display: grid; grid-template-columns: 1fr auto; gap: 12px;
+    padding: 16px; border-radius: 12px; border: 1px solid var(--border);
+    background: #FEFEFE; transition: box-shadow 0.2s;
+  }
+  .hotel-card:hover { box-shadow: 0 4px 16px rgba(212,56,13,0.1); }
+  .hotel-name { font-weight: 600; font-size: 1.02em; }
+  .hotel-loc { font-size: 0.82em; color: var(--text-light); margin-top: 2px; }
+  .hotel-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
+  .hotel-htag {
+    font-size: 0.75em; padding: 2px 8px; border-radius: 8px;
+    background: #FFF1F0; color: var(--primary);
+  }
+  .hotel-price { text-align: center; }
+  .hotel-price .amt { font-size: 1.4em; font-weight: 700; color: var(--primary); }
+  .hotel-price .unit { font-size: 0.75em; color: var(--text-light); }
+  .hotel-score {
+    margin-top: 4px; font-size: 0.82em; color: var(--accent); font-weight: 600;
+  }
+
+  /* Food Section */
+  .food-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+  .food-card {
+    padding: 14px; border-radius: 12px; border: 1px solid var(--border);
+    background: #FEFEFE;
+  }
+  .food-card .food-name { font-weight: 600; margin-bottom: 4px; }
+  .food-card .food-desc { font-size: 0.85em; color: var(--text-light); }
+  .food-card .food-emoji { font-size: 1.5em; float: right; }
+
+  /* Budget */
+  .budget-bar {
+    height: 28px; background: #F0F0F0; border-radius: 14px;
+    overflow: hidden; margin: 8px 0; position: relative;
+  }
+  .budget-fill {
+    height: 100%; border-radius: 14px; display: flex; align-items: center;
+    justify-content: center; color: #fff; font-size: 0.82em; font-weight: 600;
+    transition: width 0.5s;
+  }
+  .budget-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 8px 0; border-bottom: 1px solid var(--border);
+  }
+  .budget-row:last-child { border-bottom: none; }
+  .budget-total {
+    font-size: 1.2em; font-weight: 700; text-align: right;
+    padding-top: 12px; margin-top: 8px; border-top: 2px solid var(--primary);
+  }
+
+  /* Weather */
+  .weather-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+  .weather-day {
+    text-align: center; padding: 12px 8px; border-radius: 12px;
+    background: linear-gradient(135deg, #E6F7FF, #F0F5FF); border: 1px solid #D6E4FF;
+  }
+  .weather-day .wd-date { font-weight: 600; font-size: 0.85em; }
+  .weather-day .wd-icon { font-size: 2em; margin: 6px 0; }
+  .weather-day .wd-temp { font-size: 0.9em; color: var(--primary); font-weight: 600; }
+  .weather-day .wd-desc { font-size: 0.72em; color: var(--text-light); margin-top: 4px; }
+
+  /* Tips */
+  .tip-item {
+    display: flex; gap: 10px; padding: 10px 0;
+    border-bottom: 1px dashed var(--border);
+  }
+  .tip-item:last-child { border-bottom: none; }
+  .tip-icon { font-size: 1.2em; flex-shrink: 0; }
+
+  /* Checklist */
+  .checklist { columns: 2; column-gap: 20px; }
+  .check-item {
+    display: flex; align-items: center; gap: 8px; padding: 4px 0;
+    break-inside: avoid; font-size: 0.92em;
+  }
+  .check-box {
+    width: 18px; height: 18px; border: 2px solid var(--primary);
+    border-radius: 4px; flex-shrink: 0;
+  }
+
+  /* Map placeholder */
+  .map-placeholder {
+    background: linear-gradient(135deg, #E6F7FF 0%, #F0F5FF 100%);
+    border-radius: 14px; padding: 24px; text-align: center;
+    border: 2px dashed #91D5FF; color: #096DD9;
+  }
+  .map-placeholder .map-text { font-size: 1.1em; font-weight: 600; }
+  .map-placeholder .map-sub { font-size: 0.85em; margin-top: 6px; opacity: 0.8; }
+
+  /* Footer */
+  .footer {
+    text-align: center; padding: 24px; color: var(--text-light);
+    font-size: 0.82em; border-top: 1px solid var(--border); margin-top: 16px;
+  }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .hero h1 { font-size: 1.5em; }
+    .hero { padding: 28px 20px; }
+    .weather-grid { grid-template-columns: repeat(3, 1fr); }
+    .checklist { columns: 1; }
+    .section { padding: 16px; }
+    .day-card { padding: 16px; }
+    .transport-table { font-size: 0.8em; }
+    .transport-table th, .transport-table td { padding: 6px 8px; }
+    .food-grid { grid-template-columns: 1fr; }
+  }
+
+  /* Print */
+  @media print {
+    body { background: #fff; }
+    .section { box-shadow: none; break-inside: avoid; }
+    .hero { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- ==================== HERO ==================== -->
+<div class="hero">
+  <h1>🧳 潮汕五一休闲游攻略</h1>
+  <p class="subtitle">魏先生 · 一人独行 · 品味潮汕山海与烟火</p>
+  <div class="hero-tags">
+    <span class="hero-tag">📅 4.30 – 5.5（6天5晚）</span>
+    <span class="hero-tag">🚄 杭州出发 · 高铁直达</span>
+    <span class="hero-tag">🍜 潮汕美食巡礼</span>
+    <span class="hero-tag">🏔️ 潮州古城 + 汕头 + 南澳岛</span>
+    <span class="hero-tag">💰 预算 ≤¥3,300（五一实价·约¥3,247）</span>
+  </div>
+</div>
+
+<!-- ==================== 快速概览 ==================== -->
+<div class="quick-info">
+  <div class="qi-card">
+    <div class="icon">📅</div>
+    <div class="label">出行日期</div>
+    <div class="value">4.30 – 5.5</div>
+  </div>
+  <div class="qi-card">
+    <div class="icon">🌃</div>
+    <div class="label">行程天数</div>
+    <div class="value">6天5晚</div>
+  </div>
+  <div class="qi-card">
+    <div class="icon">💰</div>
+    <div class="label">总预算</div>
+    <div class="value">≤¥3,300</div>
+  </div>
+  <div class="qi-card">
+    <div class="icon">🌡️</div>
+    <div class="label">气温参考</div>
+    <div class="value">22~28°C</div>
+  </div>
+  <div class="qi-card">
+    <div class="icon">🌦️</div>
+    <div class="label">天气概况</div>
+    <div class="value">多云转雨</div>
+  </div>
+</div>
+
+<!-- ==================== 天气预报 ==================== -->
+<div class="section">
+  <div class="section-title"><span class="emoji">🌤️</span>天气预报（历史参考）</div>
+  <p style="font-size:0.88em;color:var(--text-light);margin-bottom:14px;">
+    以下为汕头5月初历史天气数据，仅供参考。建议出发前1-3天查看实时天气预报。
+  </p>
+  <div class="weather-grid">
+    <div class="weather-day">
+      <div class="wd-date">4/30 周四</div>
+      <div class="wd-icon">⛅</div>
+      <div class="wd-temp">23~28°C</div>
+      <div class="wd-desc">多云</div>
+    </div>
+    <div class="weather-day">
+      <div class="wd-date">5/1 周五</div>
+      <div class="wd-icon">🌤️</div>
+      <div class="wd-temp">23~29°C</div>
+      <div class="wd-desc">晴间多云</div>
+    </div>
+    <div class="weather-day">
+      <div class="wd-date">5/2 周六</div>
+      <div class="wd-icon">⛅</div>
+      <div class="wd-temp">22~28°C</div>
+      <div class="wd-desc">多云</div>
+    </div>
+    <div class="weather-day">
+      <div class="wd-date">5/3 周日</div>
+      <div class="wd-icon">🌦️</div>
+      <div class="wd-temp">22~27°C</div>
+      <div class="wd-desc">阵雨</div>
+    </div>
+    <div class="weather-day">
+      <div class="wd-date">5/4 周一</div>
+      <div class="wd-icon">⛅</div>
+      <div class="wd-temp">22~28°C</div>
+      <div class="wd-desc">多云</div>
+    </div>
+  </div>
+  <p style="font-size:0.85em;color:var(--text-light);margin-top:12px;">
+    👕 <b>穿搭建议：</b>短袖/薄长袖+薄外套，带一把折叠伞（防晒防雨两用）。
+    穿舒适步行鞋，古城和南澳需要走不少路。
+  </p>
+</div>
+
+<!-- ==================== 出行交通 ==================== -->
+<div class="section">
+  <div class="section-title"><span class="emoji">🚄</span>往返高铁班次推荐</div>
+  <p style="font-size:0.88em;color:var(--text-light);margin-bottom:14px;">
+    杭州东站 → 潮汕站，推荐班次如下（均为参考，请以12306实际查询为准）：
+  </p>
+
+  <h3 style="font-size:1em;color:var(--primary);margin-bottom:8px;">🔹 去程 · 4月30日（周三）</h3>
+  <table class="transport-table">
+    <tr>
+      <th>车次</th><th>出发→到达</th><th>历时</th><th>参考价</th><th>备注</th>
+    </tr>
+    <tr>
+      <td><b>D2287</b></td><td>杭州东 06:45 → 潮汕 12:33</td><td>5h48m</td>
+      <td class="price-tag">¥541</td><td><span class="rec-badge">推荐</span> 午前到达</td>
+    </tr>
+    <tr>
+      <td><b>D3111</b></td><td>杭州东 07:35 → 潮汕 13:28</td><td>5h53m</td>
+      <td class="price-tag">¥541</td><td>备选，时间接近</td>
+    </tr>
+    <tr>
+      <td><b>D3307</b></td><td>杭州东 08:28 → 潮汕 14:13</td><td>5h45m</td>
+      <td class="price-tag">¥541</td><td>略晚出发</td>
+    </tr>
+  </table>
+  <p style="font-size:0.82em;color:var(--text-light);margin-top:8px;">
+    ⚠️ 五一前一日热门线路，建议 <b>4月20日</b> 左右（提前10天）在12306上抢票。
+  </p>
+
+  <h3 style="font-size:1em;color:var(--primary);margin:16px 0 8px;">🔹 返程 · 5月5日（周一）</h3>
+  <table class="transport-table">
+    <tr>
+      <th>车次</th><th>出发→到达</th><th>历时</th><th>参考价</th><th>备注</th>
+    </tr>
+    <tr>
+      <td><b>D3126</b></td><td>潮汕 13:24 → 杭州东 19:40</td><td>6h16m</td>
+      <td class="price-tag">¥541</td><td><span class="rec-badge">推荐</span> 上午悠闲出发</td>
+    </tr>
+    <tr>
+      <td><b>D2288</b></td><td>潮汕 10:42 → 杭州东 16:48</td><td>6h06m</td>
+      <td class="price-tag">¥541</td><td>较早出发</td>
+    </tr>
+    <tr>
+      <td><b>D3142</b></td><td>潮汕 14:26 → 杭州东 20:58</td><td>6h32m</td>
+      <td class="price-tag">¥541</td><td>备选</td>
+    </tr>
+  </table>
+  <p style="font-size:0.85em;color:var(--text-light);margin-top:10px;">
+    💡 <b>提示：</b>高铁往返票价合计约 <b>¥1,082</b>（二等座）。如遇抢不到票，可先买到厦门北/深圳北再转短途。
+  </p>
+</div>
+
+<!-- ==================== 行程总览地图 ==================== -->
+<div class="section">
+  <div class="section-title"><span class="emoji">🗺️</span>行程路线总览</div>
+  <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center;font-size:0.95em;">
+    <div style="background:#D4380D;color:#fff;padding:6px 16px;border-radius:20px;font-weight:600;">杭州</div>
+    <div style="color:var(--primary);font-weight:700;">—🚄5.5h→</div>
+    <div style="background:#FAAD14;color:#fff;padding:6px 16px;border-radius:20px;font-weight:600;">Day1-6 汕头大本营🚌往返潮州/南澳</div>
+    <div style="color:var(--primary);font-weight:700;">—🚄6h→</div>
+    <div style="background:#D4380D;color:#fff;padding:6px 16px;border-radius:20px;font-weight:600;">Day6 潮汕站→杭州</div>
+  </div>
+  <p style="font-size:0.85em;color:var(--text-light);text-align:center;margin-top:12px;">
+    潮州古城（Day1-2当天往返）→ 汕头市区（Day3-4）→ 南澳岛（Day5当天往返）→ 返程
+    <br>💡 <b>省钱策略：</b>全程以汕头为大本营住5晚不换酒店，每天坐公交/大巴去潮州/南澳当天往返，省住宿费且无需搬行李。
+  </p>
+</div>
+
+<!-- ==================== DAY 1 ==================== -->
+<div class="section">
+  <div class="section-title"><span class="emoji">📘</span>每日行程</div>
+
+  <div class="day-card">
+    <div class="day-header">
+      <span class="day-badge">Day 1 · 4月30日（周三）</span>
+      <span class="day-location"><span class="dot">📍</span>杭州 → 汕头入住 → 潮州古城（当天往返）</span>
+    </div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-time">06:45 - 12:33</div>
+        <div class="tl-title">🚄 杭州东 → 潮汕站（D2287）</div>
+        <div class="tl-desc">二等座 ¥541，记得提前抢票。车上准备充电宝、耳机、零食。</div>
+        <span class="tl-tag tag-transport">交通</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">12:33 - 13:30</div>
+        <div class="tl-title">🚌 潮汕站 → 汕头市区</div>
+        <div class="tl-desc">出站后乘高铁快线K1路前往汕头市区（约40-60分钟，¥15-20），或打车约¥60-80。</div>
+        <span class="tl-tag tag-transport">交通</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">13:30 - 14:00</div>
+        <div class="tl-title">🏨 入住酒店 · 放行李（大本营）</div>
+        <div class="tl-desc">入住<b>维也纳酒店(汕头贵屿店)</b>，放下行李、稍作休息。途牛五一实价 ¥245/晚，5晚连住不换房！高档型、随时取消。</div>
+        <span class="tl-tag tag-stay">住宿</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">14:00 - 14:30</div>
+        <div class="tl-title">🍜 午餐 · 潮州牛肉粿条</div>
+        <div class="tl-desc">在酒店附近找一家牛肉粿条店，一碗约¥15-20。或者等到了潮州古城再吃。</div>
+        <span class="tl-tag tag-food">美食</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">14:30 - 15:30</div>
+        <div class="tl-title">🚌 汕头 → 潮州古城</div>
+        <div class="tl-desc">
+          在汕头客运中心乘坐大巴前往潮州（约1小时，¥15-25）。
+          <br>五一期间班次较密，约20-30分钟一班。
+        </div>
+        <span class="tl-tag tag-transport">交通</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">15:30 - 18:00</div>
+        <div class="tl-title">🏛️ 潮州古城漫步</div>
+        <div class="tl-desc">
+          <b>牌坊街</b>（22座明清石牌坊，全街2公里，免费）→ <b>开元寺</b>（千年古刹，免费）→ <b>己略黄公祠</b>（木雕艺术，门票¥10）。
+          慢慢逛，拍照打卡，感受古城气息。
+        </div>
+        <span class="tl-tag tag-scenic">景点</span>
+        <span class="tl-tag tag-free">免费</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">18:00 - 19:00</div>
+        <div class="tl-title">🌉 广济桥（湘子桥）灯光秀</div>
+        <div class="tl-desc">
+          中国四大古桥之一，世界最早的启闭式桥梁。傍晚到达可看灯光秀（通常19:00和20:00各一场）。
+          <br><b>门票：</b>¥50（含灯光秀时段），白天参观¥20。
+        </div>
+        <span class="tl-tag tag-scenic">景点</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">19:00 - 20:30</div>
+        <div class="tl-title">🥘 晚餐 · 潮州地道晚餐</div>
+        <div class="tl-desc">
+          推荐：
+          <br>① <b>阿明老鹅</b>（牌坊街附近）—— 卤鹅鹅肉饭，招牌卤鹅 ¥40-60
+          <br>② <b>镇记老尾牛杂</b>（西马路）—— 牛杂粿条 ¥18-25
+        </div>
+        <span class="tl-tag tag-food">美食</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">20:30 - 21:30</div>
+        <div class="tl-title">🌙 夜游牌坊街 → 🚌 返回汕头</div>
+        <div class="tl-desc">
+          华灯初上的牌坊街别有韵味，尝尝 <b>潮州腐乳饼、咸水粿、糖葱薄饼</b> 等小吃。
+          <br>之后乘末班大巴返回汕头（约21:30前有车），约1小时到酒店。
+        </div>
+        <span class="tl-tag tag-activity">体验</span>
+        <span class="tl-tag tag-food">美食</span>
+        <span class="tl-tag tag-transport">交通</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== DAY 2 ==================== -->
+  <div class="day-card">
+    <div class="day-header">
+      <span class="day-badge">Day 2 · 5月1日（周四）</span>
+      <span class="day-location"><span class="dot">📍</span>汕头 → 潮州古城深度游 → 返回汕头</span>
+    </div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-time">07:30 - 08:30</div>
+        <div class="tl-title">🥟 早餐 · 肠粉/粿汁</div>
+        <div class="tl-desc">酒店附近找早餐店。推荐 <b>肥弟肠粉</b> 或 <b>龙阁肠粉</b>—— 潮式肠粉皮薄馅鲜，加卤汤灵魂，人均¥12-15。</div>
+        <span class="tl-tag tag-food">美食</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">08:30 - 09:30</div>
+        <div class="tl-title">🚌 汕头 → 潮州古城</div>
+        <div class="tl-desc">大巴约1小时，¥15-25。五一建议早点出发避开高峰。</div>
+        <span class="tl-tag tag-transport">交通</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">09:30 - 11:30</div>
+        <div class="tl-title">🏔️ 西湖公园 + 葫芦山摩崖石刻</div>
+        <div class="tl-desc">
+          潮州西湖是潮州八景之一，湖光山色，幽静宜人。湖边有 <b>摩崖石刻</b>、<b>涵碧楼</b>（革命史迹）。
+          <br><b>门票：</b>免费 | <b>用时：</b>约2小时，适合悠闲散步
+        </div>
+        <span class="tl-tag tag-scenic">景点</span>
+        <span class="tl-tag tag-free">免费</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">11:30 - 13:00</div>
+        <div class="tl-title">🍜 午餐 · 牛肉火锅</div>
+        <div class="tl-desc">
+          到了潮汕，<b>牛肉火锅</b> 是必吃的！推荐：
+          <br>① <b>海记牛肉火锅</b>（牌坊街）—— 潮州本地老牌
+          <br>② <b>上品牛肉</b> —— 新鲜现切，肉质鲜嫩
+          <br>一人食约 ¥60-80，建议点吊龙、嫩肉、匙柄、牛肉丸。
+        </div>
+        <span class="tl-tag tag-food">美食</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">13:00 - 14:30</div>
+        <div class="tl-title"> afternoonTea ☕ 工夫茶 + 午休</div>
+        <div class="tl-desc">找茶馆坐下来喝一杯凤凰单丛，回甘清心。休闲游的关键——不赶路，该歇就歇。</div>
+        <span class="tl-tag tag-activity">休闲</span>
+        <span class="tl-tag tag-food">美食</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">14:30 - 16:30</div>
+        <div class="tl-title">🏯 许驸马府 / 韩文公祠</div>
+        <div class="tl-desc">
+          二选一或都去：
+          <br>① <b>许驸马府</b>（门票¥20）—— 北宋建筑瑰宝，潮州保存最好的古民居
+          <br>② <b>韩文公祠</b>（门票¥20）—— 纪念韩愈，环境清幽，可俯瞰韩江
+        </div>
+        <span class="tl-tag tag-scenic">景点</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">16:30 - 18:00</div>
+        <div class="tl-title">☕ 闲逛甲第巷 / 义安路</div>
+        <div class="tl-desc">
+          甲第巷是潮州古民居聚集区，明清风格建筑，比牌坊街更原生态、更安静。
+          沿途品尝 <b>甘草水果</b>（青芒果/番石榴蘸甘草粉，¥8-12）。
+        </div>
+        <span class="tl-tag tag-activity">体验</span>
+        <span class="tl-tag tag-food">美食</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">18:00 - 19:30</div>
+        <div class="tl-title">🍲 晚餐 · 潮州风味小炒</div>
+        <div class="tl-desc">
+          推荐 <b>阿彬牛肉火锅</b> 或去附近小炒店试试：
+          <br>· <b>蚝烙</b>（蚵仔煎的潮汕版）¥15-20
+          <br>· <b>炒粿条</b>（猪油+芥蓝+牛肉）¥12-15
+          <br>· <b>沙茶粿</b>（沙茶酱拌粿条）¥12-15
+        </div>
+        <span class="tl-tag tag-food">美食</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">19:30 - 20:30</div>
+        <div class="tl-title">🌙 古城夜景 → 🚌 返回汕头</div>
+        <div class="tl-desc">沿城墙走一圈，韩江边吹吹风。之后乘大巴返回汕头（约1小时），回酒店休息。</div>
+        <span class="tl-tag tag-activity">休闲</span>
+        <span class="tl-tag tag-transport">交通</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== DAY 3 ==================== -->
+  <div class="day-card">
+    <div class="day-header">
+      <span class="day-badge">Day 3 · 5月2日（周五）</span>
+      <span class="day-location"><span class="dot">📍</span>汕头小公园开埠区 · 母亲节前夜</span>
+    </div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-time">08:30 - 09:30</div>
+        <div class="tl-title">🥟 早餐 · 汕头特色</div>
+        <div class="tl-desc">
+          推荐 <b>广场豆花甜汤</b>（潮式甜豆花，¥8-12）或 <b>龙阁肠粉</b>（潮式肠粉，¥12-15）。
+          搭配一杯 <b>油柑汁</b>（回甘消腻）。
+        </div>
+        <span class="tl-tag tag-food">美食</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">09:30 - 13:00</div>
+        <div class="tl-title">🏛️ 汕头小公园开埠区</div>
+        <div class="tl-desc">
+          全国面积最大的骑楼建筑群，南洋风格街区。
+          <br>· <b>中山纪念亭</b>（小公园地标，免费）
+          <br>· <b>汕头开埠文化陈列馆</b>（免费，了解汕头开埠历史）
+          <br>· <b>老妈宫（天后宫）</b>（免费，香火鼎盛）
+          <br>· 骑楼街巷漫步，拍照超出片
+        </div>
+        <span class="tl-tag tag-scenic">景点</span>
+        <span class="tl-tag tag-free">免费</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">13:00 - 14:00</div>
+        <div class="tl-title">🍜 午餐 · 汕头老妈宫粽球 + 汕头小吃</div>
+        <div class="tl-desc">
+          <b>老妈宫粽球</b>（甜咸双拼，¥8-12）—— 汕头非遗小吃
+          <br>搭配 <b>飘香小吃店</b> 的 <b>粿汁、韭菜粿、猪肠装糯米</b>
+        </div>
+        <span class="tl-tag tag-food">美食</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">14:00 - 15:30</div>
+        <div class="tl-title">😴 回酒店午休</div>
+        <div class="tl-desc">回酒店休息，不需要搬行李、不用换酒店，大本营的优势！</div>
+        <span class="tl-tag tag-stay">休息</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">15:30 - 18:00</div>
+        <div class="tl-title">🌊 礐石风景区 / 汕头轮渡</div>
+        <div class="tl-desc">
+          方式①：<b>坐轮渡</b>过汕头内海湾（¥1，20分钟，日落绝美！）
+          <br>方式②：<b>礐石风景区</b>（门票¥30，山景+海景，缆车¥30单程）
+          <br>推荐先坐轮渡，到对岸礐石山脚下散步拍照，再坐轮渡回来。
+        </div>
+        <span class="tl-tag tag-scenic">景点</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">18:00 - 19:30</div>
+        <div class="tl-title">🥘 晚餐 · 汕头牛肉火锅</div>
+        <div class="tl-desc">
+          汕头的牛肉火锅是天花板级别！推荐：
+          <br>① <b>八合里海记牛肉店</b>（市区有多家分店）—— 人均¥70-90
+          <br>② <b>杏花吴记牛肉火锅</b> —— 当地网红，新鲜手打牛肉丸
+        </div>
+        <span class="tl-tag tag-food">美食</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">19:30 - 21:00</div>
+        <div class="tl-title">🌆 汕头内海湾夜游</div>
+        <div class="tl-desc">沿着海滨长廊散步，看内海湾夜景。远处的礐石大桥灯光璀璨。</div>
+        <span class="tl-tag tag-activity">休闲</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== DAY 4 ==================== -->
+  <div class="day-card">
+    <div class="day-header">
+      <span class="day-badge">Day 4 · 5月3日（周六）</span>
+      <span class="day-location"><span class="dot">📍</span>汕头 · 市区文化 + 美食</span>
+    </div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-time">08:00 - 09:00</div>
+        <div class="tl-title">🥐 早餐 · 汕头特色早餐</div>
+        <div class="tl-desc">
+          推荐 <b>广场豆花甜汤</b> —— 潮式甜豆花（加芋圆、花生、红豆）¥8-12
+          <br>或 <b>老妈宫粽球</b> 当早餐也行
+          <br>搭配一杯 <b>油柑汁</b>（回甘消腻，潮汕特色饮品）
+        </div>
+        <span class="tl-tag tag-food">美食</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">09:00 - 11:00</div>
+        <div class="tl-title">🏛️ 汕头市博物馆 / 汕头科技馆</div>
+        <div class="tl-desc">
+          ① <b>汕头市博物馆</b>（免费，需预约）—— 了解潮汕文化、侨乡历史
+          <br>② <b>石炮台公园</b>（免费）—— 清代海防炮台遗迹，圆形古堡很有特色
+        </div>
+        <span class="tl-tag tag-scenic">景点</span>
+        <span class="tl-tag tag-free">免费</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">11:00 - 12:30</div>
+        <div class="tl-title">🏪 逛逛万达广场 / 苏宁广场</div>
+        <div class="tl-desc">休整一下，可以买些潮汕手信：单丛茶、牛肉丸（真空包装）、花生糖等。</div>
+        <span class="tl-tag tag-activity">购物</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">12:30 - 13:30</div>
+        <div class="tl-title">🍜 午餐 · 汕头卤味 + 粿条</div>
+        <div class="tl-desc">
+          <b>长平老姿娘夜粥</b>（如果开门的话）—— 潮汕夜粥/打冷，各种卤味、小菜自选
+          <br>或 <b>老徐大排档</b> —— 卤鹅拼盘 + 炒薄壳（五六月是薄壳肥美季！）
+        </div>
+        <span class="tl-tag tag-food">美食</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">13:30 - 15:00</div>
+        <div class="tl-title">😴 酒店休息</div>
+        <div class="tl-desc">为明天南澳岛之行蓄力。</div>
+        <span class="tl-tag tag-stay">休息</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">15:00 - 17:30</div>
+        <div class="tl-title">🏛️ 汕头大学 / 达濠古城（二选一）</div>
+        <div class="tl-desc">
+          ① <b>汕头大学</b>（免费，开放校园）—— 图书馆由何镜堂院士设计，建筑之美值得一看
+          <br>② <b>达濠古城</b>（免费）—— 濠江区的小古城，清康熙年间建，安静古朴
+          <br>如果不想跑太远，就在小公园区域悠闲地逛逛老巷子也挺好。
+        </div>
+        <span class="tl-tag tag-scenic">景点</span>
+        <span class="tl-tag tag-free">免费</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">17:30 - 19:00</div>
+        <div class="tl-title">🌅 海滨路日落</div>
+        <div class="tl-desc">汕头海滨路看日落，天气好的话夕阳落入内海湾，景色很美。沿途有 <b>人民广场</b> 可以散步。</div>
+        <span class="tl-tag tag-activity">休闲</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">19:00 - 20:30</div>
+        <div class="tl-title">🍲 晚餐 · 潮汕砂锅粥</div>
+        <div class="tl-desc">
+          推荐 <b>福合埕牛肉丸</b> 附近找一家砂锅粥店：
+          <br>· <b>膏蟹砂锅粥</b>（膏蟹+虾+干贝，鲜到眉毛掉）¥80-120
+          <br>· 一人食可以点 <b>虾蟹粥小锅</b> 约¥50-60
+        </div>
+        <span class="tl-tag tag-food">美食</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">20:30 - 21:30</div>
+        <div class="tl-title">🌙 小公园夜景 + 收拾行李</div>
+        <div class="tl-desc">明天去南澳岛，提前收拾好行李。退房时可以寄存在前台。</div>
+        <span class="tl-tag tag-activity">准备</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== DAY 5 ==================== -->
+  <div class="day-card">
+    <div class="day-header">
+      <span class="day-badge">Day 5 · 5月4日（周日）</span>
+      <span class="day-location"><span class="dot">📍</span>汕头 → 南澳岛（当天往返）</span>
+    </div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-time">07:00 - 07:30</div>
+        <div class="tl-title">🥐 早餐 · 简单早餐</div>
+        <div class="tl-desc">酒店附近买份粿条或肠粉，简单快速。今天要赶早出发去南澳！</div>
+        <span class="tl-tag tag-food">美食</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">07:30 - 09:00</div>
+        <div class="tl-title">🚌 汕头 → 南澳岛</div>
+        <div class="tl-desc">
+          <b>161路/105路公交车</b> 汕头市区→南澳后宅，约1.5小时，¥15。
+          <br>⚠️ 五一期间南澳大桥大概率堵车，<b>务必7:30前出发</b>错峰！
+        </div>
+        <span class="tl-tag tag-transport">交通</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">09:00 - 10:30</div>
+        <div class="tl-title">🌉 南澳大桥 + 风力发电场</div>
+        <div class="tl-desc">
+          过南澳大桥（全长11km，中国最长跨海大桥之一）后，
+          <b>风电场观景台</b> 拍照，巨大的白色风车+蓝天大海，很出片。
+        </div>
+        <span class="tl-tag tag-scenic">景点</span>
+        <span class="tl-tag tag-free">免费</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">10:30 - 12:00</div>
+        <div class="tl-title">🏖️ 青澳湾 · 北回归线标志塔</div>
+        <div class="tl-desc">
+          <b>青澳湾</b> —— 广东最美海湾之一，沙滩细腻，水清沙白（免费）
+          <br><b>自然之门</b>（北回归线标志塔，门票¥20）—— "太阳转身的地方"
+        </div>
+        <span class="tl-tag tag-scenic">景点</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">12:00 - 13:00</div>
+        <div class="tl-title">🦀 午餐 · 南澳海鲜</div>
+        <div class="tl-desc">
+          后宅镇/青澳湾附近海鲜大排档：
+          <br>· <b>清蒸石斑鱼</b> ¥40-60 · <b>白灼大虾</b> ¥35-50
+          <br>· <b>紫菜炒饭</b>（南澳特产！）¥15-20 · <b>薄壳炒韭菜</b> ¥20-30
+          <br>人均 ¥80-100
+        </div>
+        <span class="tl-tag tag-food">美食</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">13:00 - 15:00</div>
+        <div class="tl-title">🏰 总兵府 + 宋井</div>
+        <div class="tl-desc">
+          <b>总兵府</b>（门票¥20）—— 明清两代南澳总兵官署遗址
+          <br><b>宋井</b>（门票¥20）—— 南宋末帝逃亡时留下的海边古井，井水甘甜
+        </div>
+        <span class="tl-tag tag-scenic">景点</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">15:00 - 16:30</div>
+        <div class="tl-title">🌅 海滩发呆 → 返回汕头</div>
+        <div class="tl-desc">
+          在青澳湾沙滩上散步、拍照。然后乘161路公交返回汕头市区。
+          <br>⚠️ 从南澳返回汕头约1-1.5小时，建议16:00前出发避开堵车。
+          <br>回到酒店休息，晚餐可在酒店附近万象城商圈解决。
+        </div>
+        <span class="tl-tag tag-transport">交通</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">18:00 - 19:30</div>
+        <div class="tl-title">🍲 晚餐 · 潮汕砂锅粥</div>
+        <div class="tl-desc">
+          推荐 <b>福合埕牛肉丸</b> 附近找一家砂锅粥店：
+          <br>· <b>膏蟹砂锅粥</b>（膏蟹+虾+干贝）¥80-120
+          <br>· 一人食可以点 <b>虾蟹粥小锅</b> 约¥50-60
+        </div>
+        <span class="tl-tag tag-food">美食</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">19:30 - 20:30</div>
+        <div class="tl-title">🌙 收拾行李 · 准备明日返程</div>
+        <div class="tl-desc">明天一早退房去高铁站，今晚提前收拾好行李。</div>
+        <span class="tl-tag tag-activity">准备</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== DAY 6 ==================== -->
+  <div class="day-card">
+    <div class="day-header">
+      <span class="day-badge">Day 6 · 5月5日（周一）</span>
+      <span class="day-location"><span class="dot">📍</span>汕头 → 潮汕站 → 杭州</span>
+    </div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-time">07:30 - 08:30</div>
+        <div class="tl-title">🥐 早餐</div>
+        <div class="tl-desc">酒店附近找一碗肠粉/粿条，或便利店买个面包对付一下。</div>
+        <span class="tl-tag tag-food">美食</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">08:30 - 09:00</div>
+        <div class="tl-title">🧳 退房</div>
+        <div class="tl-desc">收拾行李，退房。5晚连住结束，无需来回搬行李，轻松！</div>
+        <span class="tl-tag tag-stay">住宿</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">09:00 - 10:30</div>
+        <div class="tl-title">🚌 汕头市区 → 潮汕站</div>
+        <div class="tl-desc">
+          维也纳酒店(汕头贵屿店) → 潮汕站，打车约40-60分钟，¥60-80。
+          <br>或乘高铁快线K1路。
+          <br>⚠️ 留足时间，五一返程潮汕站会较拥堵。
+        </div>
+        <span class="tl-tag tag-transport">交通</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">10:30 - 11:30</div>
+        <div class="tl-title">🍱 潮汕站午餐</div>
+        <div class="tl-desc">高铁站内简单解决，推荐买几个 <b>潮汕肉丸</b> 或 <b>春饼</b> 带上车吃。</div>
+        <span class="tl-tag tag-food">美食</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">13:24 - 19:40</div>
+        <div class="tl-title">🚄 潮汕站 → 杭州东（D3126）</div>
+        <div class="tl-desc">二等座 ¥541，到家约晚上8点。旅途结束，满载美好回忆！</div>
+        <span class="tl-tag tag-transport">交通</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== 住宿推荐 ==================== -->
+<div class="section">
+  <div class="section-title"><span class="emoji">🏨</span>住宿推荐</div>
+  <div style="background:#F6FFED;border-radius:10px;padding:14px;margin-bottom:16px;font-size:0.88em;border:1px solid #B7EB8F;">
+    ✅ <b>以下价格来源于途牛实时查询（2026.4.16），为五一期间实际可订价格。</b><br>
+    💡 <b>省钱策略：</b>全程以汕头为大本营住<b>5晚不换酒店</b>，每天坐公交/大巴去潮州、南澳当天往返。省住宿费且无需搬行李，总预算控制在 ≤¥3,300 以内。
+  </div>
+
+  <h3 style="font-size:1em;color:var(--primary);margin-bottom:10px;">🏠 大本营 · 全程5晚连住（途牛五一实价）</h3>
+  <div class="hotel-grid">
+    <div class="hotel-card">
+      <div>
+        <div class="hotel-name">⭐ 维也纳酒店(汕头贵屿店)</div>
+        <div class="hotel-loc">📍 谷贵路贵屿电子商务市场（汕头市潮阳区）</div>
+        <div class="hotel-tags">
+          <span class="hotel-htag">高档型</span>
+          <span class="hotel-htag">随时取消</span>
+          <span class="hotel-htag">连锁品牌</span>
+        </div>
+      </div>
+      <div class="hotel-price">
+        <div class="amt">¥245</div>
+        <div class="unit">/晚（五一实价）</div>
+        <div class="hotel-score">⭐ 途牛实时查询</div>
+        <div style="font-size:0.72em;color:var(--success);margin-top:2px;">✅ 推荐选择 · 5晚 ¥1,225</div>
+      </div>
+    </div>
+    <div class="hotel-card">
+      <div>
+        <div class="hotel-name">汕头丽都大酒店(汕头站店)</div>
+        <div class="hotel-loc">📍 海丝路94号汕头大学1楼（近汕头火车站）</div>
+        <div class="hotel-tags">
+          <span class="hotel-htag">高档型</span>
+          <span class="hotel-htag">5.0满分</span>
+          <span class="hotel-htag">含双早</span>
+          <span class="hotel-htag">随时取消</span>
+        </div>
+      </div>
+      <div class="hotel-price">
+        <div class="amt">¥282</div>
+        <div class="unit">/晚（五一实价）</div>
+        <div class="hotel-score">⭐ 5.0分 · 途牛实时查询</div>
+        <div style="font-size:0.72em;color:var(--info);margin-top:2px;">📍 更近市区/火车站 · 5晚 ¥1,410</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:#FFF7E6;border-radius:10px;padding:12px;margin:14px 0;font-size:0.85em;border:1px solid #FFE7BA;">
+    💡 <b>选维也纳贵屿店还是丽都汕头站店？</b><br>
+    · <b>维也纳贵屿店</b> ¥245/晚，5晚 ¥1,225 → 总预算约 <b>¥3,247</b> ✅ 最省钱<br>
+    · <b>丽都汕头站店</b> ¥282/晚，5晚 ¥1,410，含双早，5.0满分，更近市区和火车站 → 总预算约 <b>¥3,432</b>（超预算¥132）<br>
+    · 两者都是维也纳/丽都连锁品牌，品质有保障。贵屿店在潮阳区，离潮州古城更近（过桥即到）；丽都在市区近火车站，出行方便。<br>
+    · <b>推荐维也纳贵屿店</b>，省出来的¥185可以多吃几顿美食！
+  </div>
+
+  <h3 style="font-size:1em;color:var(--primary);margin:14px 0 10px;">🗺️ 大本营出行示意</h3>
+  <div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:center;font-size:0.88em;">
+    <div style="background:#FAAD14;color:#fff;padding:5px 14px;border-radius:16px;font-weight:600;">🏨 汕头大本营</div>
+    <div style="color:var(--primary);font-weight:700;">—🚌1h→</div>
+    <div style="background:#FF7A45;color:#fff;padding:5px 14px;border-radius:16px;font-weight:600;">Day1-2 潮州古城</div>
+    <div style="color:var(--text-light);">（当天往返）</div>
+    <div style="color:var(--primary);font-weight:700;">—🚌20min→</div>
+    <div style="background:#52C41A;color:#fff;padding:5px 14px;border-radius:16px;font-weight:600;">Day3-4 汕头市区</div>
+    <div style="color:var(--text-light);">（步行可达）</div>
+    <div style="color:var(--primary);font-weight:700;">—🚌1.5h→</div>
+    <div style="background:#1890FF;color:#fff;padding:5px 14px;border-radius:16px;font-weight:600;">Day5 南澳岛</div>
+    <div style="color:var(--text-light);">（当天往返）</div>
+  </div>
+</div>
+
+<!-- ==================== 美食地图 ==================== -->
+<div class="section">
+  <div class="section-title"><span class="emoji">🍜</span>潮汕必吃美食清单</div>
+  <div class="food-grid">
+    <div class="food-card">
+      <span class="food-emoji">🥩</span>
+      <div class="food-name">牛肉火锅</div>
+      <div class="food-desc">吊龙、嫩肉、匙柄、胸口朥、牛肉丸。清水锅底，沙茶酱蘸料。人均¥60-90</div>
+    </div>
+    <div class="food-card">
+      <span class="food-emoji">🍜</span>
+      <div class="food-name">潮式肠粉</div>
+      <div class="food-desc">皮薄馅多，浇上潮式卤汤（花生酱+卤汁），完全不同于广式肠粉。人均¥12-18</div>
+    </div>
+    <div class="food-card">
+      <span class="food-emoji">🦆</span>
+      <div class="food-name">卤鹅</div>
+      <div class="food-desc">狮头鹅卤制，鹅肉、鹅肝、鹅翅、鹅掌皆美味。配粿条饭，人均¥30-50</div>
+    </div>
+    <div class="food-card">
+      <span class="food-emoji">🥟</span>
+      <div class="food-name">粿汁</div>
+      <div class="food-desc">卤猪肠、卤肉、猪血铺在粿条片上，浇上浓香卤汤。人均¥12-18</div>
+    </div>
+    <div class="food-card">
+      <span class="food-emoji">🫓</span>
+      <div class="food-name">蚝烙</div>
+      <div class="food-desc">鲜蚝+薯粉煎至金黄，外脆内嫩，蘸鱼露。人均¥15-20</div>
+    </div>
+    <div class="food-card">
+      <span class="food-emoji">🥣</span>
+      <div class="food-name">砂锅粥</div>
+      <div class="food-desc">膏蟹砂锅粥、虾蟹粥、海鲜粥，鲜到极致。一人小锅¥50-60</div>
+    </div>
+    <div class="food-card">
+      <span class="food-emoji">🫖</span>
+      <div class="food-name">工夫茶</div>
+      <div class="food-desc">凤凰单丛茶，鸭屎香、蜜兰香、黄枝香。街边茶馆坐下来喝一杯。人均¥20-30</div>
+    </div>
+    <div class="food-card">
+      <span class="food-emoji">🧁</span>
+      <div class="food-name">潮州小吃</div>
+      <div class="food-desc">咸水粿、腐乳饼、糖葱薄饼、春饼、猪肠装糯米、韭菜粿…边逛边吃</div>
+    </div>
+    <div class="food-card">
+      <span class="food-emoji">🥭</span>
+      <div class="food-name">甘草水果</div>
+      <div class="food-desc">青芒果、番石榴、杨桃、莲雾蘸甘草粉/梅子粉，酸酸甜甜。¥8-15</div>
+    </div>
+    <div class="food-card">
+      <span class="food-emoji">🦪</span>
+      <div class="food-name">南澳海鲜</div>
+      <div class="food-desc">石斑鱼、大虾、生蚝、紫菜炒饭、薄壳炒韭菜。人均¥80-100</div>
+    </div>
+    <div class="food-card">
+      <span class="food-emoji">🧃</span>
+      <div class="food-name">特色饮品</div>
+      <div class="food-desc">油柑汁、潮式甜豆花、草粿（仙草蜜）。消暑解腻好搭档</div>
+    </div>
+    <div class="food-card">
+      <span class="food-emoji">🫓</span>
+      <div class="food-name">老妈宫粽球</div>
+      <div class="food-desc">甜咸双拼粽，内有五花肉、咸蛋黄、栗子、豆沙，汕头非遗。¥8-12/个</div>
+    </div>
+  </div>
+  <p style="font-size:0.85em;color:var(--text-light);margin-top:12px;">
+    ⚠️ <b>饮食注意：</b>魏先生不吃生腌，以下美食可放心享用——牛肉火锅、卤鹅、肠粉、粿汁、蚝烙、砂锅粥、炒粿条、煎包等。
+    点菜时注意说"不要生腌"即可。
+  </p>
+</div>
+
+<!-- ==================== 费用预算 ==================== -->
+<div class="section">
+  <div class="section-title"><span class="emoji">💰</span>费用预算明细</div>
+
+  <div class="budget-row">
+    <span>🚄 高铁往返（杭州↔潮汕）</span>
+    <span class="price-tag">¥1,082</span>
+  </div>
+  <div class="budget-row">
+    <span>🏨 住宿（5晚·维也纳汕头贵屿店·途牛实价）</span>
+    <span>
+      <span style="font-size:0.8em;color:var(--text-light);">5晚连住 ¥245×5</span><br>
+      <span class="price-tag">¥1,225</span>
+    </span>
+  </div>
+  <div class="budget-row">
+    <span>🚌 城际交通（汕头↔潮州大巴 + 南澳公交）</span>
+    <span class="price-tag">~¥150</span>
+  </div>
+  <div class="budget-row">
+    <span>🎫 景点门票</span>
+    <span>
+      <span style="font-size:0.8em;color:var(--text-light);">广济桥(¥50)+己略黄公祠(¥10)+许驸马府(¥20)+韩文公祠(¥20)+礐石(¥30)+北回归线(¥20)+总兵府(¥20)+宋井(¥20)</span><br>
+      <span class="price-tag">~¥190</span>
+    </span>
+  </div>
+  <div class="budget-row">
+    <span>🍜 餐饮（6天）</span>
+    <span>
+      <span style="font-size:0.8em;color:var(--text-light);">日均¥80-100（牛肉火锅+小吃+正餐）</span><br>
+      <span class="price-tag">~¥500</span>
+    </span>
+  </div>
+  <div class="budget-row">
+    <span>🛍️ 购物/手信/其他</span>
+    <span class="price-tag">~¥100</span>
+  </div>
+
+  <div class="budget-total">
+    <span>总计（途牛五一实价）</span>
+    <span class="price-tag" style="font-size:1.3em;">约 ¥3,247</span>
+  </div>
+
+  <div style="margin-top:14px;">
+    <div style="display:flex;justify-content:space-between;font-size:0.85em;margin-bottom:4px;">
+      <span>预算使用率（≤¥3,300 预算）</span>
+      <span style="color:var(--success);font-weight:600;">✅ 约 98.4%（剩余 ¥53）</span>
+    </div>
+    <div class="budget-bar">
+      <div class="budget-fill" style="width:98.4%;background:linear-gradient(90deg,#52C41A,#73D13D);">
+        ¥3,247 / ≤¥3,300
+      </div>
+    </div>
+  </div>
+
+  <div style="background:#F6FFED;border-radius:10px;padding:14px;margin-top:14px;font-size:0.88em;border:1px solid #B7EB8F;">
+    <b>✅ 预算达标！核心省钱策略：</b>
+    <ul style="margin-top:8px;padding-left:18px;">
+      <li><b>以汕头为大本营5晚连住不换酒店</b>—— 维也纳汕头贵屿店 ¥245/晚 × 5晚 = ¥1,225，比之前分住三地省 ¥600+</li>
+      <li><b>潮州当天往返</b>（Day1-2）—— 大巴往返约¥30-50/天，比住潮州省¥500+/晚</li>
+      <li><b>南澳当天往返</b>（Day5）—— 公交往返¥30，比住南澳省¥500+/晚</li>
+      <li><b>无搬行李烦恼</b>—— 5晚住一间房，出发和返程都从同一酒店出发</li>
+    </ul>
+    <p style="margin-top:10px;font-weight:600;color:var(--success);">
+      💡 <b>如果愿意加¥185</b>，可升级为<b>丽都汕头站店</b>（5.0满分、含双早、更近市区），总费用约 ¥3,432。
+    </p>
+  </div>
+</div>
+
+<!-- ==================== 实用贴士 ==================== -->
+<div class="section">
+  <div class="section-title"><span class="emoji">💡</span>实用贴士</div>
+
+  <div class="tip-item">
+    <span class="tip-icon">🎫</span>
+    <div><b>抢票提醒：</b>12306提前15天放票，4月30日出发的票约4月15日开售。热门线路，定好闹钟抢！建议同时候补多个车次。</div>
+  </div>
+  <div class="tip-item">
+    <span class="tip-icon">🏨</span>
+    <div><b>酒店预订（极其重要！）：</b>潮汕2026年春节酒店涨了3-7倍，五一虽不及春节但预计也会翻倍。建议 <b>4月15日之前</b>就在携程/美团上预订"免费取消"房型锁定价格。越晚越贵，越晚越没房！核心商圈（牌坊街、小公园、青澳湾）涨幅最大。</div>
+  </div>
+  <div class="tip-item">
+    <span class="tip-icon">🌤️</span>
+    <div><b>天气应对：</b>5月潮汕多阵雨，必带雨伞。防晒霜、太阳帽也要备好。鞋子选防滑舒适的步行鞋。</div>
+  </div>
+  <div class="tip-item">
+    <span class="tip-icon">📱</span>
+    <div><b>出行APP：</b>高德地图（导航）、12306（火车票）、携程/美团（酒店+门票）、大众点评（找美食）。</div>
+  </div>
+  <div class="tip-item">
+    <span class="tip-icon">🚌</span>
+    <div><b>岛内交通：</b>南澳岛上建议租电动车（约¥60-80/天），环岛骑行非常惬意，比公交方便很多。</div>
+  </div>
+  <div class="tip-item">
+    <span class="tip-icon">🍽️</span>
+    <div><b>美食策略：</b>避开景区门口的游客餐厅，多走几步去巷子里的本地老店。看门口排队的是本地人就对了。</div>
+  </div>
+  <div class="tip-item">
+    <span class="tip-icon">⚠️</span>
+    <div><b>南澳堵车：</b>五一期间南澳大桥大概率堵车，建议早上8点前上桥，错峰出行。</div>
+  </div>
+  <div class="tip-item">
+    <span class="tip-icon">🧳</span>
+    <div><b>行李建议：</b>轻装出行。带一件薄外套（车内空调冷），泳衣（南澳岛可能用到），充电宝必带。</div>
+  </div>
+  <div class="tip-item">
+    <span class="tip-icon">🕐</span>
+    <div><b>营业时间：</b>潮汕部分老字号早餐店8点前开门、下午2-5点可能午休。建议提早出门觅食。</div>
+  </div>
+</div>
+
+<!-- ==================== 出行清单 ==================== -->
+<div class="section">
+  <div class="section-title"><span class="emoji">🎒</span>出行清单</div>
+  <div class="checklist">
+    <div class="check-item"><div class="check-box"></div>身份证（高铁/酒店必需）</div>
+    <div class="check-item"><div class="check-box"></div>手机 + 充电器 + 充电宝</div>
+    <div class="check-item"><div class="check-box"></div>雨伞（防晒+防雨）</div>
+    <div class="check-item"><div class="check-box"></div>防晒霜 + 太阳帽</div>
+    <div class="check-item"><div class="check-box"></div>舒适步行鞋</div>
+    <div class="check-item"><div class="check-box"></div>薄外套/防晒衣</div>
+    <div class="check-item"><div class="check-box"></div>泳衣（南澳备用）</div>
+    <div class="check-item"><div class="check-box"></div>常用药品（肠胃药、创可贴）</div>
+    <div class="check-item"><div class="check-box"></div>少量现金（部分老店只收现金）</div>
+    <div class="check-item"><div class="check-box"></div>耳机（高铁途中）</div>
+    <div class="check-item"><div class="check-box"></div>湿纸巾/纸巾</div>
+    <div class="check-item"><div class="check-box"></div>小背包（南澳岛轻便出行）</div>
+  </div>
+</div>
+
+<!-- ==================== 关键时间节点 ==================== -->
+<div class="section">
+  <div class="section-title"><span class="emoji">⏰</span>关键时间节点提醒</div>
+  <table class="transport-table">
+    <tr><th>时间</th><th>事项</th><th>备注</th></tr>
+    <tr>
+      <td><b>4月15日</b></td>
+      <td>抢高铁票</td>
+      <td style="color:var(--primary);font-weight:600;">⚠️ 最重要！12306提前15天</td>
+    </tr>
+    <tr>
+      <td><b>即日~4月20日</b></td>
+      <td>预订酒店（途牛/携程/美团）</td>
+      <td style="color:var(--primary);font-weight:600;">✅ 已查到五一实价：维也纳汕头贵屿店 ¥245/晚、丽都汕头站店 ¥282/晚。选"随时取消"先锁房</td>
+    </tr>
+    <tr>
+      <td><b>4月28-29日</b></td>
+      <td>查看天气预报</td>
+      <td>根据天气调整行程和衣物</td>
+    </tr>
+    <tr>
+      <td><b>4月30日 06:00</b></td>
+      <td>出发去杭州东站</td>
+      <td>预留1小时到达+安检时间</td>
+    </tr>
+    <tr>
+      <td><b>5月5日 10:00</b></td>
+      <td>从酒店出发去潮汕站</td>
+      <td style="color:var(--primary);font-weight:600;">⚠️ 留足返程时间</td>
+    </tr>
+  </table>
+</div>
+
+<!-- ==================== Footer ==================== -->
+<div class="footer">
+  <p>🗺️ 为魏先生定制 · 潮汕五一休闲游攻略</p>
+  <p>📅 制作日期：2026年4月16日 · 行程日期：4.30 - 5.5</p>
+  <p style="margin-top:6px;font-size:0.85em;">
+    ⚠️ 酒店价格为途牛（2026.4.16）实时查询的五一期间实际可订价格。<br>
+    高铁班次请以12306官方查询为准，建议提前15天抢票。酒店价格实时变动，建议尽早预订。<br>
+    💡 全程以汕头为大本营5晚连住，每日公交/大巴往返潮州和南澳当天游玩。
+  </p>
+  <p style="margin-top:10px;">祝魏先生旅途愉快！🍜🌊🏔️</p>
+</div>
+
+</div>
+</body>
+</html>
