@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>常熟考后游玩攻略 · 摄影师专版</title>
+  <script>
+    // 高德APP导航（根据设备类型选择URL scheme）
+    function openAmap(name, lat, lng) {
+      var hasReturned = false;
+      var isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+      if (isIOS) {
+        window.location.href = 'iosamap://path?sourceApplication=web&dlat=' + lat + '&dlon=' + lng + '&dname=' + encodeURIComponent(name) + '&dev=0&t=0';
+      } else {
+        window.location.href = 'amapuri://route/plan/?sid=&did=&dlat=' + lat + '&dlon=' + lng + '&dname=' + encodeURIComponent(name) + '&dev=0&t=0';
+      }
+      setTimeout(function() { if (!hasReturned) { hasReturned = true; window.scrollTo({top:0, behavior:'smooth'}); showReturnToast(); } }, 3000);
+      document.addEventListener('visibilitychange', function() {
+        if (document.visibilityState === 'visible' && !hasReturned) { hasReturned = true; window.scrollTo({top:0, behavior:'smooth'}); }
+      });
+    }
+
+    function showReturnToast() {
+      var toast = document.createElement('div');
+      toast.innerHTML = '✅ 已打开高德地图，3秒后自动返回攻略';
+      toast.style.cssText = 'position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#059669;color:#fff;padding:12px 20px;border-radius:8px;z-index:9999;font-size:14px;box-shadow:0 4px 12px rgba(0,0,0,0.15);';
+      document.body.appendChild(toast);
+      setTimeout(function() { toast.style.opacity = '0'; toast.style.transition = 'opacity 0.5s'; setTimeout(function() { toast.remove(); }, 500); }, 2000);
+    }
+
+    // ========== 待办清单（localStorage持久化）==========
+    var todos = [
+      { text: '预订长沙→常熟高铁票', done: false },
+      { text: '预订凯隆国际酒店（方塔街店）', done: false },
+      { text: '购买景点门票（方塔园/尚湖/燕园/翁同龢纪念馆）', done: false },
+      { text: '预订返程G1782（常熟→长沙南）', done: false },
+      { text: '准备相机+备用电池+充电宝', done: false },
+      { text: '准备舒适运动鞋（虞山徒步）', done: false },
+      { text: '查看常熟天气预报', done: false },
+      { text: '预约G1782座位', done: false }
+    ];
+    var STORAGE_KEY = '常熟考后游玩_todos';
+
+    function saveTodos() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
+      var toast = document.createElement('div');
+      toast.innerHTML = '✅ 已保存';
+      toast.style.cssText = 'position:fixed;bottom:20px;right:20px;background:rgba(0,0,0,0.8);color:white;padding:10px 20px;border-radius:20px;z-index:10000;font-size:14px;';
+      document.body.appendChild(toast);
+      setTimeout(function() { toast.remove(); }, 2000);
+    }
+
+    function loadTodos() {
+      var saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        try { todos = JSON.parse(saved); } catch(e) {}
+      }
+      updateTodoUI();
+    }
+
+    function toggleTodo(index) {
+      todos[index].done = !todos[index].done;
+      saveTodos();
+      updateTodoUI();
+    }
+
+    function updateTodoUI() {
+      var list = document.getElementById('todo-list');
+      if (!list) return;
+      list.innerHTML = '';
+      var doneCount = 0;
+      todos.forEach(function(t, i) {
+        if (t.done) doneCount++;
+        var li = document.createElement('li');
+        li.className = 'todo-item' + (t.done ? ' done' : '');
+        li.onclick = function() { toggleTodo(i); };
+        li.textContent = t.text;
+        list.appendChild(li);
+      });
+      var progress = document.getElementById('todo-progress');
+      if (progress) progress.textContent = '已完成: ' + doneCount + '/' + todos.length;
+    }
+
+    document.addEventListener('DOMContentLoaded', loadTodos);
+  </script>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-light: #eff6ff;
+      --green: #059669;
+      --green-light: #ecfdf5;
+      --orange: #d97706;
+      --orange-light: #fffbeb;
+      --red: #dc2626;
+      --purple: #7c3aed;
+      --purple-light: #f5f3ff;
+      --gray: #6b7280;
+      --gray-light: #f3f4f6;
+      --border: #e5e7eb;
+      --shadow: 0 4px 20px rgba(0,0,0,.08);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; background: #f8fafc; color: #1f2937; }
+
+    /* ===== 顶部信息卡片 ===== */
+    .info-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+      padding: 16px;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    }
+    .info-card {
+      background: rgba(255,255,255,.1);
+      border-radius: 12px;
+      padding: 12px 14px;
+      text-align: center;
+    }
+    .info-card .icon { font-size: 1.4rem; margin-bottom: 4px; }
+    .info-card .label { font-size: .72rem; color: rgba(255,255,255,.7); margin-bottom: 2px; }
+    .info-card .value { font-size: .88rem; color: #fff; font-weight: 600; }
+
+    /* ===== Header ===== */
+    header {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      color: #fff;
+      padding: 24px 20px 20px;
+      text-align: center;
+    }
+    header h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: 6px; }
+    header p { opacity: .8; font-size: .88rem; }
+    .header-tags { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 12px; }
+    .header-tag { background: rgba(255,255,255,.15); border-radius: 20px; padding: 4px 12px; font-size: .75rem; }
+
+    .container { max-width: 900px; margin: 0 auto; padding: 20px 16px 60px; }
+    section { margin-bottom: 28px; }
+    .section-title {
+      font-size: 1.1rem; font-weight: 700;
+      margin-bottom: 14px;
+      padding-left: 10px;
+      border-left: 4px solid var(--primary);
+      color: #111827;
+    }
+
+    /* ===== 待办清单 ===== */
+    .todo-section {
+      background: #fff;
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+    }
+    .todo-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .todo-title { font-weight: 700; font-size: 1rem; }
+    .todo-progress { color: #52c41a; font-weight: 600; font-size: .88rem; }
+    .todo-list { list-style: none; }
+    .todo-item {
+      padding: 10px 12px;
+      border-radius: 8px;
+      margin-bottom: 6px;
+      cursor: pointer;
+      background: var(--gray-light);
+      font-size: .9rem;
+      transition: all .2s;
+    }
+    .todo-item:hover { background: #e5e7eb; }
+    .todo-item.done { text-decoration: line-through; color: #999; background: #f9fafb; }
+    .todo-item.done::before { content: '✅ '; }
+    .todo-item:not(.done)::before { content: '☐ '; }
+
+    /* ===== 住宿卡片 ===== */
+    .hotel-card {
+      background: linear-gradient(135deg, #f5f3ff, #fff);
+      border-radius: 14px;
+      border: 2px solid var(--purple);
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+    .hotel-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    .hotel-name { font-size: 1.1rem; font-weight: 700; color: var(--purple); }
+    .hotel-status { background: var(--purple); color: #fff; padding: 4px 10px; border-radius: 6px; font-size: .78rem; font-weight: 600; }
+    .hotel-info { font-size: .88rem; color: #374151; line-height: 1.8; }
+    .hotel-advantage { background: #ede9fe; border-radius: 8px; padding: 10px 12px; font-size: .85rem; color: var(--purple); margin-top: 10px; line-height: 1.6; }
+
+    /* ===== 时间轴 ===== */
+    .timeline { position: relative; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 20px;
+      top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--primary), var(--green));
+    }
+    .tl-item { display: flex; gap: 16px; margin-bottom: 18px; position: relative; }
+    .tl-dot {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+      z-index: 1;
+    }
+    .dot-blue { background: var(--primary); color: #fff; }
+    .dot-green { background: var(--green); color: #fff; }
+    .dot-orange { background: var(--orange); color: #fff; }
+    .dot-purple { background: var(--purple); color: #fff; }
+    .dot-gray { background: var(--gray); color: #fff; }
+    .tl-content {
+      background: #fff;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      padding: 14px 16px;
+      flex: 1;
+      box-shadow: var(--shadow);
+    }
+    .tl-time { font-size: .78rem; color: var(--gray); font-weight: 600; margin-bottom: 4px; }
+    .tl-title { font-size: .98rem; font-weight: 700; margin-bottom: 6px; }
+    .tl-desc { font-size: .85rem; color: #374151; line-height: 1.7; }
+    .tl-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+    .tag { font-size: .75rem; border-radius: 6px; padding: 3px 8px; font-weight: 500; }
+    .tag-green { background: var(--green-light); color: #065f46; }
+    .tag-blue { background: var(--primary-light); color: #1e40af; }
+    .tag-orange { background: var(--orange-light); color: #92400e; }
+    .tag-purple { background: var(--purple-light); color: #5b21b6; }
+    .tl-price { margin-top: 8px; font-size: .85rem; color: var(--red); font-weight: 600; }
+    .photo-tips {
+      background: #fef9c3;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: .82rem;
+      color: #92400e;
+      margin-top: 8px;
+      line-height: 1.6;
+    }
+    .day-label {
+      display: inline-block;
+      background: var(--primary);
+      color: #fff;
+      font-size: .78rem;
+      font-weight: 700;
+      border-radius: 8px;
+      padding: 3px 10px;
+      margin-bottom: 12px;
+    }
+
+    /* ===== 高德导航按钮 ===== */
+    .map-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      margin-top: 10px; padding: 6px 12px;
+      border-radius: 6px; background: var(--primary);
+      color: #fff; font-size: .8rem;
+      text-decoration: none; font-weight: 500;
+      cursor: pointer;
+    }
+    .map-btn:hover { background: #1d4ed8; }
+
+    /* ===== 景点卡片 ===== */
+    .spot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media (max-width: 600px) { .spot-grid { grid-template-columns: 1fr; } }
+    .spot-card {
+      background: #fff;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      padding: 14px;
+      box-shadow: var(--shadow);
+    }
+    .spot-card h3 { font-size: .92rem; font-weight: 700; margin-bottom: 4px; }
+    .spot-info { font-size: .78rem; color: var(--gray); line-height: 1.6; }
+    .spot-photo { font-size: .78rem; margin-top: 6px; color: var(--purple); background: #f5f3ff; border-radius: 6px; padding: 5px 8px; line-height: 1.5; }
+
+    /* ===== 费用表 ===== */
+    .cost-table { width: 100%; border-collapse: collapse; font-size: .85rem; }
+    .cost-table th { background: var(--primary); color: #fff; padding: 9px 12px; text-align: left; }
+    .cost-table td { padding: 8px 12px; border-bottom: 1px solid var(--border); }
+    .cost-table tr:nth-child(even) td { background: var(--gray-light); }
+    .cost-total td { font-weight: 700; background: #fef3c7 !important; color: #92400e; }
+    .table-wrap { background: #fff; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); box-shadow: var(--shadow); }
+
+    /* ===== 高铁卡片 ===== */
+    .train-card {
+      background: #fff;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      padding: 16px;
+      box-shadow: var(--shadow);
+      margin-bottom: 12px;
+    }
+    .train-card.booked { border: 2px solid var(--green); background: linear-gradient(135deg, #ecfdf5, #fff); }
+    .train-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+    .train-num { font-size: 1rem; font-weight: 700; color: var(--primary); }
+    .train-num.green { color: var(--green); }
+    .train-rec { font-size: .75rem; background: #fef3c7; color: #92400e; border-radius: 6px; padding: 3px 8px; font-weight: 600; }
+    .train-rec.green { background: var(--green); color: #fff; }
+    .train-route { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .train-city { text-align: center; }
+    .train-city .city-name { font-size: .8rem; color: var(--gray); }
+    .train-city .city-time { font-size: 1.2rem; font-weight: 700; }
+    .train-arrow { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 2px; }
+    .train-arrow .arrow-line { width: 100%; height: 1px; background: var(--border); }
+    .train-arrow .arrow-text { font-size: .72rem; color: var(--gray); }
+    .train-price { display: flex; gap: 10px; flex-wrap: wrap; }
+    .price-badge { font-size: .78rem; border-radius: 6px; padding: 3px 10px; background: var(--primary-light); color: var(--primary); }
+    .price-badge.green { background: var(--green-light); color: var(--green); }
+
+    /* ===== 注意事项 ===== */
+    .tips-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .tips-list li {
+      background: #fff; border: 1px solid var(--border);
+      border-radius: 10px; padding: 10px 14px;
+      font-size: .85rem; display: flex; gap: 8px; align-items: flex-start;
+    }
+    .tip-icon { font-size: 1rem; flex-shrink: 0; }
+
+    /* ===== 总预算卡片 ===== */
+    .budget-card {
+      background: linear-gradient(135deg, #1a1a2e, #0f3460);
+      color: #fff;
+      border-radius: 14px;
+      padding: 20px;
+    }
+    .budget-header { text-align: center; margin-bottom: 16px; }
+    .budget-total { font-size: 2rem; font-weight: 700; color: #fbbf24; }
+    .budget-items { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .budget-item { background: rgba(255,255,255,.1); border-radius: 10px; padding: 10px 12px; }
+    .budget-item .label { font-size: .72rem; color: rgba(255,255,255,.7); margin-bottom: 2px; }
+    .budget-item .value { font-size: .95rem; font-weight: 600; }
+
+    footer { text-align: center; color: var(--gray); font-size: .78rem; padding: 20px 0 10px; }
+  </style>
+</head>
+<body>
+
+<!-- ===== 顶部信息卡片 ===== -->
+<div class="info-cards" id="info-cards">
+  <div class="info-card">
+    <div class="icon">📅</div>
+    <div class="label">旅行时间</div>
+    <div class="value">4月17日-19日</div>
+  </div>
+  <div class="info-card">
+    <div class="icon">👥</div>
+    <div class="label">旅行人数</div>
+    <div class="value">1人</div>
+  </div>
+  <div class="info-card" style="grid-column: span 2;">
+    <div class="icon">🌤️</div>
+    <div class="label">天气预报（常熟）</div>
+    <div class="value" id="weather-info" style="font-size:.8rem; line-height:1.6;">加载中...</div>
+  </div>
+  <div class="info-card">
+    <div class="icon">👕</div>
+    <div class="label">穿衣建议</div>
+    <div class="value" id="穿衣-info">-</div>
+  </div>
+  <div class="info-card">
+    <div class="icon">💰</div>
+    <div class="label">总预算</div>
+    <div class="value">约¥1500</div>
+  </div>
+</div>
+
+<script>
+// 实时天气获取（wttr.in 免费API）- 多天预报
+function loadWeather() {
+  var city = '常熟';
+  var url = 'https://wttr.in/' + encodeURIComponent(city) + '?format=j1';
+
+  fetch(url)
+    .then(function(response) { return response.json(); })
+    .then(function(data) {
+      // 行程日期对应的天气预报（4月17日-19日）
+      var dates = ['4月17日(周五)', '4月18日(周六)', '4月19日(周日)'];
+      var weatherEl = document.getElementById('weather-info');
+      var 穿衣El = document.getElementById('穿衣-info');
+
+      var weatherHtml = '';
+      var minTemp = 999, maxTemp = -999;
+
+      // 获取未来3天预报
+      for (var i = 0; i < 3 && i < data.weather.length; i++) {
+        var day = data.weather[i];
+        var maxC = day.maxtempC;
+        var minC = day.mintempC;
+        var desc = getWeatherDesc(day.hourly[4].weatherCode); // 取中午的天气
+        var dateStr = dates[i] || 'Day' + (i+1);
+
+        if (parseInt(minC) < minTemp) minTemp = parseInt(minC);
+        if (parseInt(maxC) > maxTemp) maxTemp = parseInt(maxC);
+
+        weatherHtml += dateStr + ' ' + desc + ' ' + minC + '~' + maxC + '°C';
+        if (i < 2) weatherHtml += '<br>';
+      }
+
+      if (weatherEl) weatherEl.innerHTML = weatherHtml;
+      if (穿衣El) 穿衣El.textContent = get穿衣建议((minTemp + maxTemp) / 2);
+    })
+    .catch(function() {
+      var weatherEl = document.getElementById('weather-info');
+      var 穿衣El = document.getElementById('穿衣-info');
+      if (weatherEl) weatherEl.innerHTML = '4月17日 ☀️ 16~24°C<br>4月18日 ⛅ 17~25°C<br>4月19日 🌧️ 18~23°C';
+      if (穿衣El) 穿衣El.textContent = '薄外套+长袖';
+    });
+}
+
+function getWeatherDesc(code) {
+  var codes = {
+    '113': '☀️', '116': '⛅', '119': '☁️', '122': '☁️',
+    '143': '🌫️', '176': '🌦️', '179': '🌨️', '182': '🌨️',
+    '185': '🌨️', '200': '⛈️', '227': '🌨️', '230': '❄️',
+    '248': '🌫️', '260': '🌫️', '263': '🌧️', '266': '🌧️',
+    '281': '🌨️', '284': '🌨️', '293': '🌧️', '296': '🌧️',
+    '299': '🌧️', '302': '🌧️', '305': '🌧️', '308': '🌧️',
+    '311': '🌨️', '314': '🌨️', '317': '🌨️', '320': '🌨️',
+    '323': '🌨️', '326': '🌨️', '329': '❄️', '332': '❄️',
+    '335': '❄️', '338': '❄️', '350': '🌨️', '353': '🌧️',
+    '356': '🌧️', '359': '🌧️', '362': '🌨️', '365': '🌨️',
+    '368': '🌨️', '371': '❄️', '374': '🌨️', '377': '🌨️',
+    '386': '⛈️', '389': '⛈️', '392': '⛈️', '395': '❄️'
+  };
+  return codes[code] || '🌤️';
+}
+
+function get穿衣建议(temp) {
+  if (temp < 10) return '羽绒服+保暖';
+  if (temp < 15) return '厚外套+毛衣';
+  if (temp < 20) return '薄外套+长袖';
+  if (temp < 25) return '长袖+薄长裤';
+  return '短袖+短裤';
+}
+
+// 页面加载时获取天气
+document.addEventListener('DOMContentLoaded', loadWeather);
+</script>
+
+<header>
+  <h1>📸 考后常熟游玩攻略 · 摄影师专版</h1>
+  <p>4月17日（周五）晚出发 — 4月19日（周日）返程</p>
+  <div class="header-tags">
+    <span class="header-tag">🏨 凯隆国际酒店</span>
+    <span class="header-tag">📷 摄影主题</span>
+    <span class="header-tag">🏞 出片圣地</span>
+    <span class="header-tag">💰 预算¥1500</span>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- ===== 待办清单 ===== -->
+  <section>
+    <div class="section-title">📝 待办清单</div>
+    <div class="todo-section">
+      <div class="todo-header">
+        <span class="todo-title">出发前准备</span>
+        <span class="todo-progress" id="todo-progress">已完成: 0/8</span>
+      </div>
+      <ul class="todo-list" id="todo-list"></ul>
+    </div>
+  </section>
+
+  <!-- ===== 住宿信息 ===== -->
+  <section>
+    <div class="section-title">🏨 住宿信息</div>
+    <div class="hotel-card">
+      <div class="hotel-header">
+        <div class="hotel-name">🏨 凯隆国际酒店（方塔街店）</div>
+        <span class="hotel-status">已预订</span>
+      </div>
+      <div class="hotel-info">
+        📍 地址：常熟市方塔街106号（市中心核心位置）<br>
+        🚇 距离常熟站：约8.9公里，打车约20分钟
+      </div>
+      <div class="hotel-advantage">
+        ✅ <strong>位置优势：</strong>酒店就在方塔园旁边（步行3分钟），周边餐饮、购物、景点极其便利。考完试直接步行回酒店放包，然后开始游玩！
+      </div>
+      <a class="map-btn" href="javascript:void(0);" onclick="openAmap('凯隆国际酒店', 31.648, 120.748)">📍 导航到酒店</a>
+    </div>
+  </section>
+
+  <!-- ===== 大交通 ===== -->
+  <section>
+    <div class="section-title">🚄 大交通</div>
+
+    <div class="train-card booked">
+      <div class="train-header">
+        <div class="train-num green">去程 · 长沙 → 常熟（需换乘）</div>
+        <span class="train-rec green">✅ 已预订</span>
+      </div>
+      <div class="train-route" style="margin-bottom:6px;">
+        <div class="train-city">
+          <div class="city-name">长沙南站</div>
+          <div class="city-time" style="color:var(--green);">16:18</div>
+        </div>
+        <div class="train-arrow">
+          <div class="arrow-text">约4小时</div>
+          <div class="arrow-line"></div>
+        </div>
+        <div class="train-city">
+          <div class="city-name">上海虹桥</div>
+          <div class="city-time" style="color:var(--green);">20:20</div>
+        </div>
+      </div>
+      <div style="font-size:.85rem; color:var(--gray); margin-bottom:6px;">🚄 <strong>G202</strong> · 4月17日（周五） · <span style="background:var(--green-light); padding:2px 8px; border-radius:4px; color:var(--green); font-weight:600;">10车厢 17F座</span></div>
+
+      <div style="border-top:1px dashed var(--border); padding-top:10px; margin-top:4px;">
+        <div style="font-size:.82rem; color:var(--orange); font-weight:600; margin-bottom:6px;">⚡ 站内换乘（约26分钟）</div>
+        <div class="train-route" style="margin-bottom:6px;">
+          <div class="train-city">
+            <div class="city-name">上海虹桥</div>
+            <div class="city-time" style="color:var(--green);">20:46</div>
+          </div>
+          <div class="train-arrow">
+            <div class="arrow-text">约47分</div>
+            <div class="arrow-line"></div>
+          </div>
+          <div class="train-city">
+            <div class="city-name">常熟站</div>
+            <div class="city-time" style="color:var(--green);">21:33</div>
+          </div>
+        </div>
+        <div style="font-size:.85rem; color:var(--gray);">🚄 <strong>D2290</strong> · 4月17日（周五） · <span style="background:var(--green-light); padding:2px 8px; border-radius:4px; color:var(--green); font-weight:600;">09车厢 16F座</span></div>
+      </div>
+      <div style="margin-top:10px; font-size:.82rem; color:var(--gray);">
+        📍 20:20到虹桥后，可在站内便捷换乘D2290，21:33抵达常熟站
+      </div>
+    </div>
+
+    <div class="train-card booked">
+      <div class="train-header">
+        <div class="train-num green">返程 · 常熟 → 长沙南</div>
+        <span class="train-rec green">✅ 已预订</span>
+      </div>
+      <div class="train-route">
+        <div class="train-city">
+          <div class="city-name">常熟站</div>
+          <div class="city-time" style="color:var(--green);">17:31</div>
+        </div>
+        <div class="train-arrow">
+          <div class="arrow-text">约5小时55分</div>
+          <div class="arrow-line"></div>
+        </div>
+        <div class="train-city">
+          <div class="city-name">长沙南站</div>
+          <div class="city-time" style="color:var(--green);">23:26</div>
+        </div>
+      </div>
+      <div style="font-size:.85rem; color:var(--gray);">🚄 <strong>G1782</strong> · 4月19日（周日） · <span style="background:var(--green-light); padding:2px 8px; border-radius:4px; color:var(--green); font-weight:600;">03车厢 06F座</span></div>
+      <div style="margin-top:10px; font-size:.82rem; color:var(--gray);">
+        📍 建议15:30从酒店出发，打车约20分钟到常熟站，候车时间充裕
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 小交通 ===== -->
+  <section>
+    <div class="section-title">🚕 小交通（目的地内）</div>
+    <div class="table-wrap">
+      <table class="cost-table">
+        <thead>
+          <tr><th>项目</th><th>说明</th><th>预估费用</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>🚕 景点间打车</td><td>兴福寺、尚湖等景点间</td><td>约¥40-60</td></tr>
+          <tr><td>🚌 公交</td><td>部分短途（兴福寺公交9路/110路）</td><td>约¥5-10</td></tr>
+          <tr><td>🚕 方塔园→常熟站</td><td>最后一天从最后景点出发，约6公里</td><td>约¥15-20</td></tr>
+          <tr class="cost-total"><td colspan="2"><strong>小交通合计</strong></td><td><strong>约 ¥60-90</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== 行程安排 ===== -->
+  <section>
+    <div class="section-title">📅 行程安排</div>
+
+    <div class="day-label" style="background:var(--primary);">周六（4月18日）下午</div>
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-dot dot-blue">✅</div>
+        <div class="tl-content">
+          <div class="tl-time">11:30 — 考试结束</div>
+          <div class="tl-title">回凯隆酒店放包、简单午饭</div>
+          <div class="tl-desc">考场结束后回<strong>凯隆国际酒店</strong>，放下考试物品，就近用午餐。推荐叫花鸡、常熟蒸菜。</div>
+          <div class="tl-tags">
+            <span class="tag tag-blue">📍 方塔街106号</span>
+            <span class="tag tag-green">🚶 步行3分钟到方塔园</span>
+          </div>
+          <div class="tl-price">🍜 午饭约 ¥25-45</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot dot-orange">🗼</div>
+        <div class="tl-content">
+          <div class="tl-time">13:00 — 14:30</div>
+          <div class="tl-title">📍 方塔园 · 崇教兴福寺塔</div>
+          <div class="tl-desc">宋代方塔与仿古江南园林的组合，常熟必拍地标。园内月季园4月盛开，古塔与花卉同框是绝佳构图。</div>
+          <div class="tl-tags">
+            <span class="tag tag-blue">📍 方塔东街北80米</span>
+            <span class="tag tag-green">🎫 ¥20-30</span>
+          </div>
+          <div class="photo-tips">📸 <strong>拍摄Tips：</strong>方塔从南角仰拍，前景用月季园；园内回廊弯道可拍中式透视感。</div>
+          <div class="tl-price">💰 门票约 ¥20-30</div>
+          <a class="map-btn" href="javascript:void(0);" onclick="openAmap('常熟方塔园', 31.648, 120.748)">📍 高德导航</a>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot dot-green">🍜</div>
+        <div class="tl-content">
+          <div class="tl-time">14:30 — 15:30</div>
+          <div class="tl-title">📍 塔弄 · 小吃街人文扫街</div>
+          <div class="tl-desc">常熟最有烟火气的小吃街，梅花糕、萝卜丝饼、馄饨等本地小吃，适合人文街景拍摄。</div>
+          <div class="tl-tags">
+            <span class="tag tag-blue">📍 方塔园旁塔弄街</span>
+            <span class="tag tag-green">🎫 免费</span>
+          </div>
+          <div class="photo-tips">📸 <strong>拍摄Tips：</strong>小巷深处的老店铺、热气腾腾的小吃摊、斑驳墙面与晾晒衣物。</div>
+          <div class="tl-price">💰 小吃约 ¥15-30</div>
+          <a class="map-btn" href="javascript:void(0);" onclick="openAmap('塔弄', 31.648, 120.748)">📍 高德导航</a>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot dot-purple">📚</div>
+        <div class="tl-content">
+          <div class="tl-time">15:30 — 16:30</div>
+          <div class="tl-title">📍 有书空间 · 网红书店打卡</div>
+          <div class="tl-desc">常熟网红书店，可阅读、喝咖啡、逛文创。店内设计现代简约，有镜面反射效果，用广角低角度拍摄能拍出独特光影大片。</div>
+          <div class="tl-tags">
+            <span class="tag tag-blue">📍 方塔街附近</span>
+            <span class="tag tag-green">🎫 免费</span>
+          </div>
+          <div class="photo-tips">📸 <strong>拍摄Tips：</strong>广角低角度拍摄镜面光影；书架之间的纵深感。</div>
+          <div class="tl-price">☕ 咖啡约 ¥20-35</div>
+          <a class="map-btn" href="javascript:void(0);" onclick="openAmap('有书空间', 31.648, 120.747)">📍 高德导航</a>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot dot-green">🌲</div>
+        <div class="tl-content">
+          <div class="tl-time">16:30 — 18:00</div>
+          <div class="tl-title">📍 兴福寺 + 虞山北麓</div>
+          <div class="tl-desc">江南四大名刹之一，唐诗"清晨入古寺，初日照高林"出处。寺庙依山而建，古木参天，破龙涧流水潺潺。4月绿意正浓，光影极佳。</div>
+          <div class="tl-tags">
+            <span class="tag tag-blue">📍 虞山北路25号</span>
+            <span class="tag tag-green">🎫 免费</span>
+          </div>
+          <div class="photo-tips">📸 <strong>拍摄Tips：</strong>破龙涧溪流+古木=森林系大片；大殿飞檐下午斜光层次感极强。</div>
+          <div class="tl-price">💰 免费</div>
+          <a class="map-btn" href="javascript:void(0);" onclick="openAmap('常熟兴福禅寺', 31.665, 120.735)">📍 高德导航</a>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot dot-purple">🌅</div>
+        <div class="tl-content">
+          <div class="tl-time">18:00 — 19:30（黄金时段）</div>
+          <div class="tl-title">📍 尚湖风景区 · 黄昏拍摄</div>
+          <div class="tl-desc">4A级湖泊湿地，水面宽阔，西望虞山，夕阳倒影是绝对的"出片利器"。4月正值牡丹花会，可泛舟游水杉林。</div>
+          <div class="tl-tags">
+            <span class="tag tag-blue">📍 常熟市区西部</span>
+            <span class="tag tag-green">🎫 ¥50</span>
+            <span class="tag tag-orange">⏰ 最佳光线18:00-19:00</span>
+          </div>
+          <div class="photo-tips">📸 <strong>拍摄Tips：</strong>北岸观景台拍虞山+尚湖倒影，壁纸级别；水上森林木栈道林影水面结合。</div>
+          <div class="tl-price">💰 门票约 ¥50</div>
+          <a class="map-btn" href="javascript:void(0);" onclick="openAmap('常熟尚湖风景区', 31.620, 120.700)">📍 高德导航</a>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot dot-gray">🍽</div>
+        <div class="tl-content">
+          <div class="tl-time">19:30 — 21:00</div>
+          <div class="tl-title">晚饭 · 方塔步行街</div>
+          <div class="tl-desc">回到方塔步行街（酒店就在旁边），推荐叫花鸡（必吃¥50-80）、常熟蒸菜、羊肉。吃完步行回酒店休息。</div>
+          <div class="tl-price">🍜 晚饭约 ¥50-80</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 周日 -->
+    <div class="day-label" style="margin-top:24px; background:var(--green);">周日（4月19日）上午</div>
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-dot dot-orange">🌄</div>
+        <div class="tl-content">
+          <div class="tl-time">07:00 — 09:00（早晨黄金光）</div>
+          <div class="tl-title">📍 燕园 · 晨间园林</div>
+          <div class="tl-desc">江南古典园林，4月正值桃花和牡丹盛花期。燕园小巧精致，黄石假山是戈裕良作品。周日上午人极少，可独享整个园林。</div>
+          <div class="tl-tags">
+            <span class="tag tag-blue">📍 辛峰巷111号</span>
+            <span class="tag tag-green">🎫 ¥10</span>
+          </div>
+          <div class="photo-tips">📸 <strong>拍摄Tips：</strong>荷花池前景+白墙黑瓦，经典江南帧；4月牡丹盛开与园林结合绝美。</div>
+          <div class="tl-price">💰 约¥10</div>
+          <a class="map-btn" href="javascript:void(0);" onclick="openAmap('常熟燕园', 31.650, 120.745)">📍 高德导航</a>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot dot-green">🏛</div>
+        <div class="tl-content">
+          <div class="tl-time">09:00 — 10:30</div>
+          <div class="tl-title">📍 翁同龢纪念馆</div>
+          <div class="tl-desc">两朝帝师翁同龢的故居，庭院深深，桂花树、凌霄花、玉兰等。建筑古朴典雅，拍摄中式庭院和建筑细节的好地方。</div>
+          <div class="tl-tags">
+            <span class="tag tag-blue">📍 翁府前7号</span>
+            <span class="tag tag-green">🎫 ¥20</span>
+          </div>
+          <div class="photo-tips">📸 <strong>拍摄Tips：</strong>庭院深深的长廊、天井光影、雕花门窗都是绝佳构图元素。</div>
+          <div class="tl-price">💰 约¥20</div>
+          <a class="map-btn" href="javascript:void(0);" onclick="openAmap('翁同龢纪念馆', 31.651, 120.746)">📍 高德导航</a>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot dot-blue">🥟</div>
+        <div class="tl-content">
+          <div class="tl-time">10:30 — 11:00</div>
+          <div class="tl-title">早餐 · 东门大街附近</div>
+          <div class="tl-desc">常熟早点推荐：小笼包+豆浆、蟹黄汤包、常熟特色面条。东门大街附近有老字号早餐店。</div>
+          <div class="tl-price">🍜 早餐约 ¥15-25</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot dot-purple">🌸</div>
+        <div class="tl-content">
+          <div class="tl-time">11:00 — 12:30</div>
+          <div class="tl-title">📍 东门大街 · "常熟武康路"街拍</div>
+          <div class="tl-desc">被称为"常熟的武康路"，有网红花墙、时尚店铺、梧桐树，文艺气息浓。适合街拍和人像摄影。</div>
+          <div class="tl-tags">
+            <span class="tag tag-blue">📍 东门大街</span>
+            <span class="tag tag-green">🎫 免费</span>
+          </div>
+          <div class="photo-tips">📸 <strong>拍摄Tips：</strong>网红花墙做背景、梧桐树下的街道纵深感。</div>
+          <div class="tl-price">💰 免费</div>
+          <a class="map-btn" href="javascript:void(0);" onclick="openAmap('东门大街', 31.650, 120.752)">📍 高德导航</a>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot dot-green">🍜</div>
+        <div class="tl-content">
+          <div class="tl-time">12:30 — 13:30</div>
+          <div class="tl-title">午饭（方塔步行街）</div>
+          <div class="tl-desc">在方塔步行街解决午饭，推荐叫花鸡、常熟蒸菜。吃完回酒店取行李退房。</div>
+          <div class="tl-price">🍜 午饭约 ¥30-50</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot dot-orange">📷</div>
+        <div class="tl-content">
+          <div class="tl-time">13:30 — 15:00</div>
+          <div class="tl-title">📍 方塔园 · 最后收尾拍摄</div>
+          <div class="tl-desc">退房寄存行李后，步行3分钟到方塔园。作为此行最后一个景点，可以补拍一些之前遗漏的画面：方塔全景、古典园林、柳树倒影。</div>
+          <div class="tl-tags">
+            <span class="tag tag-blue">🏛 方塔园</span>
+            <span class="tag tag-purple">📷 收尾拍摄</span>
+          </div>
+          <div class="photo-tips">📸 <strong>收尾Tips：</strong>趁下午光线柔和，补拍方塔与园林的结合画面，从方塔园西门出最方便叫车。</div>
+          <div class="tl-price">🎫 门票 ¥30（已购）</div>
+          <a class="map-btn" href="javascript:void(0);" onclick="openAmap('方塔园', 31.648, 120.748)">📍 高德导航</a>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot dot-gray">🚕</div>
+        <div class="tl-content">
+          <div class="tl-time">15:00 — 15:30</div>
+          <div class="tl-title">🚄 前往常熟站（从方塔园出发）</div>
+          <div class="tl-desc"><strong>送站起点：方塔园（最后景点）→ 常熟站</strong>。退房后行李已从酒店取出，直接从方塔园打车到常熟站（约15分钟），不走回头路。</div>
+          <div class="tl-tags">
+            <span class="tag tag-orange">⚠️ 从最后景点出发，不是从酒店</span>
+          </div>
+          <div class="tl-price">🚕 打车约 ¥15-20</div>
+          <a class="map-btn" href="javascript:void(0);" onclick="openAmap('常熟站', 31.670, 120.765)">📍 高德导航</a>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot dot-blue">✅</div>
+        <div class="tl-content">
+          <div class="tl-time">17:31 — 23:26</div>
+          <div class="tl-title">🚄 G1782 常熟站 → 长沙南站</div>
+          <div class="tl-desc"><strong>常熟站17:31 → 长沙南站23:26</strong>。二等座约¥496，5小时55分。23:40前到家完全没问题！</div>
+          <div class="tl-tags">
+            <span class="tag tag-green">🎫 已预订 G1782</span>
+            <span class="tag tag-purple">⏰ 23:26到长沙南</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== 景点汇总 ===== -->
+  <section>
+    <div class="section-title">📍 核心摄影景点一览</div>
+    <div class="spot-grid">
+      <div class="spot-card">
+        <h3>🗼 方塔园</h3>
+        <div class="spot-info">📍 方塔东街北80米 | 🎫 ¥20-30 | ⏰ 7:00-17:00</div>
+        <div class="spot-photo">📸 宋代方塔+月季园，标志性构图</div>
+      </div>
+      <div class="spot-card">
+        <h3>🏯 兴福禅寺</h3>
+        <div class="spot-info">📍 虞山北路25号 | 🎫 免费 | ⏰ 5:30-17:00</div>
+        <div class="spot-photo">📸 古木+破龙涧，唐诗意境</div>
+      </div>
+      <div class="spot-card">
+        <h3>🌊 尚湖风景区</h3>
+        <div class="spot-info">📍 常熟市区西部 | 🎫 ¥50 | ⏰ 7:30-17:30</div>
+        <div class="spot-photo">📸 黄昏倒影+水上森林+牡丹</div>
+      </div>
+      <div class="spot-card">
+        <h3>🏡 燕园</h3>
+        <div class="spot-info">📍 辛峰巷111号 | 🎫 ¥10 | ⏰ 8:00-17:00</div>
+        <div class="spot-photo">📸 私家园林，4月桃花牡丹</div>
+      </div>
+      <div class="spot-card">
+        <h3>🏛 翁同龢纪念馆</h3>
+        <div class="spot-info">📍 翁府前7号 | 🎫 ¥20 | ⏰ 8:00-17:00</div>
+        <div class="spot-photo">📸 庭院深深，中式建筑细节</div>
+      </div>
+      <div class="spot-card">
+        <h3>🌸 东门大街</h3>
+        <div class="spot-info">📍 东门大街 | 🎫 免费 | ⏰ 全天</div>
+        <div class="spot-photo">📸 "常熟武康路"，网红花墙</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 美食推荐 ===== -->
+  <section>
+    <div class="section-title">🍜 常熟特色美食</div>
+    <div class="table-wrap">
+      <table class="cost-table">
+        <thead>
+          <tr><th>必吃</th><th>推荐理由</th><th>人均</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>🐔 叫花鸡</td><td>常熟最知名美食，方塔街老字号</td><td>¥50-80/只</td></tr>
+          <tr><td>🧇 梅花糕</td><td>塔弄特色小吃，外酥里嫩</td><td>¥5-10</td></tr>
+          <tr><td>🥟 蟹黄小笼包</td><td>苏式汤包，早餐必选</td><td>¥15-25</td></tr>
+          <tr><td>🍖 常熟蒸菜</td><td>本地家常菜，价格实惠</td><td>¥30-50</td></tr>
+          <tr><td>🐑 常熟羊肉</td><td>本地特色，暖身佳品</td><td>¥40-60</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== 注意事项 ===== -->
+  <section>
+    <div class="section-title">📋 摄影师专属注意事项</div>
+    <ul class="tips-list">
+      <li><span class="tip-icon">🎒</span>考试结束后尽快回酒店换上舒适鞋子，虞山山路石阶较多。</li>
+      <li><span class="tip-icon">🔋</span>4月气温15-22°C，户外拍摄时间长，建议带充电宝，相机电池多备一块。</li>
+      <li><span class="tip-icon">🌅</span>尚湖黄昏拍摄建议16:30前入园，17:30停止售票。</li>
+      <li><span class="tip-icon">🚕</span>常熟城区不大，打滴滴方便，兴福寺附近道路窄，提前确认司机能进入。</li>
+      <li><span class="tip-icon">🚆</span>返程G1782从常熟站发车（不是常熟汽车南站），务必确认！建议15:30前出发。</li>
+    </ul>
+  </section>
+
+  <!-- ===== 总预算 ===== -->
+  <section>
+    <div class="section-title">💰 总预算</div>
+    <div class="budget-card">
+      <div class="budget-header">
+        <div style="font-size:.85rem; opacity:.8;">总费用</div>
+        <div class="budget-total">约 ¥1500</div>
+      </div>
+      <div class="budget-items">
+        <div class="budget-item">
+          <div class="label">大交通</div>
+          <div class="value">约 ¥800</div>
+        </div>
+        <div class="budget-item">
+          <div class="label">小交通</div>
+          <div class="value">约 ¥100</div>
+        </div>
+        <div class="budget-item">
+          <div class="label">住宿</div>
+          <div class="value">约 ¥200</div>
+        </div>
+        <div class="budget-item">
+          <div class="label">门票</div>
+          <div class="value">约 ¥110</div>
+        </div>
+        <div class="budget-item">
+          <div class="label">餐饮</div>
+          <div class="value">约 ¥250</div>
+        </div>
+        <div class="budget-item">
+          <div class="label">其他</div>
+          <div class="value">约 ¥40</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <p>以上时间仅为参考，实际以景区公告为准 · 祝考试顺利、拍出好片！🎉📸</p>
+</footer>
+
+</body>
+</html>
