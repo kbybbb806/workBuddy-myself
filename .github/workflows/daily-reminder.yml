@@ -10,8 +10,35 @@ jobs:
   remind:
     runs-on: ubuntu-latest
     steps:
-      # 房间整理提醒（长期，每天22:00）
+      # 检查日期范围（房间整理 & 快递盒提醒共用）
+      - name: 检查日期
+        id: check_room
+        env:
+          ROOM_END: "2026-05-24"
+          TRASH_START: "2026-05-18"
+          TRASH_END: "2026-05-24"
+        run: |
+          TODAY=$(date -u +%Y-%m-%d)
+          TODAY_SEC=$(date -d "$TODAY" +%s)
+          ROOM_END_SEC=$(date -d "$ROOM_END" +%s)
+          TRASH_START_SEC=$(date -d "$TRASH_START" +%s)
+          TRASH_END_SEC=$(date -d "$TRASH_END" +%s)
+          # 房间整理：即日起至5月24日
+          if [ "$TODAY_SEC" -le "$ROOM_END_SEC" ]; then
+            echo "room_run=true" >> $GITHUB_OUTPUT
+          else
+            echo "room_run=false" >> $GITHUB_OUTPUT
+          fi
+          # 快递盒：5月18日至5月24日
+          if [ "$TODAY_SEC" -ge "$TRASH_START_SEC" ] && [ "$TODAY_SEC" -le "$TRASH_END_SEC" ]; then
+            echo "trash_run=true" >> $GITHUB_OUTPUT
+          else
+            echo "trash_run=false" >> $GITHUB_OUTPUT
+          fi
+
+      # 房间整理提醒（有效期至 2026-05-24）
       - name: 发送房间整理提醒
+        if: steps.check_room.outputs.room_run == 'true'
         run: |
           curl -s -X POST "https://sctapi.ftqq.com/${{ secrets.SERVERCHAN_SENDKEY }}.send" \
             -H "Content-Type: application/x-www-form-urlencoded" \
@@ -26,25 +53,8 @@ jobs:
           加油马先生，动起来！💪"
 
       # 快递盒和厨房垃圾提醒（有效期 2026-05-18 ~ 2026-05-24）
-      - name: 发送快递盒和厨房垃圾提醒
-        if: github.event.schedule == '0 14 * * *' && steps.check_date.outputs.should_run == 'true'
-        env:
-          START_DATE: "2026-05-18"
-          END_DATE: "2026-05-24"
-        id: check_date
-        run: |
-          TODAY=$(date -u +%Y-%m-%d)
-          START=$(date -d "$START_DATE" +%s)
-          END=$(date -d "$END_DATE" +%s)
-          TODAY_SEC=$(date -d "$TODAY" +%s)
-          if [ "$TODAY_SEC" -ge "$START" ] && [ "$TODAY_SEC" -le "$END" ]; then
-            echo "should_run=true" >> $GITHUB_OUTPUT
-          else
-            echo "should_run=false" >> $GITHUB_OUTPUT
-          fi
-
       - name: 推送快递盒和厨房垃圾提醒
-        if: steps.check_date.outputs.should_run == 'true'
+        if: steps.check_room.outputs.trash_run == 'true'
         run: |
           curl -s -X POST "https://sctapi.ftqq.com/${{ secrets.SERVERCHAN_SENDKEY }}.send" \
             -H "Content-Type: application/x-www-form-urlencoded" \
