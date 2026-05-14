@@ -1,0 +1,25 @@
+name: 每日房间整理提醒
+
+on:
+  schedule:
+    # UTC 14:00 = 北京时间 22:00
+    - cron: '0 14 * * *'
+  workflow_dispatch: # 允许手动触发，方便测试
+
+jobs:
+  remind:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 发送 Server酱 推送
+        run: |
+          curl -s -X POST "https://sctapi.ftqq.com/${{ secrets.SERVERCHAN_SENDKEY }}.send" \
+            -H "Content-Type: application/x-www-form-urlencoded" \
+            --data-urlencode "title=🏠 房间整理提醒" \
+            --data-urlencode "desp=📋 今日整理清单：
+
+          ✅ 清理房间空间
+          ✅ 整理衣服
+          ✅ 收拾鞋子及周边
+          🛍️ 待购：鞋子收纳盒 + 收纳箱
+
+          加油马先生，动起来！💪"
