@@ -1,4 +1,4 @@
-name: 每日房间整理提醒
+name: 每日提醒推送
 
 on:
   schedule:
@@ -10,7 +10,8 @@ jobs:
   remind:
     runs-on: ubuntu-latest
     steps:
-      - name: 发送 Server酱 推送
+      # 房间整理提醒（长期，每天22:00）
+      - name: 发送房间整理提醒
         run: |
           curl -s -X POST "https://sctapi.ftqq.com/${{ secrets.SERVERCHAN_SENDKEY }}.send" \
             -H "Content-Type: application/x-www-form-urlencoded" \
@@ -23,3 +24,34 @@ jobs:
           🛍️ 待购：鞋子收纳盒 + 收纳箱
 
           加油马先生，动起来！💪"
+
+      # 快递盒和厨房垃圾提醒（有效期 2026-05-18 ~ 2026-05-24）
+      - name: 发送快递盒和厨房垃圾提醒
+        if: github.event.schedule == '0 14 * * *' && steps.check_date.outputs.should_run == 'true'
+        env:
+          START_DATE: "2026-05-18"
+          END_DATE: "2026-05-24"
+        id: check_date
+        run: |
+          TODAY=$(date -u +%Y-%m-%d)
+          START=$(date -d "$START_DATE" +%s)
+          END=$(date -d "$END_DATE" +%s)
+          TODAY_SEC=$(date -d "$TODAY" +%s)
+          if [ "$TODAY_SEC" -ge "$START" ] && [ "$TODAY_SEC" -le "$END" ]; then
+            echo "should_run=true" >> $GITHUB_OUTPUT
+          else
+            echo "should_run=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: 推送快递盒和厨房垃圾提醒
+        if: steps.check_date.outputs.should_run == 'true'
+        run: |
+          curl -s -X POST "https://sctapi.ftqq.com/${{ secrets.SERVERCHAN_SENDKEY }}.send" \
+            -H "Content-Type: application/x-www-form-urlencoded" \
+            --data-urlencode "title=🗑️ 收拾提醒" \
+            --data-urlencode "desp=📋 今日待收拾：
+
+          ✅ 收拾快递盒
+          ✅ 清理厨房垃圾
+
+          顺手的事，别拖到第二天！💪"
