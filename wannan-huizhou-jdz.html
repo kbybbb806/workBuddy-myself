@@ -3,54 +3,44 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>皖南徽州 · 景德镇 · 5日深度游</title>
+<title>皖南徽州 · 景德镇 · 上饶 · 5日紧凑游</title>
 <style>
 :root {
-  --ink: #2c1e0f;
-  --paper: #fdf6ec;
-  --cream: #f5ead8;
-  --accent: #c0392b;
-  --gold: #b8860b;
-  --muted: #7a6652;
-  --border: #e0d0b8;
-  --green: #2e7d32;
-  --blue: #1565c0;
-  --card-bg: #fffdf8;
+  --ink: #2c1e0f; --paper: #fdf6ec; --cream: #f5ead8; --accent: #c0392b;
+  --gold: #b8860b; --muted: #7a6652; --border: #e0d0b8;
+  --green: #2e7d32; --blue: #1565c0; --card-bg: #fffdf8;
   --shadow: 0 2px 12px rgba(44,30,15,.10);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'PingFang SC','Microsoft YaHei',sans-serif;background:var(--paper);color:var(--ink);line-height:1.7}
 
-/* ── HERO ── */
-.hero{background:linear-gradient(160deg,#3d2b1a 0%,#6b3a24 50%,#8b4513 100%);color:#fff;padding:56px 24px 40px;text-align:center;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+/* HERO */
+.hero{background:linear-gradient(160deg,#2d5016 0%,#4a7c23 50%,#6b8e23 100%);color:#fff;padding:56px 24px 40px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23fff' fill-opacity='.04'%3E%3Cpath d='M30 2L6 18v24l24 16 24-16V18L30 2z'/%3E%3C/g%3E%3C/svg%3E")}
 .hero-tag{display:inline-block;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:4px 16px;font-size:12px;letter-spacing:2px;margin-bottom:16px}
-.hero h1{font-size:clamp(28px,6vw,48px);font-weight:700;letter-spacing:4px;text-shadow:0 2px 8px rgba(0,0,0,.3);margin-bottom:8px}
-.hero-sub{font-size:15px;opacity:.85;letter-spacing:1px;margin-bottom:24px}
+.hero h1{font-size:clamp(26px,6vw,46px);font-weight:700;letter-spacing:4px;text-shadow:0 2px 8px rgba(0,0,0,.3);margin-bottom:8px}
+.hero-sub{font-size:14px;opacity:.85;letter-spacing:1px;margin-bottom:24px}
 .hero-meta{display:flex;justify-content:center;gap:24px;flex-wrap:wrap}
 .hero-meta span{background:rgba(255,255,255,.12);border-radius:8px;padding:6px 14px;font-size:13px}
 
-/* ── OVERVIEW ── */
+/* SECTIONS */
 .section{max-width:900px;margin:0 auto;padding:32px 16px}
 .section-title{font-size:20px;font-weight:700;color:var(--ink);border-left:4px solid var(--accent);padding-left:12px;margin-bottom:20px}
-.overview-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+
+/* OVERVIEW */
+.overview-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
 .ov-card{background:var(--card-bg);border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center}
-.ov-card .num{font-size:28px;font-weight:700;color:var(--accent)}
+.ov-card .num{font-size:26px;font-weight:700;color:var(--accent)}
 .ov-card .label{font-size:12px;color:var(--muted);margin-top:4px}
 
-/* ── WEATHER TABS ── */
-.tab-bar{display:flex;gap:8px;margin-bottom:16px}
-.tab-btn{padding:7px 20px;border-radius:20px;border:1px solid var(--border);background:var(--cream);color:var(--muted);font-size:13px;cursor:pointer;transition:.2s}
-.tab-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
-.tab-panel{display:none}
-.tab-panel.active{display:block}
-.weather-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
+/* WEATHER */
+.weather-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px}
 .w-card{background:var(--card-bg);border:1px solid var(--border);border-radius:10px;padding:14px}
 .w-city{font-weight:600;font-size:14px;margin-bottom:6px}
 .w-temp{font-size:22px;font-weight:700;color:var(--accent)}
 .w-desc{font-size:12px;color:var(--muted);margin-top:4px}
 
-/* ── TRAIN CARDS ── */
+/* TRAINS */
 .train-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
 .train-card{background:var(--card-bg);border:1px solid var(--border);border-radius:12px;padding:16px}
 .train-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
@@ -58,11 +48,11 @@ body{font-family:'PingFang SC','Microsoft YaHei',sans-serif;background:var(--pap
 .train-type{font-size:11px;color:var(--muted);background:var(--cream);border-radius:4px;padding:2px 8px}
 .train-route{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;margin-bottom:8px}
 .train-arrow{color:var(--muted);font-size:12px}
-.train-info{display:flex;gap:16px;font-size:12px;color:var(--muted)}
+.train-info{display:flex;gap:16px;font-size:12px;color:var(--muted);flex-wrap:wrap}
 .train-price{font-weight:700;color:var(--gold)}
 .train-note{font-size:11px;color:var(--muted);margin-top:6px;padding-top:6px;border-top:1px solid var(--border)}
 
-/* ── TIMELINE ── */
+/* TIMELINE */
 .day-block{margin-bottom:32px}
 .day-header{display:flex;align-items:center;gap:12px;margin-bottom:16px}
 .day-badge{background:var(--accent);color:#fff;border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;flex-shrink:0}
@@ -70,7 +60,7 @@ body{font-family:'PingFang SC','Microsoft YaHei',sans-serif;background:var(--pap
 .day-subtitle{font-size:13px;color:var(--muted)}
 .timeline{position:relative;padding-left:20px}
 .timeline::before{content:'';position:absolute;left:6px;top:0;bottom:0;width:2px;background:var(--border)}
-.tl-item{position:relative;margin-bottom:16px}
+.tl-item{position:relative;margin-bottom:14px}
 .tl-dot{position:absolute;left:-17px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--accent);border:2px solid var(--paper)}
 .tl-time{font-size:11px;color:var(--muted);font-weight:600;margin-bottom:2px}
 .tl-content{background:var(--card-bg);border:1px solid var(--border);border-radius:10px;padding:12px 14px}
@@ -88,7 +78,7 @@ body{font-family:'PingFang SC','Microsoft YaHei',sans-serif;background:var(--pap
 .sum-item{background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:6px 12px;font-size:12px}
 .sum-item strong{color:var(--accent)}
 
-/* ── HOTEL CARDS ── */
+/* HOTEL */
 .hotel-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
 .hotel-card{background:var(--card-bg);border:1px solid var(--border);border-radius:12px;padding:16px}
 .hotel-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
@@ -99,21 +89,21 @@ body{font-family:'PingFang SC','Microsoft YaHei',sans-serif;background:var(--pap
 .hotel-pros li{font-size:12px;color:#555;padding:2px 0}
 .hotel-pros li::before{content:'✓ ';color:var(--green)}
 
-/* ── BUDGET ── */
+/* BUDGET */
 .budget-table{width:100%;border-collapse:collapse}
 .budget-table th{background:var(--cream);font-size:13px;padding:10px 12px;text-align:left;border-bottom:2px solid var(--border)}
 .budget-table td{padding:9px 12px;font-size:13px;border-bottom:1px solid var(--border)}
 .budget-table tr:hover td{background:#fdf3e7}
 .budget-total td{font-weight:700;color:var(--accent);font-size:14px;background:var(--cream)}
 
-/* ── FOOD ── */
-.food-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+/* FOOD */
+.food-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
 .food-card{background:var(--card-bg);border:1px solid var(--border);border-radius:10px;padding:12px;text-align:center}
 .food-icon{font-size:28px;margin-bottom:6px}
 .food-name{font-weight:700;font-size:13px;margin-bottom:4px}
 .food-note{font-size:11px;color:var(--muted)}
 
-/* ── TODO ── */
+/* TODO */
 .todo-progress{height:6px;background:var(--border);border-radius:3px;margin-bottom:16px;overflow:hidden}
 .todo-bar{height:100%;background:var(--accent);border-radius:3px;transition:.3s;width:0%}
 .todo-group{margin-bottom:16px}
@@ -125,14 +115,16 @@ body{font-family:'PingFang SC','Microsoft YaHei',sans-serif;background:var(--pap
 .todo-item.done .todo-cb{background:var(--accent);border-color:var(--accent);color:#fff}
 .todo-text{font-size:13px}
 
-/* ── TIPS ── */
+/* TIPS */
 .tips-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
 .tip-card{background:var(--card-bg);border:1px solid var(--border);border-radius:10px;padding:14px}
 .tip-icon{font-size:20px;margin-bottom:6px}
 .tip-title{font-weight:700;font-size:13px;margin-bottom:6px}
 .tip-body{font-size:12px;color:var(--muted);line-height:1.7}
 
-/* ── FOOTER ── */
+/* SOURCE BADGE */
+.src-badge{display:inline-block;font-size:10px;background:var(--cream);color:var(--muted);border-radius:4px;padding:1px 6px;margin-left:6px;vertical-align:middle}
+
 footer{background:#2c1e0f;color:rgba(255,255,255,.6);text-align:center;padding:24px;font-size:12px;margin-top:40px}
 footer a{color:rgba(255,255,255,.8)}
 
@@ -147,157 +139,261 @@ footer a{color:rgba(255,255,255,.8)}
 
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-tag">📍 皖南 · 徽州 · 景德镇</div>
-  <h1>徽风瓷韵 · 五日深度</h1>
-  <div class="hero-sub">西递 · 宏村 · 黄山 · 呈坎 · 篁岭 · 景德镇</div>
+  <div class="hero-tag">📍 皖南 · 徽州 · 景德镇 · 上饶</div>
+  <h1>徽风瓷韵 · 五日紧凑</h1>
+  <div class="hero-sub">黄山 → 西递/宏村 → 呈坎 → 篁岭 → 景德镇 → 望仙谷 → 返程</div>
   <div class="hero-meta">
-    <span>🗓 5晚6天（D0出发）</span>
-    <span>👤 单人预算 ¥2500-3200</span>
+    <span>🗓 5天+1晚 (D0出发)</span>
+    <span>👤 单人预算 ¥2300-2600</span>
     <span>🚄 高铁全程</span>
-    <span>📅 6月底 / 11月底</span>
+    <span>📅 6月26-30日</span>
   </div>
 </div>
 
 <!-- OVERVIEW -->
 <div class="section">
-  <div class="section-title">行程概览</div>
+  <div class="section-title">📋 行程概览</div>
   <div class="overview-grid">
-    <div class="ov-card"><div class="num">6</div><div class="label">天数</div></div>
-    <div class="ov-card"><div class="num">4</div><div class="label">核心目的地</div></div>
-    <div class="ov-card"><div class="num">8+</div><div class="label">景点打卡</div></div>
-    <div class="ov-card"><div class="num">¥2800</div><div class="label">单人预估中位预算</div></div>
+    <div class="ov-card"><div class="num">5天</div><div class="label">旅行天数</div></div>
+    <div class="ov-card"><div class="num">7</div><div class="label">核心目的地</div></div>
+    <div class="ov-card"><div class="num">¥2380</div><div class="label">预估中位预算</div></div>
     <div class="ov-card"><div class="num">全高铁</div><div class="label">交通方式</div></div>
-    <div class="ov-card"><div class="num">长沙→黄山→景德镇→长沙</div><div class="label">路线走向</div></div>
+    <div class="ov-card"><div class="num">长沙↔上饶</div><div class="label">大交通走法</div></div>
+    <div class="ov-card"><div class="num">紧凑</div><div class="label">行程节奏</div></div>
   </div>
 </div>
 
 <!-- WEATHER -->
 <div class="section">
-  <div class="section-title">气候参考</div>
-  <div class="tab-bar">
-    <button class="tab-btn active" onclick="switchTab('june')">🌿 6月底</button>
-    <button class="tab-btn" onclick="switchTab('nov')">🍁 11月底</button>
-  </div>
-  <div id="tab-june" class="tab-panel active">
-    <div class="weather-grid">
-      <div class="w-card"><div class="w-city">📍 黄山/屯溪</div><div class="w-temp">26-33°C</div><div class="w-desc">梅雨季末尾，多雨闷热；山顶15-20°C，需备薄外套<br>⚡ 云海概率高，雨后必上山</div></div>
-      <div class="w-card"><div class="w-city">📍 婺源/篁岭</div><div class="w-temp">25-32°C</div><div class="w-desc">梯田绿意盎然，游客较少<br>早晨云雾效果佳，7点前出发</div></div>
-      <div class="w-card"><div class="w-city">📍 景德镇</div><div class="w-temp">26-33°C</div><div class="w-desc">高温多雨，陶溪川有遮挡<br>🧴 防晒、防雨两手准备</div></div>
-      <div class="w-card"><div class="w-city">🎒 建议装备</div><div class="w-temp" style="font-size:16px">必备清单</div><div class="w-desc">速干衣裤 / 折叠伞 / 凉感喷雾 / 防晒霜SPF50+ / 登山鞋（黄山必须）</div></div>
-    </div>
-  </div>
-  <div id="tab-nov" class="tab-panel">
-    <div class="weather-grid">
-      <div class="w-card"><div class="w-city">📍 黄山/屯溪</div><div class="w-temp">8-18°C</div><div class="w-desc">秋末初冬，天高云淡，是黄山最美季节之一<br>⛰ 晴天率高，光线绝佳</div></div>
-      <div class="w-card"><div class="w-city">📍 婺源/篁岭</div><div class="w-temp">10-19°C</div><div class="w-desc">晒秋结束（10月为高峰），仍有红叶<br>色温饱和，摄影师最爱</div></div>
-      <div class="w-card"><div class="w-city">📍 景德镇</div><div class="w-temp">10-20°C</div><div class="w-desc">秋高气爽，逛陶溪川最舒适<br>🧥 早晚需加薄夹克</div></div>
-      <div class="w-card"><div class="w-city">🎒 建议装备</div><div class="w-temp" style="font-size:16px">必备清单</div><div class="w-desc">薄羽绒/冲锋衣 / 保暖内衣 / 登山鞋 / 防滑手套（黄山）/ 热水杯</div></div>
-    </div>
+  <div class="section-title">🌤️ 气候参考（6月底）</div>
+  <div class="weather-grid">
+    <div class="w-card"><div class="w-city">📍 黄山风景区</div><div class="w-temp">22-32°C</div><div class="w-desc">梅雨季末尾，多阵雨闷热<br>山顶15-20°C，备薄外套<br>🌫️ 云海概率高，雨后必上山</div></div>
+    <div class="w-card"><div class="w-city">📍 宏村/西递/呈坎</div><div class="w-temp">24-33°C</div><div class="w-desc">古村落湿度大，石板路湿滑<br>📷 清晨薄雾拍倒影最佳</div></div>
+    <div class="w-card"><div class="w-city">📍 婺源/篁岭</div><div class="w-temp">23-32°C</div><div class="w-desc">梯田绿意盎然，游客较少<br>📷 早晨7点前拍云雾天街</div></div>
+    <div class="w-card"><div class="w-city">📍 景德镇/上饶</div><div class="w-temp">24-34°C</div><div class="w-desc">高温多雨，室内活动为主<br>🧴 防晒防雨两手准备</div></div>
   </div>
 </div>
 
 <!-- TRAINS -->
 <div class="section">
-  <div class="section-title">主要车次</div>
+  <div class="section-title">🚄 大交通（途牛实时数据）</div>
+  <p style="font-size:12px;color:var(--muted);margin-bottom:16px">数据来源：途牛 CLI <span class="src-badge">tuniu call train</span> · 查询日期：2026-05-27</p>
+
+  <h4 style="font-size:14px;margin-bottom:10px">去程：长沙南 → 黄山北 · 6月26日（周五）</h4>
   <div class="train-grid">
     <div class="train-card">
       <div class="train-head">
-        <span class="train-no">G1398</span>
-        <span class="train-type">首选</span>
+        <span class="train-no">G2186</span>
+        <span class="train-type">⭐ 推荐</span>
       </div>
-      <div class="train-route"><span>长沙南</span><span class="train-arrow">──▶</span><span>黄山北</span></div>
+      <div class="train-route"><span>长沙南</span><span class="train-arrow">→</span><span>黄山北</span></div>
       <div class="train-info">
-        <span>🕗 18:05 → 21:58</span>
-        <span>⏱ 约3h53m</span>
-        <span class="train-price">二等¥249</span>
+        <span>🕗 16:59→20:32</span>
+        <span>⏱ 3h33m</span>
+        <span class="train-price">二等 ¥395</span>
       </div>
-      <div class="train-note">D0晚直达，无需换乘</div>
+      <div class="train-note">✅ 下班后可赶 · 当晚直达汤口 · 选F座靠窗</div>
     </div>
     <div class="train-card">
       <div class="train-head">
-        <span class="train-no">G632+G2186</span>
+        <span class="train-no">G2760</span>
         <span class="train-type">备选</span>
       </div>
-      <div class="train-route"><span>长沙南</span><span class="train-arrow">──▶</span><span>黄山北</span></div>
+      <div class="train-route"><span>长沙南</span><span class="train-arrow">→</span><span>黄山北</span></div>
       <div class="train-info">
-        <span>合肥南转乘</span>
-        <span class="train-price">二等¥298</span>
+        <span>🕗 07:23→11:16</span>
+        <span>⏱ 3h53m</span>
+        <span class="train-price">二等 ¥391</span>
       </div>
-      <div class="train-note">G1398无票时备用方案</div>
+      <div class="train-note">需请假半天 · 上午到可多玩半天</div>
     </div>
     <div class="train-card">
       <div class="train-head">
-        <span class="train-no">G1649</span>
-        <span class="train-type">D4过境</span>
+        <span class="train-no">G1184</span>
+        <span class="train-type">备选2</span>
       </div>
-      <div class="train-route"><span>婺源</span><span class="train-arrow">──▶</span><span>景德镇北</span></div>
+      <div class="train-route"><span>长沙南</span><span class="train-arrow">→</span><span>黄山北</span></div>
       <div class="train-info">
-        <span>🕔 约16分钟</span>
-        <span class="train-price">二等¥35</span>
+        <span>🕗 11:24→19:18</span>
+        <span>⏱ 7h54m</span>
+        <span class="train-price">二等 ¥695</span>
       </div>
-      <div class="train-note">婺源→景德镇最快方案</div>
+      <div class="train-note">⚠️ 经停多站耗时太长，不推荐</div>
+    </div>
+  </div>
+
+  <h4 style="font-size:14px;margin:24px 0 10px">返程：上饶 → 长沙南 · 6月30日（周二）</h4>
+  <div class="train-grid">
+    <div class="train-card">
+      <div class="train-head">
+        <span class="train-no">G267</span>
+        <span class="train-type">⭐ 推荐</span>
+      </div>
+      <div class="train-route"><span>上饶</span><span class="train-arrow">→</span><span>长沙南</span></div>
+      <div class="train-info">
+        <span>🕗 15:30→17:36</span>
+        <span>⏱ 2h6m</span>
+        <span class="train-price">二等 ¥317</span>
+      </div>
+      <div class="train-note">✅ 最快车次 · 上午望仙谷后赶车 · F座靠窗</div>
     </div>
     <div class="train-card">
       <div class="train-head">
-        <span class="train-no">G2715→G819</span>
-        <span class="train-type">D5返程</span>
+        <span class="train-no">G2339</span>
+        <span class="train-type">备选</span>
       </div>
-      <div class="train-route"><span>景德镇北</span><span class="train-arrow">──▶</span><span>长沙南</span></div>
+      <div class="train-route"><span>上饶</span><span class="train-arrow">→</span><span>长沙南</span></div>
       <div class="train-info">
-        <span>南昌西中转</span>
-        <span class="train-price">二等合计¥200-260</span>
+        <span>🕗 14:03→16:56</span>
+        <span>⏱ 2h53m</span>
+        <span class="train-price">二等 ¥316</span>
       </div>
-      <div class="train-note">⚠️ 无直达，须在南昌西换乘</div>
+      <div class="train-note">早一小时出发，上午需压缩</div>
+    </div>
+    <div class="train-card">
+      <div class="train-head">
+        <span class="train-no">G2141</span>
+        <span class="train-type">备选2</span>
+      </div>
+      <div class="train-route"><span>上饶</span><span class="train-arrow">→</span><span>长沙南</span></div>
+      <div class="train-info">
+        <span>🕗 16:34→19:20</span>
+        <span>⏱ 2h46m</span>
+        <span class="train-price">二等 ¥316</span>
+      </div>
+      <div class="train-note">最晚推荐 · 多玩1小时</div>
     </div>
   </div>
 </div>
 
-<!-- D0 -->
+<!-- HOTELS -->
 <div class="section">
-  <div class="section-title">行程详情</div>
+  <div class="section-title">🏨 住宿推荐（途牛实时数据）</div>
+  <p style="font-size:12px;color:var(--muted);margin-bottom:16px">数据来源：途牛 CLI <span class="src-badge">tuniu call hotel</span></p>
 
+  <h4 style="font-size:14px;margin-bottom:10px">D0-D1 黄山汤口（2晚）</h4>
+  <div class="hotel-grid">
+    <div class="hotel-card">
+      <div class="hotel-head">
+        <span class="hotel-name">⭐ 曼居酒店（汤口南大门店）</span>
+      </div>
+      <div class="hotel-price">¥279/晚</div>
+      <div class="hotel-location">📍 汤川路119-3号 · 距汤口中心1.4km · 评分4.1</div>
+      <ul class="hotel-pros">
+        <li>高档型 · 曼享豪华双床房 30㎡ 有窗</li>
+        <li>限时取消 · 距南大门换乘中心近</li>
+      </ul>
+    </div>
+    <div class="hotel-card">
+      <div class="hotel-head">
+        <span class="hotel-name">桔子酒店（南大门汤口店）</span>
+      </div>
+      <div class="hotel-price">¥288/晚</div>
+      <div class="hotel-location">📍 205国道天都大市场B楼 · 距汤口中心570m · 评分4.8</div>
+      <ul class="hotel-pros">
+        <li>高档型 · 大床房 28㎡ 有窗</li>
+        <li>评分高 · 黄山脚下便捷舒适</li>
+      </ul>
+    </div>
+  </div>
+
+  <h4 style="font-size:14px;margin:20px 0 10px">D2 婺源（1晚）</h4>
+  <div class="hotel-grid">
+    <div class="hotel-card">
+      <div class="hotel-head">
+        <span class="hotel-name">⭐ 婺源篁岭晒秋美宿</span>
+      </div>
+      <div class="hotel-price">¥150-200/晚</div>
+      <div class="hotel-location">📍 篁岭景区内 · 可看日出</div>
+      <ul class="hotel-pros">
+        <li>住景区内免排队 · 清晨独享天街</li>
+        <li>性价比高 · 早起直接拍晨雾</li>
+      </ul>
+    </div>
+    <div class="hotel-card">
+      <div class="hotel-head">
+        <span class="hotel-name">婺源县城民宿</span>
+      </div>
+      <div class="hotel-price">¥80-130/晚</div>
+      <div class="hotel-location">📍 婺源县城· 距高铁站近</div>
+      <ul class="hotel-pros">
+        <li>价格实惠 · 交通便利</li>
+        <li>次日去篁岭需早起1h</li>
+      </ul>
+    </div>
+  </div>
+
+  <h4 style="font-size:14px;margin:20px 0 10px">D3 上饶（1晚）</h4>
+  <div class="hotel-grid">
+    <div class="hotel-card">
+      <div class="hotel-head">
+        <span class="hotel-name">⭐ 格林东方（景德镇陶溪川火车站店）</span>
+      </div>
+      <div class="hotel-price">¥280/晚</div>
+      <div class="hotel-location">📍 通站路太白园路口 · 距火车站280m · 评分4.4</div>
+      <ul class="hotel-pros">
+        <li>高档型 · 东方大床房 20㎡ 有窗</li>
+        <li>限时取消 · 近火车站次日出方便</li>
+      </ul>
+    </div>
+    <div class="hotel-card">
+      <div class="hotel-head">
+        <span class="hotel-name">上饶站周边经济酒店</span>
+      </div>
+      <div class="hotel-price">¥100-150/晚</div>
+      <div class="hotel-location">📍 上饶站附近</div>
+      <ul class="hotel-pros">
+        <li>次日返程方便 · 经济实惠</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- DAILY PLAN -->
+<div class="section">
+  <div class="section-title">📅 每日行程</div>
+
+  <!-- D0 -->
   <div class="day-block">
     <div class="day-header">
       <div class="day-badge">D0</div>
-      <div><div class="day-title">出发 · 长沙→黄山</div><div class="day-subtitle">高铁直达，落地屯溪</div></div>
+      <div>
+        <div class="day-title">周五 · 下班出发</div>
+        <div class="day-subtitle">6月26日 · 长沙 → 黄山北</div>
+      </div>
     </div>
     <div class="timeline">
       <div class="tl-item">
         <div class="tl-dot"></div>
         <div class="tl-time">17:00</div>
         <div class="tl-content">
-          <div class="tl-place">🏠 长沙出发准备</div>
-          <div class="tl-desc">打包完毕，建议提前1小时到长沙南站。站内可买晚饭带上车。</div>
+          <div class="tl-place">下班出发 · 地铁2号线 → 长沙南站</div>
+          <div class="tl-desc">麓谷体育中心站6号线→人民东路换2号线→长沙南站，约50分钟</div>
         </div>
       </div>
       <div class="tl-item">
         <div class="tl-dot"></div>
-        <div class="tl-time">18:05</div>
+        <div class="tl-time">16:59-20:32</div>
         <div class="tl-content">
-          <div class="tl-place">🚄 G1398 长沙南→黄山北</div>
-          <div class="tl-desc">直达，全程约3小时53分</div>
-          <div class="tl-tags">
-            <span class="tag tag-cost">💴 二等¥249</span>
-          </div>
+          <div class="tl-place">G2186 长沙南 → 黄山北 <span class="src-badge">途牛</span></div>
+          <div class="tl-desc">二等座 ¥395 · 3h33m · 选F座靠窗，沿途看日落</div>
+          <div class="tl-tags"><span class="tag tag-cost">¥395</span></div>
         </div>
       </div>
       <div class="tl-item">
         <div class="tl-dot"></div>
-        <div class="tl-time">21:58</div>
+        <div class="tl-time">21:00</div>
         <div class="tl-content">
-          <div class="tl-place">🏨 到达黄山北站 · 入住屯溪</div>
-          <div class="tl-desc">打车约20分钟至屯溪老街附近酒店（约¥40）。到店简单整理，明日早起做准备。</div>
-          <div class="tl-tags">
-            <span class="tag tag-cost">🚖 打车¥35-45</span>
-          </div>
+          <div class="tl-place">抵达黄山北站 → 打车/拼车到汤口镇</div>
+          <div class="tl-desc">约50分钟车程，拼车约¥30/人。入住曼居酒店或桔子酒店</div>
+          <div class="tl-tags"><span class="tag tag-hotel">住汤口</span><span class="tag tag-cost">住宿 ¥140/晚</span></div>
         </div>
       </div>
     </div>
     <div class="day-summary">
-      <div class="sum-item">交通 <strong>¥290</strong></div>
-      <div class="sum-item">住宿 <strong>¥80-120</strong></div>
-      <div class="sum-item">餐食 <strong>¥30</strong></div>
-      <div class="sum-item">D0小计 <strong>≈¥400-440</strong></div>
+      <div class="sum-item">🚄 交通 <strong>¥425</strong></div>
+      <div class="sum-item">🏨 住宿 <strong>¥140</strong></div>
+      <div class="sum-item">💰 今日 <strong>¥565</strong></div>
     </div>
   </div>
 
@@ -305,89 +401,81 @@ footer a{color:rgba(255,255,255,.8)}
   <div class="day-block">
     <div class="day-header">
       <div class="day-badge">D1</div>
-      <div><div class="day-title">屯溪老街 · 西递 · 宏村</div><div class="day-subtitle">徽派建筑精髓，民居博物馆</div></div>
+      <div>
+        <div class="day-title">周六 · 黄山全天</div>
+        <div class="day-subtitle">6月27日 · 云谷索道上 → 光明顶 → 迎客松 → 玉屏索道下</div>
+      </div>
     </div>
     <div class="timeline">
       <div class="tl-item">
         <div class="tl-dot"></div>
-        <div class="tl-time">07:00–08:00</div>
+        <div class="tl-time">06:00</div>
         <div class="tl-content">
-          <div class="tl-place">☕ 黎阳in巷 · 晨游</div>
-          <div class="tl-desc">新安江边沿岸步行，清晨人少光线好，适合拍倒影和徽派沿河建筑。吃碗徽州炒面或蒸饺当早饭（¥15-20）。</div>
-          <div class="tl-tags">
-            <span class="tag tag-food">🍜 徽州炒面/蒸饺 ¥15</span>
-            <span class="tag tag-nav" onclick="openAmap('黎阳in巷','118.335520','29.723419')">📍 导航</span>
-          </div>
+          <div class="tl-place">早起 · 汤口镇早餐</div>
+          <div class="tl-desc">黄山烧饼 + 毛豆腐 + 豆浆，补充能量。带2瓶水+压缩饼干上山</div>
+          <div class="tl-tags"><span class="tag tag-food">黄山烧饼 ¥5</span><span class="tag tag-food">毛豆腐 ¥10</span></div>
         </div>
       </div>
       <div class="tl-item">
         <div class="tl-dot"></div>
-        <div class="tl-time">08:15</div>
+        <div class="tl-time">06:45</div>
         <div class="tl-content">
-          <div class="tl-place">🚌 包车/拼车 → 西递</div>
-          <div class="tl-desc">屯溪至西递约40km，包车¥180-220/车（建议提前约好司机），拼车约¥50/人。全程约50分钟。</div>
-          <div class="tl-tags">
-            <span class="tag tag-cost">🚗 包车¥200（可与他人分摊）</span>
-          </div>
+          <div class="tl-place">换乘中心 → 云谷索道站</div>
+          <div class="tl-desc">景区大巴约20分钟。推荐云谷索道上（后山），人少景美。单节车厢4-5人，观景好<span class="src-badge">知乎</span></div>
+          <div class="tl-tags"><span class="tag tag-cost">大巴 ¥19</span><span class="tag tag-cost">索道 ¥80</span></div>
         </div>
       </div>
       <div class="tl-item">
         <div class="tl-dot"></div>
-        <div class="tl-time">09:00–12:00</div>
+        <div class="tl-time">07:30-12:00</div>
         <div class="tl-content">
-          <div class="tl-place">🏯 西递古村</div>
-          <div class="tl-desc">联合国教科文遗产，保存最完整的徽派民居群。重点：胡文光牌楼 → 绣楼 → 大夫第 → 瑞玉庭。建议请村内讲解员（¥80/次，2小时，非常值得）。</div>
-          <div class="tl-tags">
-            <span class="tag tag-cost">🎫 门票¥104</span>
-            <span class="tag tag-nav" onclick="openAmap('西递古村','117.995990','29.903340')">📍 导航</span>
-            <span class="tag tag-tip">💡 9点前人少</span>
-          </div>
+          <div class="tl-place">北海景区 → 光明顶</div>
+          <div class="tl-desc">始信峰→清凉台→猴子观海→光明顶。全程约4h，坡度平缓。<br>📷 猴子观海拍逆光剪影，光明顶360°全景</div>
+          <div class="tl-tags"><span class="tag tag-tip">📷 广角24mm 拍全景</span></div>
         </div>
       </div>
       <div class="tl-item">
         <div class="tl-dot"></div>
-        <div class="tl-time">12:00–13:00</div>
+        <div class="tl-time">12:00-13:00</div>
         <div class="tl-content">
-          <div class="tl-place">🍽 西递村内午餐</div>
-          <div class="tl-desc">村口农家乐，点徽州臭鳜鱼、毛豆腐、红烧肉。人均¥50-70。</div>
-          <div class="tl-tags">
-            <span class="tag tag-food">🐟 臭鳜鱼+毛豆腐 ¥60</span>
-          </div>
+          <div class="tl-place">光明顶午餐休息</div>
+          <div class="tl-desc">自带压缩饼干+能量胶。山上物价高（盒饭¥60+），建议自备</div>
         </div>
       </div>
       <div class="tl-item">
         <div class="tl-dot"></div>
-        <div class="tl-time">13:30–17:30</div>
+        <div class="tl-time">13:00-16:00</div>
         <div class="tl-content">
-          <div class="tl-place">🌿 宏村</div>
-          <div class="tl-desc">月沼→南湖→承志堂→汪氏宗祠。南湖倒影下午3-4点光线最好。月沼边民居可自由探索。注意：宏村商业化较重，主街可快速走。</div>
-          <div class="tl-tags">
-            <span class="tag tag-cost">🎫 门票¥104</span>
-            <span class="tag tag-nav" onclick="openAmap('宏村','117.989956','30.002582')">📍 导航</span>
-            <span class="tag tag-tip">💡 下午光线打南湖</span>
-          </div>
+          <div class="tl-place">西海大峡谷（如体力允许）→ 迎客松</div>
+          <div class="tl-desc">西海是黄山最美但最累区域（陡峭）。如体力有限可跳过，直接去迎客松。<br>📷 迎客松经典机位，下午侧光最佳<span class="src-badge">知乎/小红书</span></div>
+          <div class="tl-tags"><span class="tag tag-tip">⚠️ 西海极陡 · 恐高慎重</span></div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-time">16:30</div>
+        <div class="tl-content">
+          <div class="tl-place">玉屏索道下山 → 换乘大巴回汤口</div>
+          <div class="tl-desc">玉屏索道单节4-5人，下山时光线好看风景好。注意：末班索道约17:00，别误！</div>
+          <div class="tl-tags"><span class="tag tag-cost">索道 ¥90</span><span class="tag tag-cost">大巴 ¥19</span></div>
         </div>
       </div>
       <div class="tl-item">
         <div class="tl-dot"></div>
         <div class="tl-time">18:00</div>
         <div class="tl-content">
-          <div class="tl-place">🚌 返回汤口 · 入住</div>
-          <div class="tl-desc">宏村→汤口约30分钟包车或打车。汤口镇是黄山大门口，次日攀登黄山最方便出发点。晚饭在汤口镇自行解决。</div>
-          <div class="tl-tags">
-            <span class="tag tag-food">🍲 汤口小馆晚饭 ¥40-50</span>
-            <span class="tag tag-hotel">🏨 汤口民宿 ¥80-130/晚</span>
-            <span class="tag tag-nav" onclick="openAmap('汤口换乘中心','118.154930','30.103880')">📍 导航</span>
-          </div>
+          <div class="tl-place">汤口镇晚餐 · 徽菜体验</div>
+          <div class="tl-desc">臭鳜鱼 + 毛豆腐 + 石耳炖鸡。找本地人开的小馆子，别去游客店<span class="src-badge">知乎</span></div>
+          <div class="tl-tags"><span class="tag tag-food">臭鳜鱼 ¥68</span><span class="tag tag-food">石耳炖鸡 ¥48</span></div>
         </div>
       </div>
     </div>
     <div class="day-summary">
-      <div class="sum-item">交通 <strong>¥200</strong></div>
-      <div class="sum-item">门票 <strong>¥208</strong></div>
-      <div class="sum-item">餐食 <strong>¥115</strong></div>
-      <div class="sum-item">住宿 <strong>¥100</strong></div>
-      <div class="sum-item">D1小计 <strong>≈¥623</strong></div>
+      <div class="sum-item">🎫 门票 <strong>¥190</strong></div>
+      <div class="sum-item">🚡 索道+大巴 <strong>¥208</strong></div>
+      <div class="sum-item">🍜 餐饮 <strong>¥80</strong></div>
+      <div class="sum-item">🏨 住宿 <strong>¥140</strong></div>
+      <div class="sum-item">💰 今日 <strong>¥618</strong></div>
     </div>
   </div>
 
@@ -395,84 +483,72 @@ footer a{color:rgba(255,255,255,.8)}
   <div class="day-block">
     <div class="day-header">
       <div class="day-badge">D2</div>
-      <div><div class="day-title">黄山全天</div><div class="day-subtitle">奇峰云海，徽州山水精华</div></div>
+      <div>
+        <div class="day-title">周日 · 徽州古村 → 婺源</div>
+        <div class="day-subtitle">6月28日 · 西递→宏村→呈坎 → 高铁到婺源</div>
+      </div>
     </div>
     <div class="timeline">
       <div class="tl-item">
         <div class="tl-dot"></div>
-        <div class="tl-time">06:00</div>
+        <div class="tl-time">07:00</div>
         <div class="tl-content">
-          <div class="tl-place">🌅 汤口出发 → 黄山换乘中心</div>
-          <div class="tl-desc">步行或打车5分钟至换乘中心，乘官方环保车上山（¥19）。建议早到，避开缆车排队高峰。</div>
-          <div class="tl-tags">
-            <span class="tag tag-cost">🚌 环保车¥19</span>
-          </div>
+          <div class="tl-place">汤口出发 → 西递（约40分钟车程）</div>
+          <div class="tl-desc">拼车或公交。西递比宏村更安静，商业化程度低，适合清晨拍照</div>
         </div>
       </div>
       <div class="tl-item">
         <div class="tl-dot"></div>
-        <div class="tl-time">06:30–07:00</div>
+        <div class="tl-time">08:00-10:00</div>
         <div class="tl-content">
-          <div class="tl-place">🚡 云谷索道上山</div>
-          <div class="tl-desc">早班索道人少。缆车¥80，约10分钟到白鹅岭。</div>
-          <div class="tl-tags">
-            <span class="tag tag-cost">🎫 门票¥230 + 索道¥80</span>
-          </div>
+          <div class="tl-place">西递古村</div>
+          <div class="tl-desc">世界文化遗产 · 桃花源里人家。📷 村口牌坊+月沼倒影，清晨人少光影好<span class="src-badge">小红书</span></div>
+          <div class="tl-tags"><span class="tag tag-cost">门票 ¥94</span><span class="tag tag-tip">📷 14-24mm超广角</span></div>
         </div>
       </div>
       <div class="tl-item">
         <div class="tl-dot"></div>
-        <div class="tl-time">07:00–12:00</div>
+        <div class="tl-time">10:30-13:00</div>
         <div class="tl-content">
-          <div class="tl-place">⛰ 北海景区 → 始信峰 → 光明顶</div>
-          <div class="tl-desc">白鹅岭→始信峰（奇松怪石）→北海宾馆→光明顶（全景制高点，海拔1860m）。全程约5-6km步行，备好登山鞋。天气好时云海如棉絮。</div>
-          <div class="tl-tags">
-            <span class="tag tag-tip">💡 始信峰必打卡</span>
-            <span class="tag tag-nav" onclick="openAmap('黄山风景区','118.160164','30.139322')">📍 导航</span>
-          </div>
+          <div class="tl-place">宏村</div>
+          <div class="tl-desc">画里乡村 · 牛形水系。📷 南湖画桥+月沼是出片圣地。午餐在村内吃徽州毛豆腐+笋干烧肉</div>
+          <div class="tl-tags"><span class="tag tag-cost">门票 ¥94</span><span class="tag tag-food">笋干烧肉 ¥35</span></div>
         </div>
       </div>
       <div class="tl-item">
         <div class="tl-dot"></div>
-        <div class="tl-time">12:00–13:00</div>
+        <div class="tl-time">14:00-16:00</div>
         <div class="tl-content">
-          <div class="tl-place">🍱 山顶自带干粮 / 北海宾馆餐厅</div>
-          <div class="tl-desc">山上餐厅价格约平地3倍（面条¥50+）。强烈建议自带干粮：能量棒+面包+热水杯（保温壶装好热水带上去）。</div>
-          <div class="tl-tags">
-            <span class="tag tag-food">🥐 自带干粮成本约¥30</span>
-            <span class="tag tag-tip">💡 保温壶装热水上山</span>
-          </div>
+          <div class="tl-place">呈坎</div>
+          <div class="tl-desc">江南第一村 · 八卦村布局。比西递宏村更原始，游客少。<br>📷 村内小巷光影+晒秋场景</div>
+          <div class="tl-tags"><span class="tag tag-cost">门票 ¥102</span></div>
         </div>
       </div>
       <div class="tl-item">
         <div class="tl-dot"></div>
-        <div class="tl-time">13:00–17:00</div>
+        <div class="tl-time">17:00-18:00</div>
         <div class="tl-content">
-          <div class="tl-place">🏔 天海 → 莲花峰 → 玉屏楼</div>
-          <div class="tl-desc">莲花峰海拔1864m，是黄山最高峰（有时封闭，看公告）。玉屏楼区域有迎客松。走西线下山，乘玉屏索道（¥80）。</div>
-          <div class="tl-tags">
-            <span class="tag tag-cost">🚡 玉屏索道¥80</span>
-          </div>
+          <div class="tl-place">黄山北站 → 婺源</div>
+          <div class="tl-desc">高铁约25min，¥35左右。班次密集，随到随走</div>
+          <div class="tl-tags"><span class="tag tag-cost">高铁 ¥35</span></div>
         </div>
       </div>
       <div class="tl-item">
         <div class="tl-dot"></div>
-        <div class="tl-time">17:30</div>
+        <div class="tl-time">19:00</div>
         <div class="tl-content">
-          <div class="tl-place">🏨 返回汤口 · 续住民宿</div>
-          <div class="tl-desc">泡脚放松，晚饭在汤口镇吃。今晚行李准备，明日转战呈坎/徽州古城。</div>
-          <div class="tl-tags">
-            <span class="tag tag-food">🍜 汤口晚饭 ¥40-50</span>
-          </div>
+          <div class="tl-place">婺源县城晚餐 + 入住</div>
+          <div class="tl-desc">婺源特色：糊豆腐+粉蒸肉。住篁岭美宿或县城民宿</div>
+          <div class="tl-tags"><span class="tag tag-food">糊豆腐 ¥25</span><span class="tag tag-hotel">住婺源 ¥130</span></div>
         </div>
       </div>
     </div>
     <div class="day-summary">
-      <div class="sum-item">交通 <strong>¥98</strong></div>
-      <div class="sum-item">门票+索道 <strong>¥470</strong></div>
-      <div class="sum-item">餐食 <strong>¥80</strong></div>
-      <div class="sum-item">住宿 <strong>¥100</strong></div>
-      <div class="sum-item">D2小计 <strong>≈¥748</strong></div>
+      <div class="sum-item">🎫 门票 <strong>¥290</strong></div>
+      <div class="sum-item">🚗 交通 <strong>¥85</strong></div>
+      <div class="sum-item">🍜 餐饮 <strong>¥80</strong></div>
+      <div class="sum-item">🏨 住宿 <strong>¥130</strong></div>
+      <div class="sum-item">💰 今日 <strong>¥585</strong></div>
     </div>
   </div>
 
@@ -480,72 +556,72 @@ footer a{color:rgba(255,255,255,.8)}
   <div class="day-block">
     <div class="day-header">
       <div class="day-badge">D3</div>
-      <div><div class="day-title">呈坎 · 徽州古城 · 屯溪老街</div><div class="day-subtitle">徽州腹地，文脉深探</div></div>
+      <div>
+        <div class="day-title">周一 · 篁岭 → 景德镇（精简）→ 上饶</div>
+        <div class="day-subtitle">6月29日 · 篁岭晒秋 → 陶溪川 → 夜宿上饶</div>
+      </div>
     </div>
     <div class="timeline">
       <div class="tl-item">
         <div class="tl-dot"></div>
-        <div class="tl-time">08:00</div>
+        <div class="tl-time">06:30</div>
         <div class="tl-content">
-          <div class="tl-place">🚌 汤口→呈坎 (约50分钟)</div>
-          <div class="tl-desc">打车或包车约¥70-90。呈坎是中国保存最完好的宋代古村落，游客极少，非常推荐。</div>
+          <div class="tl-place">早起 → 篁岭（30分钟车程）</div>
+          <div class="tl-desc">赶第一批上山。晨雾+天街+晒秋是最佳拍摄时间<span class="src-badge">小红书</span></div>
         </div>
       </div>
       <div class="tl-item">
         <div class="tl-dot"></div>
-        <div class="tl-time">09:00–12:00</div>
+        <div class="tl-time">07:00-12:00</div>
         <div class="tl-content">
-          <div class="tl-place">🏯 呈坎古村</div>
-          <div class="tl-desc">八卦村落布局，千年罗东舒祠（国保单位），徽派砖雕木雕集大成者。人少安静，适合深度漫步。罗东舒祠是核心，不要错过宝纶阁。</div>
-          <div class="tl-tags">
-            <span class="tag tag-cost">🎫 门票¥80</span>
-            <span class="tag tag-nav" onclick="openAmap('呈坎古村','118.280803','29.914335')">📍 导航</span>
-            <span class="tag tag-tip">💡 拍照绝佳，人少</span>
-          </div>
+          <div class="tl-place">篁岭景区</div>
+          <div class="tl-desc">天街→晒工坊→垒心桥→梯田观景台。夏天梯田绿意盎然，晒秋全年都有。<br>📷 垒心桥俯拍天街+梯田，超广角必备。计时拍照项目很出片<span class="src-badge">小红书 11.4万赞</span></div>
+          <div class="tl-tags"><span class="tag tag-cost">门票+索道 ¥145</span><span class="tag tag-tip">📷 70-200mm拍远处</span></div>
         </div>
       </div>
       <div class="tl-item">
         <div class="tl-dot"></div>
-        <div class="tl-time">12:30–14:00</div>
+        <div class="tl-time">13:00-14:00</div>
         <div class="tl-content">
-          <div class="tl-place">🚌 转徽州古城 + 午餐</div>
-          <div class="tl-desc">呈坎→徽州古城约20分钟车程。先找徽菜馆吃午饭，推荐粉蒸肉+徽州圆子汤。</div>
-          <div class="tl-tags">
-            <span class="tag tag-food">🍖 粉蒸肉套餐 ¥45</span>
-          </div>
+          <div class="tl-place">午餐 · 婺源县城</div>
+          <div class="tl-desc">汽锅鸡+清明粿，快速吃完赶高铁</div>
+          <div class="tl-tags"><span class="tag tag-food">汽锅鸡 ¥38</span></div>
         </div>
       </div>
       <div class="tl-item">
         <div class="tl-dot"></div>
-        <div class="tl-time">14:00–17:00</div>
+        <div class="tl-time">14:30-15:00</div>
         <div class="tl-content">
-          <div class="tl-place">🏙 徽州古城（歙县）</div>
-          <div class="tl-desc">许国石坊（明代牌坊）→棠樾牌坊群（另需¥90，可选）→徽州府衙。歙县古城本身免费，部分景点收费。</div>
-          <div class="tl-tags">
-            <span class="tag tag-cost">🎫 基础免费，牌坊群¥90可选</span>
-            <span class="tag tag-nav" onclick="openAmap('徽州古城','118.436772','29.866020')">📍 导航</span>
-          </div>
+          <div class="tl-place">婺源 → 景德镇北（高铁30min）</div>
+          <div class="tl-desc">班次密集，约¥30</div>
+          <div class="tl-tags"><span class="tag tag-cost">高铁 ¥30</span></div>
         </div>
       </div>
       <div class="tl-item">
         <div class="tl-dot"></div>
-        <div class="tl-time">17:30–20:00</div>
+        <div class="tl-time">15:30-18:00</div>
         <div class="tl-content">
-          <div class="tl-place">🛍 屯溪老街 · 晚饭逛街</div>
-          <div class="tl-desc">回屯溪老街扫尾。推荐老街徽帮斋购文房，同和馆吃正宗徽菜晚饭（提前订位）。老街夜景比白天更有味道。</div>
-          <div class="tl-tags">
-            <span class="tag tag-food">🍽 同和馆晚饭 ¥60-80</span>
-            <span class="tag tag-nav" onclick="openAmap('屯溪老街','118.337756','29.715283')">📍 导航</span>
-          </div>
+          <div class="tl-place">景德镇 · 陶溪川文创街区（精简半日）</div>
+          <div class="tl-desc">老瓷厂改造的文创园区，免费逛。逛陶瓷市集+拍照打卡<span class="src-badge">小红书 3.6万赞</span><br>📷 红砖厂房+烟囱工业风，傍晚光线最佳</div>
+          <div class="tl-tags"><span class="tag tag-tip">📷 免费</span></div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-time">19:00-20:00</div>
+        <div class="tl-content">
+          <div class="tl-place">景德镇北 → 上饶（高铁40min）</div>
+          <div class="tl-desc">入住上饶站附近酒店或格林东方景德镇火车站店（次日早出发）</div>
+          <div class="tl-tags"><span class="tag tag-cost">高铁 ¥40</span><span class="tag tag-hotel">住上饶 ¥130</span></div>
         </div>
       </div>
     </div>
     <div class="day-summary">
-      <div class="sum-item">交通 <strong>¥120</strong></div>
-      <div class="sum-item">门票 <strong>¥170</strong></div>
-      <div class="sum-item">餐食 <strong>¥125</strong></div>
-      <div class="sum-item">住宿 <strong>¥80-120</strong></div>
-      <div class="sum-item">D3小计 <strong>≈¥495-535</strong></div>
+      <div class="sum-item">🎫 门票 <strong>¥145</strong></div>
+      <div class="sum-item">🚄 交通 <strong>¥70</strong></div>
+      <div class="sum-item">🍜 餐饮 <strong>¥70</strong></div>
+      <div class="sum-item">🏨 住宿 <strong>¥130</strong></div>
+      <div class="sum-item">💰 今日 <strong>¥415</strong></div>
     </div>
   </div>
 
@@ -553,350 +629,219 @@ footer a{color:rgba(255,255,255,.8)}
   <div class="day-block">
     <div class="day-header">
       <div class="day-badge">D4</div>
-      <div><div class="day-title">篁岭晒秋 · 婺源 → 景德镇</div><div class="day-subtitle">天空之城+徽州收官，转战瓷都</div></div>
+      <div>
+        <div class="day-title">周二 · 上饶望仙谷 → 返程长沙</div>
+        <div class="day-subtitle">6月30日 · 悬崖仙侠世界 → 高铁回长沙</div>
+      </div>
     </div>
     <div class="timeline">
       <div class="tl-item">
         <div class="tl-dot"></div>
-        <div class="tl-time">06:30</div>
+        <div class="tl-time">07:00</div>
         <div class="tl-content">
-          <div class="tl-place">🚄 黄山北→婺源 (约50分钟)</div>
-          <div class="tl-desc">早班高铁，需提前到黄山北站。G字头高铁约50-60分钟，二等¥65-75。</div>
-          <div class="tl-tags">
-            <span class="tag tag-cost">🚄 高铁¥65-75</span>
-          </div>
+          <div class="tl-place">上饶出发 → 望仙谷（约50分钟车程）</div>
+          <div class="tl-desc">拼车或旅游专线。望仙谷是挂在悬崖上的仙侠小镇，早上人少<span class="src-badge">小红书</span></div>
         </div>
       </div>
       <div class="tl-item">
         <div class="tl-dot"></div>
-        <div class="tl-time">07:30–11:30</div>
+        <div class="tl-time">08:00-12:00</div>
         <div class="tl-content">
-          <div class="tl-place">🌄 篁岭景区</div>
-          <div class="tl-desc">空中悬崖村，晒秋文化地标。缆车上山，重点：天街→卧云桥→晒秋晾晒区。6月绿意充盈，11月红叶+晒秋双重惊艳。建议早到（8点前）光线最佳、人最少。</div>
-          <div class="tl-tags">
-            <span class="tag tag-cost">🎫 含缆车¥180</span>
-            <span class="tag tag-nav" onclick="openAmap('篁岭景区','118.120060','29.319004')">📍 导航</span>
-            <span class="tag tag-tip">💡 早上8点前人极少</span>
-          </div>
+          <div class="tl-place">望仙谷景区</div>
+          <div class="tl-desc">悬崖民宿群+瀑布+峡谷栈道+玻璃桥。📷 上午顺光拍悬崖全景，超广角14mm。<br>小红书超火打卡地，仙侠感拉满</div>
+          <div class="tl-tags"><span class="tag tag-cost">门票 ¥100</span><span class="tag tag-tip">📷 14mm超广角拍全景</span></div>
         </div>
       </div>
       <div class="tl-item">
         <div class="tl-dot"></div>
-        <div class="tl-time">12:00–13:00</div>
+        <div class="tl-time">12:30-14:00</div>
         <div class="tl-content">
-          <div class="tl-place">🍽 婺源县城午餐</div>
-          <div class="tl-desc">返回婺源县城，荷包红鱼/糊豆腐/清炒蕨菜。婺源菜清淡鲜美，与屯溪徽菜略有不同。</div>
-          <div class="tl-tags">
-            <span class="tag tag-food">🐟 荷包红鱼套餐 ¥50</span>
-          </div>
+          <div class="tl-place">返回上饶站 · 午餐</div>
+          <div class="tl-desc">上饶站附近吃铅山烫粉+灯盏粿，地道江西味</div>
+          <div class="tl-tags"><span class="tag tag-food">铅山烫粉 ¥15</span><span class="tag tag-food">灯盏粿 ¥12</span></div>
         </div>
       </div>
       <div class="tl-item">
         <div class="tl-dot"></div>
-        <div class="tl-time">14:30</div>
+        <div class="tl-time">15:30-17:36</div>
         <div class="tl-content">
-          <div class="tl-place">🚄 G1649 婺源→景德镇北</div>
-          <div class="tl-desc">全程仅约16分钟！景德镇北站→打车约20分钟进市区。</div>
-          <div class="tl-tags">
-            <span class="tag tag-cost">🚄 G1649 二等¥35</span>
-          </div>
-        </div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-time">15:30–20:00</div>
-        <div class="tl-content">
-          <div class="tl-place">🏺 陶溪川文创街区 · 入住安顿</div>
-          <div class="tl-desc">先入住酒店放行李，然后步行陶溪川。下午窑砖广场逛市集，傍晚灯光亮起最美。可以在这里买瓷器（价格公道）、看展、喝咖啡。周末夜市更热闹。</div>
-          <div class="tl-tags">
-            <span class="tag tag-cost">🎫 免费</span>
-            <span class="tag tag-nav" onclick="openAmap('陶溪川文创街区','117.236957','29.296921')">📍 导航</span>
-          </div>
-        </div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-time">19:00</div>
-        <div class="tl-content">
-          <div class="tl-place">🍽 景德镇晚饭</div>
-          <div class="tl-desc">陶溪川附近：推荐冷粉+瓦罐汤+景德镇炒粉。清淡下饭，价格实惠（¥25-35）。</div>
-          <div class="tl-tags">
-            <span class="tag tag-food">🍜 冷粉+瓦罐汤 ¥30</span>
-          </div>
+          <div class="tl-place">G267 上饶 → 长沙南 <span class="src-badge">途牛</span></div>
+          <div class="tl-desc">二等座 ¥317 · 2h6m · 选F座靠窗。到家19点前，当晚可休息</div>
+          <div class="tl-tags"><span class="tag tag-cost">¥317</span></div>
         </div>
       </div>
     </div>
     <div class="day-summary">
-      <div class="sum-item">交通 <strong>¥160</strong></div>
-      <div class="sum-item">门票 <strong>¥180</strong></div>
-      <div class="sum-item">餐食 <strong>¥80</strong></div>
-      <div class="sum-item">住宿 <strong>¥80-120</strong></div>
-      <div class="sum-item">D4小计 <strong>≈¥500-540</strong></div>
-    </div>
-  </div>
-
-  <!-- D5 -->
-  <div class="day-block">
-    <div class="day-header">
-      <div class="day-badge">D5</div>
-      <div><div class="day-title">景德镇深度 · 返程长沙</div><div class="day-subtitle">御窑博物院 · 三宝村 · 收官回家</div></div>
-    </div>
-    <div class="timeline">
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-time">09:00–12:00</div>
-        <div class="tl-content">
-          <div class="tl-place">🏛 御窑博物院</div>
-          <div class="tl-desc">世界级陶瓷博物馆，朱锫设计的弧形窑砖建筑本身即是艺术品。地下展出御窑遗址真迹，值得2小时细逛。</div>
-          <div class="tl-tags">
-            <span class="tag tag-cost">🎫 门票¥50（预约制）</span>
-            <span class="tag tag-nav" onclick="openAmap('御窑博物院','117.207107','29.296615')">📍 导航</span>
-            <span class="tag tag-tip">💡 提前官网/小程序预约</span>
-          </div>
-        </div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-time">12:00–13:30</div>
-        <div class="tl-content">
-          <div class="tl-place">🍽 午饭 + 景德镇陶瓷博物馆（可选）</div>
-          <div class="tl-desc">午饭吃景德镇炒饭或豆腐脑，轻巧快速。若有时间可顺路看陶瓷博物馆（免费）。</div>
-          <div class="tl-tags">
-            <span class="tag tag-food">🍳 炒饭套餐 ¥25</span>
-            <span class="tag tag-nav" onclick="openAmap('景德镇陶瓷博物馆','117.175530','29.293240')">📍 导航</span>
-          </div>
-        </div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-time">14:00–16:00</div>
-        <div class="tl-content">
-          <div class="tl-place">🌿 三宝村陶瓷艺术村</div>
-          <div class="tl-desc">艺术家聚居地，山谷溪流间散落工作室和柴窑。可以免费参观大多数工作室，与艺术家聊天，买喜欢的手工瓷器（价格差异大，谨慎购买）。</div>
-          <div class="tl-tags">
-            <span class="tag tag-cost">🎫 免费</span>
-            <span class="tag tag-nav" onclick="openAmap('三宝村','117.262847','29.255941')">📍 导航</span>
-            <span class="tag tag-tip">💡 带走纪念：¥50内小杯/笔筒</span>
-          </div>
-        </div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-time">16:30</div>
-        <div class="tl-content">
-          <div class="tl-place">🚖 返回景德镇北站</div>
-          <div class="tl-desc">打车约25-30分钟至景德镇北站（¥30-40），提前1小时到站候车。</div>
-        </div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-time">18:00前后</div>
-        <div class="tl-content">
-          <div class="tl-place">🚄 G2715 景德镇北→南昌西 (约55分钟)</div>
-          <div class="tl-desc">⚠️ 注意：景德镇→长沙无直达高铁，必须在南昌西换乘。在南昌西候车约30-60分钟后，转乘G819/G2159等至长沙南。</div>
-          <div class="tl-tags">
-            <span class="tag tag-cost">💴 全程合计¥200-260</span>
-            <span class="tag tag-tip">⚠️ 务必提前分开买两段票</span>
-          </div>
-        </div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-time">21:30前后</div>
-        <div class="tl-content">
-          <div class="tl-place">🏠 到达长沙南 · 回家</div>
-          <div class="tl-desc">带着满满的徽韵与瓷都记忆顺利归家。</div>
-        </div>
-      </div>
-    </div>
-    <div class="day-summary">
-      <div class="sum-item">交通 <strong>¥265</strong></div>
-      <div class="sum-item">门票 <strong>¥50</strong></div>
-      <div class="sum-item">餐食 <strong>¥55</strong></div>
-      <div class="sum-item">D5小计 <strong>≈¥370</strong></div>
+      <div class="sum-item">🎫 门票 <strong>¥100</strong></div>
+      <div class="sum-item">🚗+🚄 交通 <strong>¥367</strong></div>
+      <div class="sum-item">🍜 餐饮 <strong>¥50</strong></div>
+      <div class="sum-item">💰 今日 <strong>¥517</strong></div>
     </div>
   </div>
 </div>
 
-<!-- HOTELS -->
+<!-- FOOD -->
 <div class="section">
-  <div class="section-title">推荐住宿（位置优先）</div>
-  <div class="hotel-grid">
-    <div class="hotel-card">
-      <div class="hotel-head">
-        <div><div class="hotel-name">D0/D3 · 屯溪老街附近</div><div class="hotel-location">📍 老街步行5分钟内</div></div>
-        <div class="hotel-price">¥80-130</div>
-      </div>
-      <ul class="hotel-pros">
-        <li>步行至黎阳in巷/老街</li>
-        <li>早餐街边摊方便</li>
-        <li>推荐：屯溪老街民宿客栈（美团搜"屯溪老街"按评分筛选）</li>
-        <li>备选：黎阳in巷附近精品民宿¥120-150</li>
-      </ul>
-    </div>
-    <div class="hotel-card">
-      <div class="hotel-head">
-        <div><div class="hotel-name">D1/D2 · 汤口镇</div><div class="hotel-location">📍 黄山南大门核心</div></div>
-        <div class="hotel-price">¥80-130</div>
-      </div>
-      <ul class="hotel-pros">
-        <li>距换乘中心步行5-10分钟</li>
-        <li>早班缆车最方便出发</li>
-        <li>推荐：汤口镇评分4.5+民宿</li>
-        <li>注意：节假日前一个月订房</li>
-      </ul>
-    </div>
-    <div class="hotel-card">
-      <div class="hotel-head">
-        <div><div class="hotel-name">D4/D5 · 景德镇市区</div><div class="hotel-location">📍 陶溪川1km内</div></div>
-        <div class="hotel-price">¥80-150</div>
-      </div>
-      <ul class="hotel-pros">
-        <li>步行或骑行至陶溪川、御窑</li>
-        <li>推荐：陶溪川附近青旅/民宿</li>
-        <li>景德镇商务快捷酒店性价比高</li>
-        <li>三宝村内有精品民宿（体验感强）</li>
-      </ul>
-    </div>
+  <div class="section-title">🍜 必吃美食清单</div>
+  <div class="food-grid">
+    <div class="food-card"><div class="food-icon">🐟</div><div class="food-name">黄山臭鳜鱼</div><div class="food-note">徽菜头牌 · ¥68-88</div></div>
+    <div class="food-card"><div class="food-icon">🧀</div><div class="food-name">毛豆腐</div><div class="food-note">徽州特色 · ¥10-15</div></div>
+    <div class="food-card"><div class="food-icon">🥮</div><div class="food-name">黄山烧饼</div><div class="food-note">梅干菜馅 · ¥5/个</div></div>
+    <div class="food-card"><div class="food-icon">🍲</div><div class="food-name">石耳炖鸡</div><div class="food-note">黄山特产 · ¥48-68</div></div>
+    <div class="food-card"><div class="food-icon">🥟</div><div class="food-name">清明粿</div><div class="food-note">婺源小吃 · ¥8/个</div></div>
+    <div class="food-card"><div class="food-icon">🍜</div><div class="food-name">糊豆腐</div><div class="food-note">婺源名菜 · ¥25</div></div>
+    <div class="food-card"><div class="food-icon">🍚</div><div class="food-name">粉蒸肉</div><div class="food-note">江西风味 · ¥35</div></div>
+    <div class="food-card"><div class="food-icon">🍲</div><div class="food-name">铅山烫粉</div><div class="food-note">上饶必吃 · ¥15</div></div>
+    <div class="food-card"><div class="food-icon">🥘</div><div class="food-name">灯盏粿</div><div class="food-note">上饶特色 · ¥12</div></div>
+    <div class="food-card"><div class="food-icon">🍵</div><div class="food-name">景德镇冷粉</div><div class="food-note">粗粉+辣酱 · ¥8</div></div>
   </div>
 </div>
 
 <!-- BUDGET -->
 <div class="section">
-  <div class="section-title">全程预算汇总（单人）</div>
+  <div class="section-title">💰 预算明细</div>
   <table class="budget-table">
-    <thead><tr><th>类别</th><th>明细</th><th>6月底估算</th><th>11月底估算</th></tr></thead>
+    <thead>
+      <tr><th>项目</th><th>明细</th><th>预估金额</th></tr>
+    </thead>
     <tbody>
-      <tr><td>🚄 交通</td><td>长沙往返+区间高铁+包车打车</td><td>¥950</td><td>¥950</td></tr>
-      <tr><td>🎫 门票</td><td>西递+宏村+黄山+索道+呈坎+篁岭+御窑</td><td>¥1098</td><td>¥1098</td></tr>
-      <tr><td>🍽 餐食</td><td>全程6天</td><td>¥480</td><td>¥480</td></tr>
-      <tr><td>🏨 住宿</td><td>5晚</td><td>¥450</td><td>¥500</td></tr>
-      <tr><td>🛍 购物/备用</td><td>纪念品+突发</td><td>¥200</td><td>¥200</td></tr>
+      <tr><td>🚄 大交通</td><td>去G2186 ¥395 + 回G267 ¥317 + 中转换乘 ¥105</td><td>¥817</td></tr>
+      <tr><td>🚗 小交通</td><td>拼车/公交/景区大巴（4天）</td><td>¥180</td></tr>
+      <tr><td>🏨 住宿</td><td>汤口2晚(¥280) + 婺源1晚(¥130) + 上饶1晚(¥130)</td><td>¥540</td></tr>
+      <tr><td>🎫 门票</td><td>黄山¥190 + 西递¥94 + 宏村¥94 + 呈坎¥102 + 篁岭¥145 + 望仙谷¥100</td><td>¥725</td></tr>
+      <tr><td>🍜 餐饮</td><td>早餐¥15 + 午餐¥30 + 晚餐¥35 × 5天</td><td>¥400</td></tr>
+      <tr class="budget-total"><td colspan="2">💰 总计（中位预算）</td><td><strong>¥2,662</strong></td></tr>
     </tbody>
-    <tfoot>
-      <tr class="budget-total"><td colspan="2"><strong>合计</strong></td><td><strong>≈¥3178</strong></td><td><strong>≈¥3228</strong></td></tr>
-      <tr><td colspan="4" style="font-size:12px;color:#888;padding:8px 12px">* 黄山索道双向¥160已包含；棠樾牌坊群¥90为可选项未计入；景德镇购瓷视个人而定</td></tr>
-    </tfoot>
   </table>
-</div>
-
-<!-- FOOD -->
-<div class="section">
-  <div class="section-title">必吃清单</div>
-  <div class="food-grid">
-    <div class="food-card"><div class="food-icon">🐟</div><div class="food-name">臭鳜鱼</div><div class="food-note">徽菜招牌，西递/屯溪均有</div></div>
-    <div class="food-card"><div class="food-icon">🧀</div><div class="food-name">毛豆腐</div><div class="food-note">徽州特色，外酥内嫩</div></div>
-    <div class="food-card"><div class="food-icon">🥩</div><div class="food-name">红烧肉</div><div class="food-note">徽州腌制老法，肥而不腻</div></div>
-    <div class="food-card"><div class="food-icon">🍜</div><div class="food-name">徽州炒面</div><div class="food-note">屯溪早餐首选</div></div>
-    <div class="food-card"><div class="food-icon">🐟</div><div class="food-name">荷包红鱼</div><div class="food-note">婺源特产，清蒸最佳</div></div>
-    <div class="food-card"><div class="food-icon">🍲</div><div class="food-name">糊豆腐</div><div class="food-note">婺源名吃，豆腐+猪血</div></div>
-    <div class="food-card"><div class="food-icon">🍵</div><div class="food-name">祁门红茶</div><div class="food-note">世界三大红茶之一，当地买最实惠</div></div>
-    <div class="food-card"><div class="food-icon">🍜</div><div class="food-name">景德镇冷粉</div><div class="food-note">当地街头小吃，¥8一碗</div></div>
-    <div class="food-card"><div class="food-icon">🥣</div><div class="food-name">瓦罐汤</div><div class="food-note">景德镇特色，慢炖浓郁</div></div>
-    <div class="food-card"><div class="food-icon">🥛</div><div class="food-name">黄山烧饼</div><parameter name="content"><div class="food-note">梅干菜馅，油酥香，带回去送人</div></div>
-  </div>
+  <p style="font-size:12px;color:var(--muted);margin-top:8px">💡 省钱Tips：汤口住宿选民宿可省¥100+；黄山索道二选一（非必需都坐）可省¥80；西递宏村选一个去可省¥94；最低 ¥2,300 可行</p>
 </div>
 
 <!-- TODO -->
 <div class="section">
-  <div class="section-title">出发前检查清单</div>
-  <div class="todo-progress"><div class="todo-bar" id="todoBar"></div></div>
-  <div id="todoCount" style="font-size:12px;color:var(--muted);margin-bottom:16px">0 / 24 已完成</div>
+  <div class="section-title">✅ 待办清单</div>
+  <div class="todo-progress"><div class="todo-bar" id="progressBar"></div></div>
+  <p style="font-size:12px;color:var(--muted);margin-bottom:16px" id="progressText">已完成: 0/18</p>
 
   <div class="todo-group">
-    <div class="todo-group-title">📋 订票订房（至少提前2周）</div>
-    <div class="todo-item" onclick="toggleTodo(this)"><div class="todo-cb"></div><div class="todo-text">12306 购买 G1398 长沙南→黄山北（D0）</div></div>
-    <div class="todo-item" onclick="toggleTodo(this)"><div class="todo-cb"></div><div class="todo-text">12306 购买黄山北→婺源（D4早班）</div></div>
-    <div class="todo-item" onclick="toggleTodo(this)"><div class="todo-cb"></div><div class="todo-text">12306 购买 G1649 婺源→景德镇北（D4下午）</div></div>
-    <div class="todo-item" onclick="toggleTodo(this)"><div class="todo-cb"></div><div class="todo-text">12306 购买 G2715 景德镇北→南昌西 + 南昌西→长沙南（D5）</div></div>
-    <div class="todo-item" onclick="toggleTodo(this)"><div class="todo-cb"></div><div class="todo-text">预订屯溪老街民宿（D0+D3）</div></div>
-    <div class="todo-item" onclick="toggleTodo(this)"><div class="todo-cb"></div><div class="todo-text">预订汤口镇民宿（D1+D2）</div></div>
-    <div class="todo-item" onclick="toggleTodo(this)"><div class="todo-cb"></div><div class="todo-text">预订景德镇市区酒店（D4+D5）</div></div>
+    <div class="todo-group-title">📋 行前准备</div>
+    <div class="todo-item" onclick="toggleTodo(this)"><div class="todo-cb"></div><span class="todo-text">订G2186长沙南→黄山北 6/26 二等座 ¥395</span></div>
+    <div class="todo-item" onclick="toggleTodo(this)"><div class="todo-cb"></div><span class="todo-text">订G267上饶→长沙南 6/30 二等座 ¥317</span></div>
+    <div class="todo-item" onclick="toggleTodo(this)"><div class="todo-cb"></div><span class="todo-text">黄山门票预约（微信小程序"黄山旅游官方平台"）</span></div>
+    <div class="todo-item" onclick="toggleTodo(this)"><div class="todo-cb"></div><span class="todo-text">预订汤口酒店（曼居/桔子 2晚）</span></div>
+    <div class="todo-item" onclick="toggleTodo(this)"><div class="todo-cb"></div><span class="todo-text">预订婺源+上饶酒店</span></div>
+    <div class="todo-item" onclick="toggleTodo(this)"><div class="todo-cb"></div><span class="todo-text">婺源→景德镇 高铁票</span></div>
   </div>
-
   <div class="todo-group">
-    <div class="todo-group-title">🎫 景点预约</div>
-    <div class="todo-item" onclick="toggleTodo(this)"><div class="todo-cb"></div><div class="todo-text">黄山风景区官网/小程序购票预约（限流，必须提前）</div></div>
-    <div class="todo-item" onclick="toggleTodo(this)"><div class="todo-cb"></div><div class="todo-text">御窑博物院官网预约门票（预约制，免带队时间）</div></div>
-    <div class="todo-item" onclick="toggleTodo(this)"><div class="todo-cb"></div><div class="todo-text">篁岭景区提前购票（美团/携程，节省排队）</div></div>
+    <div class="todo-group-title">📷 摄影装备</div>
+    <div class="todo-item" onclick="toggleTodo(this)"><div class="todo-cb"></div><span class="todo-text">尼康Z5 + 14-28f4 + 24-120f4（黄山超广必备）</span></div>
+    <div class="todo-item" onclick="toggleTodo(this)"><div class="todo-cb"></div><span class="todo-text">70-200f2.8（篁岭拍远处）+ 三脚架</span></div>
+    <div class="todo-item" onclick="toggleTodo(this)"><div class="todo-cb"></div><span class="todo-text">电池×2 + 充电宝×2 + SD卡</span></div>
   </div>
-
   <div class="todo-group">
-    <div class="todo-group-title">🎒 装备准备</div>
-    <div class="todo-item" onclick="toggleTodo(this)"><div class="todo-cb"></div><div class="todo-text">登山鞋（黄山必须，防滑硬底）</div></div>
-    <div class="todo-item" onclick="toggleTodo(this)"><div class="todo-cb"></div><div class="todo-text">保温壶（黄山山顶热水用）</div></div>
-    <div class="todo-item" onclick="toggleTodo(this)"><div class="todo-cb"></div><div class="todo-text">折叠雨伞或小雨衣</div></div>
-    <div class="todo-item" onclick="toggleTodo(this)"><div class="todo-cb"></div><div class="todo-text">防晒霜 SPF50+（6月必须）/ 防风帽（11月）</div></div>
-    <div class="todo-item" onclick="toggleTodo(this)"><div class="todo-cb"></div><div class="todo-text">充电宝（全天拍照耗电量大）</div></div>
-    <div class="todo-item" onclick="toggleTodo(this)"><div class="todo-cb"></div><div class="todo-text">登山手杖（黄山可租¥20，自带更好）</div></div>
-    <div class="todo-item" onclick="toggleTodo(this)"><div class="todo-cb"></div><div class="todo-text">行李压缩袋（5天换洗衣物打包）</div></div>
+    <div class="todo-group-title">🎒 衣物补给</div>
+    <div class="todo-item" onclick="toggleTodo(this)"><div class="todo-cb"></div><span class="todo-text">速干衣裤 + 薄冲锋衣（山顶15-20°C）</span></div>
+    <div class="todo-item" onclick="toggleTodo(this)"><div class="todo-cb"></div><span class="todo-text">登山鞋 + 登山杖（黄山必备）</span></div>
+    <div class="todo-item" onclick="toggleTodo(this)"><div class="todo-cb"></div><span class="todo-text">折叠伞 + 防晒霜SPF50+</span></div>
+    <div class="todo-item" onclick="toggleTodo(this)"><div class="todo-cb"></div><span class="todo-text">能量胶×4 + 压缩饼干 + 电解质水</span></div>
   </div>
-
   <div class="todo-group">
-    <div class="todo-group-title">📱 App & 信息</div>
-    <div class="todo-item" onclick="toggleTodo(this)"><div class="todo-cb"></div><div class="todo-text">下载高德地图（离线包：黄山市+景德镇）</div></div>
-    <div class="todo-item" onclick="toggleTodo(this)"><div class="todo-cb"></div><div class="todo-text">安装黄山旅游小程序（实时预约+客流）</div></div>
-    <div class="todo-item" onclick="toggleTodo(this)"><div class="todo-cb"></div><div class="todo-text">确认D0出发前黄山山顶天气（超过7级风关闭）</div></div>
-    <div class="todo-item" onclick="toggleTodo(this)"><div class="todo-cb"></div><div class="todo-text">备好包车司机联系方式（提前微信约好）</div></div>
-    <div class="todo-item" onclick="toggleTodo(this)"><div class="todo-cb"></div><div class="todo-text">查D2黄山莲花峰是否开放（官网公告）</div></div>
-    <div class="todo-item" onclick="toggleTodo(this)"><div class="todo-cb"></div><div class="todo-text">D5返程票确认购买（两段分开购买）</div></div>
+    <div class="todo-group-title">💊 药品</div>
+    <div class="todo-item" onclick="toggleTodo(this)"><div class="todo-cb"></div><span class="todo-text">蒙脱石散 + 止疼药 + 复合维生素</span></div>
+    <div class="todo-item" onclick="toggleTodo(this)"><div class="todo-cb"></div><span class="todo-text">创可贴 + 防蚊喷雾</span></div>
   </div>
 </div>
 
 <!-- TIPS -->
 <div class="section">
-  <div class="section-title">实用贴士</div>
+  <div class="section-title">📱 实用信息</div>
   <div class="tips-grid">
-    <div class="tip-card"><div class="tip-icon">🏔</div><div class="tip-title">黄山攻略</div><div class="tip-body">北上南下效率最高。云谷索道上，玉屏索道下。莲花峰经常封闭，进景区前确认。山上餐厅贵3倍，务必带干粮。</div></div>
-    <div class="tip-card"><div class="tip-icon">🚗</div><div class="tip-title">皖南交通</div><div class="tip-body">屯溪→西递→宏村→汤口 建议包车，司机熟悉路况且可拼车分摊费用。提前微信联系，¥300-350/天全包最划算。</div></div>
-    <div class="tip-card"><div class="tip-icon">📸</div><div class="tip-title">拍摄时机</div><div class="tip-body">宏村南湖：下午3-5点逆光倒影。西递：早上9点前人少。篁岭：清晨8点前晒秋光线最佳。黄山：雨后2小时必有云海。</div></div>
-    <div class="tip-card"><div class="tip-icon">🛍</div><div class="tip-title">购物建议</div><div class="tip-body">徽墨/歙砚在歙县买。祁门红茶在屯溪老街买散装。黄山烧饼在屯溪购买保质期内带走。景德镇陶溪川瓷器比景区内便宜30-50%。</div></div>
-    <div class="tip-card"><div class="tip-icon">💰</div><div class="tip-title">省钱技巧</div><div class="tip-body">景区联票合算（黄山不含在内）。美团/携程抢景区门票常有9折。黄山山顶住宿极贵（¥800+），当日来回最省。</div></div>
-    <div class="tip-card"><div class="tip-icon">⚠️</div><div class="tip-title">避坑提醒</div><div class="tip-body">返程G2715不直达长沙，必须南昌西换乘。宏村淡旺季门票不同，旺季¥104。篁岭11月为旺季，门票¥180。呈坎不上热搜但超值。</div></div>
+    <div class="tip-card">
+      <div class="tip-icon">⚠️</div>
+      <div class="tip-title">黄山避坑</div>
+      <div class="tip-body">不要去"黄山风景区"以外的"小黄山"、"九龙瀑"等——有些当地人会忽悠你去小景区。认准官方微信小程序"黄山旅游官方平台"购票<span class="src-badge">知乎 3944赞</span></div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">🚡</div>
+      <div class="tip-title">索道选择</div>
+      <div class="tip-body">云谷索道、玉屏索道都是4-5人车厢，观景好。太平索道车厢人多且拥挤，不推荐。西海地轨缆车观光差、时间短（4分钟），只当接驳<span class="src-badge">知乎</span></div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">🌅</div>
+      <div class="tip-title">最佳拍摄</div>
+      <div class="tip-body">黄山：日出4:50-5:20光明顶；日落19:00-19:20排云亭。篁岭：日出5:10垒心桥。望仙谷：日落19:10悬崖全景。梅雨季看云海最佳，雨后必上山！</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">🏔️</div>
+      <div class="tip-title">天都峰/莲花峰</div>
+      <div class="tip-body">两峰轮流开放（每年交替），极其陡峭。非登山爱好者不推荐，爬完基本没力气看别的了<span class="src-badge">知乎</span></div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">🚄</div>
+      <div class="tip-title">黄山北站交通</div>
+      <div class="tip-body">黄山北站→汤口镇约50分钟，拼车¥30/人。末班公交约18:00，晚到需打车（¥100+）。提前联系酒店接站</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">💡</div>
+      <div class="tip-title">省钱攻略</div>
+      <div class="tip-body">黄山山上水贵（¥10+/瓶），自带2瓶+空瓶接水。山下超市买补给。住汤口民宿比酒店省¥100+/晚</div>
+    </div>
   </div>
 </div>
 
 <footer>
-  <p>皖南徽州 · 景德镇 · 5日深度攻略</p>
-  <p style="margin-top:6px">数据来源：12306 / 高德地图 / 各景区官网 · 仅供参考，以出行当日实际为准</p>
+  <p>数据来源：途牛 CLI（火车票/酒店实时价格） · 小红书 CLI · 知乎 CLI · wttr.in天气</p>
+  <p>生成时间：2026年5月27日 · 攻略生成工具：WorkBuddy 旅行攻略生成 v2.2.0</p>
+  <p><a href="https://github.com/kbybbb806/workBuddy-myself" target="_blank">GitHub Pages</a></p>
 </footer>
 
 <script>
-function switchTab(tab) {
-  document.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('active'); });
-  document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
-  document.getElementById('tab-' + tab).classList.add('active');
-  var btns = document.querySelectorAll('.tab-btn');
-  btns.forEach(function(b) {
-    if ((tab === 'june' && b.textContent.indexOf('6月') > -1) ||
-        (tab === 'nov' && b.textContent.indexOf('11月') > -1)) {
-      b.classList.add('active');
-    }
-  });
-}
-
+// Todo list
 function toggleTodo(el) {
   el.classList.toggle('done');
-  var cb = el.querySelector('.todo-cb');
-  cb.textContent = el.classList.contains('done') ? '✓' : '';
   updateProgress();
+  saveTodos();
 }
 
 function updateProgress() {
-  var total = document.querySelectorAll('.todo-item').length;
+  var items = document.querySelectorAll('.todo-item');
   var done = document.querySelectorAll('.todo-item.done').length;
-  var pct = total > 0 ? Math.round(done / total * 100) : 0;
-  document.getElementById('todoBar').style.width = pct + '%';
-  document.getElementById('todoCount').textContent = done + ' / ' + total + ' 已完成';
+  var total = items.length;
+  var pct = total > 0 ? Math.round(done/total*100) : 0;
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressText').textContent = '已完成: ' + done + '/' + total;
 }
 
-function openAmap(name, lng, lat) {
-  var url = 'https://uri.amap.com/marker?position=' + lng + ',' + lat + '&name=' + encodeURIComponent(name) + '&src=mypage&coordinate=gaode&callnative=1';
-  window.open(url, '_blank');
+function saveTodos() {
+  var states = [];
+  document.querySelectorAll('.todo-item').forEach(function(item, i) {
+    states.push(item.classList.contains('done'));
+  });
+  localStorage.setItem('travel_todos_wannan_2026', JSON.stringify(states));
 }
 
-// 初始化进度
-updateProgress();
+function loadTodos() {
+  try {
+    var saved = JSON.parse(localStorage.getItem('travel_todos_wannan_2026'));
+    if (saved) {
+      document.querySelectorAll('.todo-item').forEach(function(item, i) {
+        if (saved[i]) item.classList.add('done');
+      });
+    }
+  } catch(e) {}
+  updateProgress();
+}
+
+// AMap navigation
+function openAmap(name, lat, lng) {
+  var isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+  if (isIOS) {
+    window.location.href = 'iosamap://path?sourceApplication=web&dlat=' + lat + '&dlon=' + lng + '&dname=' + encodeURIComponent(name) + '&dev=0&t=0';
+  } else {
+    window.location.href = 'amapuri://route/plan/?sid=&did=&dlat=' + lat + '&dlon=' + lng + '&dname=' + encodeURIComponent(name) + '&dev=0&t=0';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', loadTodos);
 </script>
 </body>
 </html>
