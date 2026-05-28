@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 年度旅行日历 | 每月一个目的地</title>
+<style>
+:root {
+  --bg: #0f0f0f;
+  --card-bg: #1a1a1a;
+  --text: #e0e0e0;
+  --text-secondary: #999;
+  --accent-spring: #7ecb76;
+  --accent-summer: #4da6ff;
+  --accent-autumn: #f0a040;
+  --accent-winter: #88ccf0;
+  --border: #2a2a2a;
+  --tag-bg: #252525;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+/* ===== Hero ===== */
+.hero {
+  text-align: center;
+  padding: 60px 20px 40px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(ellipse at center, rgba(240,160,64,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero h1 {
+  font-size: 2.4em;
+  font-weight: 800;
+  letter-spacing: 2px;
+  background: linear-gradient(135deg, #7ecb76 0%, #4da6ff 30%, #f0a040 60%, #88ccf0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 12px;
+}
+.hero .subtitle {
+  color: var(--text-secondary);
+  font-size: 1.1em;
+}
+.hero .meta {
+  color: #666;
+  font-size: 0.85em;
+  margin-top: 8px;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ===== Legend ===== */
+.legend {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  padding: 0 20px 30px;
+  flex-wrap: wrap;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85em;
+  color: #888;
+}
+.legend-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+}
+
+/* ===== Grid ===== */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px 60px;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+@media (max-width: 960px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
+
+/* ===== Card ===== */
+.card {
+  background: var(--card-bg);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  transition: transform 0.2s, border-color 0.2s;
+  display: flex;
+  flex-direction: column;
+}
+.card:hover {
+  transform: translateY(-4px);
+  border-color: #444;
+}
+
+.card-header {
+  padding: 20px 20px 12px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.month-badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.month-num {
+  font-size: 2.6em;
+  font-weight: 900;
+  line-height: 1;
+  opacity: 0.15;
+}
+.month-info h2 {
+  font-size: 1.1em;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+.month-info .season-tag {
+  font-size: 0.75em;
+  padding: 2px 8px;
+  border-radius: 10px;
+  display: inline-block;
+}
+.season-spring .season-tag { background: rgba(126,203,118,0.15); color: var(--accent-spring); }
+.season-summer .season-tag { background: rgba(77,166,255,0.15); color: var(--accent-summer); }
+.season-autumn .season-tag { background: rgba(240,160,64,0.15); color: var(--accent-autumn); }
+.season-winter .season-tag { background: rgba(136,204,240,0.15); color: var(--accent-winter); }
+
+.dest-emoji {
+  font-size: 2em;
+  opacity: 0.7;
+}
+
+.card-body {
+  padding: 0 20px 16px;
+  flex: 1;
+}
+.dest-name {
+  font-size: 1.4em;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.timing-bar {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85em;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+  background: var(--tag-bg);
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+.timing-bar .icon { font-size: 0.9em; }
+
+/* Highlights */
+.highlights {
+  list-style: none;
+  margin-bottom: 12px;
+}
+.highlights li {
+  font-size: 0.88em;
+  padding: 3px 0;
+  color: #bbb;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+.highlights li::before {
+  content: '◆';
+  font-size: 0.5em;
+  opacity: 0.5;
+  flex-shrink: 0;
+}
+
+/* Budget row */
+.card-footer {
+  padding: 12px 20px 16px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85em;
+}
+.budget {
+  color: #f0a040;
+  font-weight: 600;
+}
+.days-tag {
+  color: var(--text-secondary);
+  font-size: 0.8em;
+}
+.transport {
+  font-size: 0.78em;
+  color: #666;
+  margin-top: 4px;
+}
+
+/* Photo tip */
+.photo-tip {
+  margin-top: 10px;
+  padding: 8px 12px;
+  background: rgba(240,160,64,0.06);
+  border-left: 2px solid rgba(240,160,64,0.3);
+  border-radius: 0 6px 6px 0;
+  font-size: 0.8em;
+  color: #aaa;
+}
+.photo-tip strong { color: #f0a040; }
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 20px 20px 40px;
+  color: #555;
+  font-size: 0.82em;
+}
+.footer a { color: #666; }
+</style>
+</head>
+<body>
+
+<!-- ========== HERO ========== -->
+<div class="hero">
+  <h1>2026 年度旅行日历</h1>
+  <p class="subtitle">每个月，一个当季最佳目的地</p>
+  <p class="meta">
+    <span>🚶 1人出行</span>
+    <span>💰 中低预算 ¥800-3800</span>
+    <span>📅 3-5天</span>
+    <span>🏠 长沙出发</span>
+  </p>
+</div>
+
+<div class="legend">
+  <div class="legend-item"><span class="legend-dot" style="background:var(--accent-spring)"></span> 春季 (3-5月)</div>
+  <div class="legend-item"><span class="legend-dot" style="background:var(--accent-summer)"></span> 夏季 (6-8月)</div>
+  <div class="legend-item"><span class="legend-dot" style="background:var(--accent-autumn)"></span> 秋季 (9-11月)</div>
+  <div class="legend-item"><span class="legend-dot" style="background:var(--accent-winter)"></span> 冬季 (12-2月)</div>
+</div>
+
+<div class="container">
+<div class="grid">
+
+<!-- ===== 1月 ===== -->
+<div class="card season-winter">
+  <div class="card-header">
+    <div class="month-badge">
+      <span class="month-num">01</span>
+      <div class="month-info">
+        <h2>一月</h2>
+        <span class="season-tag">❄️ 冬季</span>
+      </div>
+    </div>
+    <span class="dest-emoji">🏰</span>
+  </div>
+  <div class="card-body">
+    <div class="dest-name">哈尔滨</div>
+    <div class="timing-bar"><span class="icon">🕐</span> 最佳：1月1日 - 2月15日（冰雪节核心期）</div>
+    <ul class="highlights">
+      <li>冰雪大世界（冰雕夜景，傍晚入园拍蓝调时刻）</li>
+      <li>中央大街（俄式建筑 + 马迭尔冰棍 ¥5）</li>
+      <li>圣索菲亚教堂（雪中洋葱顶，经典构图）</li>
+      <li>松花江冰上（冰滑梯 + 狗拉雪橇）</li>
+    </ul>
+    <div class="photo-tip"><strong>📷</strong> 冰雪大世界16:30入园，蓝调时刻17:00前后拍冰雕灯光；索菲亚教堂拍夜景人像</div>
+  </div>
+  <div class="card-footer">
+    <span class="budget">¥3,000-3,800</span>
+    <span class="days-tag">4-5天</span>
+  </div>
+  <div class="card-footer" style="border-top:none;padding-top:0;">
+    <span class="transport">✈️ 飞机 长沙→哈尔滨 约4h（冬季机票¥600-1000）</span>
+  </div>
+</div>
+
+<!-- ===== 2月 ===== -->
+<div class="card season-winter">
+  <div class="card-header">
+    <div class="month-badge">
+      <span class="month-num">02</span>
+      <div class="month-info">
+        <h2>二月</h2>
+        <span class="season-tag">❄️ 冬末早春</span>
+      </div>
+    </div>
+    <span class="dest-emoji">🌼</span>
+  </div>
+  <div class="card-body">
+    <div class="dest-name">罗平油菜花</div>
+    <div class="timing-bar"><span class="icon">🕐</span> 盛花期：2月22日 - 3月15日</div>
+    <ul class="highlights">
+      <li>金鸡峰丛日出（万亩花海 + 喀斯特峰林）</li>
+      <li>螺丝田（螺旋梯田花海，航拍绝佳）</li>
+      <li>九龙瀑布群（花海 + 瀑布同框）</li>
+      <li>牛街螺丝田日落光影</li>
+    </ul>
+    <div class="photo-tip"><strong>📷</strong> 金鸡峰丛5:30上山等日出，长焦压缩花海与峰林层次；螺丝田俯拍螺旋曲线</div>
+  </div>
+  <div class="card-footer">
+    <span class="budget">¥2,000-2,800</span>
+    <span class="days-tag">4天</span>
+  </div>
+  <div class="card-footer" style="border-top:none;padding-top:0;">
+    <span class="transport">🚄 高铁 长沙→昆明南→罗平 约8h</span>
+  </div>
+</div>
+
+<!-- ===== 3月 ===== -->
+<div class="card season-spring">
+  <div class="card-header">
+    <div class="month-badge">
+      <span class="month-num">03</span>
+      <div class="month-info">
+        <h2>三月</h2>
+        <span class="season-tag">🌸 春季</span>
+      </div>
+    </div>
+    <span class="dest-emoji">🌸</span>
+  </div>
+  <div class="card-body">
+    <div class="dest-name">武汉樱花</div>
+    <div class="timing-bar"><span class="icon">🕐</span> 盛花期：3月20日-28日（约7-10天）</div>
+    <ul class="highlights">
+      <li>东湖樱园（世界三大樱园之一，万株樱花）</li>
+      <li>武大樱花大道（经典人文樱花，需预约）</li>
+      <li>黄鹤楼（登楼看长江日落）</li>
+      <li>江汉路 + 轮渡过江（汉口老城烟火气）</li>
+    </ul>
+    <div class="photo-tip"><strong>📷</strong> 东湖樱园7:00开门抢无人场景；武大樱花+老建筑人像；长江大桥蓝调时刻拍车轨</div>
+  </div>
+  <div class="card-footer">
+    <span class="budget">¥800-1,300</span>
+    <span class="days-tag">3天</span>
+  </div>
+  <div class="card-footer" style="border-top:none;padding-top:0;">
+    <span class="transport">🚄 高铁 长沙南→武汉 1.5h ¥164</span>
+  </div>
+</div>
+
+<!-- ===== 4月 ===== -->
+<div class="card season-spring">
+  <div class="card-header">
+    <div class="month-badge">
+      <span class="month-num">04</span>
+      <div class="month-info">
+        <h2>四月</h2>
+        <span class="season-tag">🌸 春季</span>
+      </div>
+    </div>
+    <span class="dest-emoji">🏯</span>
+  </div>
+  <div class="card-body">
+    <div class="dest-name">洛阳牡丹</div>
+    <div class="timing-bar"><span class="icon">🕐</span> 盛花期：4月13日-21日（牡丹文化节 4/1-5/5）</div>
+    <ul class="highlights">
+      <li>龙门石窟（卢舍那大佛，黄昏光线最佳）</li>
+      <li>王城公园（牡丹主会场，品种最全）</li>
+      <li>白马寺（中国第一古刹 + 国际佛殿区）</li>
+      <li>洛邑古城（汉服夜景，梦回大唐）</li>
+    </ul>
+    <div class="photo-tip"><strong>📷</strong> 龙门石窟16:00入园等夕照卢舍那；牡丹微距用70-200；洛邑古城汉服人像+灯笼夜景</div>
+  </div>
+  <div class="card-footer">
+    <span class="budget">¥2,000-2,800</span>
+    <span class="days-tag">4天</span>
+  </div>
+  <div class="card-footer" style="border-top:none;padding-top:0;">
+    <span class="transport">🚄 高铁 长沙南→洛阳龙门 约5h ¥480</span>
+  </div>
+</div>
+
+<!-- ===== 5月 ===== -->
+<div class="card season-spring">
+  <div class="card-header">
+    <div class="month-badge">
+      <span class="month-num">05</span>
+      <div class="month-info">
+        <h2>五月</h2>
+        <span class="season-tag">🌸 春末</span>
+      </div>
+    </div>
+    <span class="dest-emoji">🏕️</span>
+  </div>
+  <div class="card-body">
+    <div class="dest-name">武功山</div>
+    <div class="timing-bar"><span class="icon">🕐</span> 最佳：5月中旬-6月上旬（草甸全绿 + 云海高发）</div>
+    <ul class="highlights">
+      <li>金顶日出（海拔1918m，高山草甸+日出+云海三件套）</li>
+      <li>绝望坡→好汉坡徒步（最精华草甸穿越段）</li>
+      <li>发云界（云海草甸同框，比金顶人少）</li>
+      <li>玻璃栈道 + 星空帐篷（山顶露营拍银河）</li>
+    </ul>
+    <div class="photo-tip"><strong>📷</strong> 金顶5:00占机位拍草甸日出+云海；发云界长焦压缩草甸起伏曲线；山顶光污染极少可拍星空</div>
+  </div>
+  <div class="card-footer">
+    <span class="budget">¥800-1,300</span>
+    <span class="days-tag">3天</span>
+  </div>
+  <div class="card-footer" style="border-top:none;padding-top:0;">
+    <span class="transport">🚄 高铁 长沙南→萍乡北 约30min ¥48</span>
+  </div>
+</div>
+
+<!-- ===== 6月 ===== -->
+<div class="card season-summer">
+  <div class="card-header">
+    <div class="month-badge">
+      <span class="month-num">06</span>
+      <div class="month-info">
+        <h2>六月</h2>
+        <span class="season-tag">☀️ 初夏</span>
+      </div>
+    </div>
+    <span class="dest-emoji">⛰️</span>
+  </div>
+  <div class="card-body">
+    <div class="dest-name">恩施大峡谷</div>
+    <div class="timing-bar"><span class="icon">🕐</span> 最佳：5-6月（云海高发 + 水量充沛）</div>
+    <ul class="highlights">
+      <li>恩施大峡谷（一炷香 + 绝壁栈道，云海日出）</li>
+      <li>屏山峡谷（悬浮船，"中国仙本那"）</li>
+      <li>腾龙洞（亚洲最大溶洞，激光秀）</li>
+      <li>土司城（土家族建筑群 + 民俗表演）</li>
+    </ul>
+    <div class="photo-tip"><strong>📷</strong> 大峡谷6:00上山等云海+日出；屏山峡谷正午阳光直射水底拍悬浮船透明感</div>
+  </div>
+  <div class="card-footer">
+    <span class="budget">¥2,000-2,600</span>
+    <span class="days-tag">4天</span>
+  </div>
+  <div class="card-footer" style="border-top:none;padding-top:0;">
+    <span class="transport">🚄 高铁 长沙→恩施 约4h ¥260</span>
+  </div>
+</div>
+
+<!-- ===== 7月 ===== -->
+<div class="card season-summer">
+  <div class="card-header">
+    <div class="month-badge">
+      <span class="month-num">07</span>
+      <div class="month-info">
+        <h2>七月</h2>
+        <span class="season-tag">☀️ 盛夏</span>
+      </div>
+    </div>
+    <span class="dest-emoji">🌊</span>
+  </div>
+  <div class="card-body">
+    <div class="dest-name">青海湖</div>
+    <div class="timing-bar"><span class="icon">🕐</span> 油菜花盛花期：7月15日-25日</div>
+    <ul class="highlights">
+      <li>青海湖环湖（花海 + 湖水 + 蓝天同框）</li>
+      <li>茶卡盐湖（天空之镜，日出/日落最美）</li>
+      <li>塔尔寺（藏传佛教圣地，酥油花）</li>
+      <li>金银滩草原（西部歌王王洛宾灵感地）</li>
+    </ul>
+    <div class="photo-tip"><strong>📷</strong> 环湖东路花海机位；茶卡盐湖日出+无风倒影；青海湖星空（光污染极少）</div>
+  </div>
+  <div class="card-footer">
+    <span class="budget">¥2,800-3,500</span>
+    <span class="days-tag">5天</span>
+  </div>
+  <div class="card-footer" style="border-top:none;padding-top:0;">
+    <span class="transport">🚄 高铁+动车 长沙→西宁 约9h（或飞机更快）</span>
+  </div>
+</div>
+
+<!-- ===== 8月 ===== -->
+<div class="card season-summer">
+  <div class="card-header">
+    <div class="month-badge">
+      <span class="month-num">08</span>
+      <div class="month-info">
+        <h2>八月</h2>
+        <span class="season-tag">☀️ 盛夏</span>
+      </div>
+    </div>
+    <span class="dest-emoji">🏘️</span>
+  </div>
+  <div class="card-body">
+    <div class="dest-name">黔东南</div>
+    <div class="timing-bar"><span class="icon">🕐</span> 最佳：7-8月（避暑天堂 23°C + 苗寨最绿）</div>
+    <ul class="highlights">
+      <li>黄果树瀑布（丰水期水量最大，彩虹概率高）</li>
+      <li>西江千户苗寨（万家灯火夜景，住山上民宿）</li>
+      <li>荔波小七孔（碧水翠谷，水上森林）</li>
+      <li>镇远古城（舞阳河夜景，比凤凰清静）</li>
+    </ul>
+    <div class="photo-tip"><strong>📷</strong> 苗寨观景台蓝调时刻拍万家灯火；黄果树水帘洞内广角；小七孔古桥晨雾</div>
+  </div>
+  <div class="card-footer">
+    <span class="budget">¥2,200-3,000</span>
+    <span class="days-tag">5天</span>
+  </div>
+  <div class="card-footer" style="border-top:none;padding-top:0;">
+    <span class="transport">🚄 高铁 长沙南→贵阳北 约3h ¥315</span>
+  </div>
+</div>
+
+<!-- ===== 9月 ===== -->
+<div class="card season-autumn">
+  <div class="card-header">
+    <div class="month-badge">
+      <span class="month-num">09</span>
+      <div class="month-info">
+        <h2>九月</h2>
+        <span class="season-tag">🍂 初秋</span>
+      </div>
+    </div>
+    <span class="dest-emoji">📸</span>
+  </div>
+  <div class="card-body">
+    <div class="dest-name">霞浦滩涂</div>
+    <div class="timing-bar"><span class="icon">🕐</span> 最佳：9-10月（紫菜收割季 + 光影绝佳）</div>
+    <ul class="highlights">
+      <li>北岐日出（中国最美滩涂日出，5:30到位）</li>
+      <li>小皓海滩（金色沙滩纹理，黄昏逆光）</li>
+      <li>东壁日落（紫菜架 + 落日 + 渔船剪影）</li>
+      <li>杨家溪（古榕树 + 晨雾 + 农夫牵牛经典画面）</li>
+    </ul>
+    <div class="photo-tip"><strong>📷</strong> 中国摄影圣地！长焦压缩滩涂纹理（70-200必备），广角拍日出全景；杨家溪雇模特摆拍¥200/次</div>
+  </div>
+  <div class="card-footer">
+    <span class="budget">¥2,200-3,000</span>
+    <span class="days-tag">4天</span>
+  </div>
+  <div class="card-footer" style="border-top:none;padding-top:0;">
+    <span class="transport">🚄 高铁 长沙南→福州→霞浦 约5.5h</span>
+  </div>
+</div>
+
+<!-- ===== 10月 ===== -->
+<div class="card season-autumn">
+  <div class="card-header">
+    <div class="month-badge">
+      <span class="month-num">10</span>
+      <div class="month-info">
+        <h2>十月</h2>
+        <span class="season-tag">🍂 金秋</span>
+      </div>
+    </div>
+    <span class="dest-emoji">🍁</span>
+  </div>
+  <div class="card-body">
+    <div class="dest-name">苏州/南京红叶</div>
+    <div class="timing-bar"><span class="icon">🕐</span> 最佳：10月25日-11月15日（天平山/栖霞山红叶）</div>
+    <ul class="highlights">
+      <li>苏州天平山（中国四大赏枫地，五彩枫）</li>
+      <li>拙政园（秋日园林，光影穿透花窗）</li>
+      <li>南京栖霞山（金陵第一明秀山，红枫谷）</li>
+      <li>明孝陵神道（石象路秋色，南京最美600米）</li>
+    </ul>
+    <div class="photo-tip"><strong>📷</strong> 天平山五彩枫逆光半透明质感；栖霞山红枫谷全景；明孝陵晨雾+石象秋色</div>
+  </div>
+  <div class="card-footer">
+    <span class="budget">¥2,200-3,000</span>
+    <span class="days-tag">4天</span>
+  </div>
+  <div class="card-footer" style="border-top:none;padding-top:0;">
+    <span class="transport">🚄 高铁 长沙南→苏州/南京 约4h ¥430</span>
+  </div>
+</div>
+
+<!-- ===== 11月 ===== -->
+<div class="card season-autumn">
+  <div class="card-header">
+    <div class="month-badge">
+      <span class="month-num">11</span>
+      <div class="month-info">
+        <h2>十一月</h2>
+        <span class="season-tag">🍂 深秋</span>
+      </div>
+    </div>
+    <span class="dest-emoji">🍂</span>
+  </div>
+  <div class="card-body">
+    <div class="dest-name">腾冲银杏村</div>
+    <div class="timing-bar"><span class="icon">🕐</span> 金黄巅峰期：11月5日-20日</div>
+    <ul class="highlights">
+      <li>固东银杏村（3000+棵百年银杏，满村金黄）</li>
+      <li>和顺古镇（云南最美侨乡，图书馆+早市）</li>
+      <li>热海大滚锅（温泉煮鸡蛋，地热奇观）</li>
+      <li>火山公园（乘热气球看火山口，日出时分）</li>
+    </ul>
+    <div class="photo-tip"><strong>📷</strong> 银杏村7:00入场拍空镜+晨光穿透银杏叶；和顺古镇野鸭湖倒影；热海蒸汽逆光氛围感</div>
+  </div>
+  <div class="card-footer">
+    <span class="budget">¥2,800-3,800</span>
+    <span class="days-tag">5天</span>
+  </div>
+  <div class="card-footer" style="border-top:none;padding-top:0;">
+    <span class="transport">✈️ 飞机 长沙→腾冲 约2.5h（或飞昆明转高铁）</span>
+  </div>
+</div>
+
+<!-- ===== 12月 ===== -->
+<div class="card season-winter">
+  <div class="card-header">
+    <div class="month-badge">
+      <span class="month-num">12</span>
+      <div class="month-info">
+        <h2>十二月</h2>
+        <span class="season-tag">❄️ 初冬</span>
+      </div>
+    </div>
+    <span class="dest-emoji">🏖️</span>
+  </div>
+  <div class="card-body">
+    <div class="dest-name">三亚</div>
+    <div class="timing-bar"><span class="icon">🕐</span> 最佳：11月-次年3月（温暖干燥，25-28°C）</div>
+    <ul class="highlights">
+      <li>亚龙湾（三亚最蓝的海，沙滩平缓）</li>
+      <li>蜈支洲岛（潜水 + 白沙滩，三亚马尔代夫）</li>
+      <li>南山寺（108米海上观音，日落剪影）</li>
+      <li>椰梦长廊（三亚最美日落，17km椰林海滩）</li>
+    </ul>
+    <div class="photo-tip"><strong>📷</strong> 椰梦长廊落日17:30-18:30金色时刻；南山寺海上观音日落剪影；蜈支洲岛航拍白沙滩</div>
+  </div>
+  <div class="card-footer">
+    <span class="budget">¥2,500-3,500</span>
+    <span class="days-tag">4天</span>
+  </div>
+  <div class="card-footer" style="border-top:none;padding-top:0;">
+    <span class="transport">✈️ 飞机 长沙→三亚 约2h（淡季机票¥400-800）</span>
+  </div>
+</div>
+
+</div><!-- /grid -->
+</div><!-- /container -->
+
+<div class="footer">
+  <p>数据来源：各平台攻略搜索 + 官方花期预报 | 生成时间：2026年5月28日</p>
+  <p>预算为单人估算（含往返交通+住宿+门票+餐饮），实际以预订为准</p>
+  <p><a href="https://kbybbb806.github.io/workBuddy-myself/wannan-huizhou-jdz.html">📋 查看当前皖南攻略 →</a></p>
+</div>
+
+</body>
+</html>
